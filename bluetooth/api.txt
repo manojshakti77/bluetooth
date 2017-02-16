@@ -1,0 +1,4150 @@
+
+/**
+ *  \file BT_hci_api.h
+ *
+ *  \brief This Header File contains the API Function declarations of the APIs
+ *  exported by the Mindtree Bluetooth Stack for the HCI Layer.
+ */
+
+/*
+ *  Copyright (C) 2014. Mindtree Ltd.
+ *  All rights reserved.
+ */
+
+#ifndef _H_BT_HCI_API_
+#define _H_BT_HCI_API_
+
+/* =================================================== Header File Inclusion */
+#include "BT_common.h"
+
+/**
+ * \defgroup hci_defines Defines
+ * \{
+ */
+
+/**
+ * \defgroup hci_constants Constants
+ * \{
+ */
+
+/* =================================================== Constants/Definitions */
+/** HCI Device Role - Master/Slave */
+/** Device Role Master */
+#define BT_DEVICE_ROLE_MASTER                            0x00
+/** Device Role Slave */
+#define BT_DEVICE_ROLE_SLAVE                             0x01
+
+/* HCI Link Types ACL/SCO/eSCO */
+#define HCI_SCO_LINK                            0x00
+#define HCI_ACL_LINK                            0x01
+#ifdef BT_HCI_1_2
+#define HCI_ESCO_LINK                           0x02
+#endif /* BT_HCI_1_2 */
+#ifdef BT_4_0
+#define HCI_LE_LINK                             0x03
+#endif /* BT_4_0 */
+
+/* LMP Packet Types - ACL Connection */
+#define LMP_ACL_DM1                             0x0008
+#define LMP_ACL_DH1                             0x0010
+#define LMP_ACL_DM3                             0x0400
+#define LMP_ACL_DH3                             0x0800
+#define LMP_ACL_DM5                             0x4000
+#define LMP_ACL_DH5                             0x8000
+
+#ifdef BT_2_0_EDR
+#define LMP_ACL_2_DH1                           0x0002
+#define LMP_ACL_3_DH1                           0x0004
+#define LMP_ACL_2_DH3                           0x0100
+#define LMP_ACL_3_DH3                           0x0200
+#define LMP_ACL_2_DH5                           0x1000
+#define LMP_ACL_3_DH5                           0x2000
+#endif /* BT_2_0_EDR */
+
+/* LMP Packet Types - SCO Connection */
+#define LMP_SCO_HV1                             0x0020
+#define LMP_SCO_HV2                             0x0040
+#define LMP_SCO_HV3                             0x0080
+
+/* LMP Packet Types - eSCO Connection */
+#define LMP_ESCO_HV1                            0x0001
+#define LMP_ESCO_HV2                            0x0002
+#define LMP_ESCO_HV3                            0x0004
+#define LMP_ESCO_EV3                            0x0008
+#define LMP_ESCO_EV4                            0x0010
+#define LMP_ESCO_EV5                            0x0020
+
+#ifdef BT_2_0_EDR
+#define LMP_ESCO_2_EV3                          0x0040
+#define LMP_ESCO_3_EV3                          0x0080
+#define LMP_ESCO_2_EV5                          0x0100
+#define LMP_ESCO_3_EV5                          0x0200
+#endif /* BT_2_0_EDR */
+
+/* Synchronous Connections Parameters - Max Latency */
+#define LMP_MAX_LATENCY_DONT_CARE               0xFFFF
+
+/* Synchronous Connections Parameters - Retransmission Effort */
+#define LMP_RETX_EFFORT_NONE                    0x00
+#define LMP_RETX_EFFORT_POWER                   0x01
+#define LMP_RETX_EFFORT_QUALITY                 0x02
+#define LMP_RETX_EFFORT_DONT_CARE               0xFF
+
+/* Synchronous Connections Parameters - Voice Settings */
+/* Input Coding */
+#define LMP_VOICE_INPUT_CODING_LINEAR           0x0000
+#define LMP_VOICE_INPUT_CODING_U_LAW            0x0100
+#define LMP_VOICE_INPUT_CODING_A_LAW            0x0200
+
+/* Input Data Format */
+#define LMP_VOICE_INPUT_FORMAT_1S_COMPLEMENT    0x0000
+#define LMP_VOICE_INPUT_FORMAT_2S_COMPLEMENT    0x0040
+#define LMP_VOICE_INPUT_FORMAT_SIGN_MAGNITUDE   0x0080
+#define LMP_VOICE_INPUT_FORMAT_UNSIGNED         0x00C0
+
+/* Input Sample Size */
+#define LMP_VOICE_INPUT_SAMPLE_8_BIT            0x0000
+#define LMP_VOICE_INPUT_SAMPLE_16_BIT           0x0020
+
+/* Linear PCM Bit Position */
+#define LMP_VOICE_LINEAR_BIT_POS_0              0x0000
+#define LMP_VOICE_LINEAR_BIT_POS_1              0x0004
+#define LMP_VOICE_LINEAR_BIT_POS_2              0x0008
+#define LMP_VOICE_LINEAR_BIT_POS_3              0x000C
+#define LMP_VOICE_LINEAR_BIT_POS_4              0x0010
+#define LMP_VOICE_LINEAR_BIT_POS_5              0x0014
+#define LMP_VOICE_LINEAR_BIT_POS_6              0x0018
+#define LMP_VOICE_LINEAR_BIT_POS_7              0x001C
+
+/* Air Coding Format */
+#define LMP_VOICE_AIR_CODING_CVSD               0x0000
+#define LMP_VOICE_AIR_CODING_U_LAW              0x0001
+#define LMP_VOICE_AIR_CODING_A_LAW              0x0002
+#define LMP_VOICE_AIR_CODING_TRANSPARENT        0x0003
+
+/*
+ *  Default Voice Settings to be used for Synchronous Connections:
+ *  Input Coding: A-Law
+ *  Input Format: 2's Compliment
+ *  Input Sample Size: 8-bit
+ *  Linear PCM Bit Position: 3
+ *  Air Coding Format: CVSD
+ */
+#define LMP_VOICE_SETTING_DEFAULT \
+        (LMP_VOICE_INPUT_CODING_LINEAR|\
+         LMP_VOICE_INPUT_FORMAT_2S_COMPLEMENT|\
+         LMP_VOICE_INPUT_SAMPLE_16_BIT|\
+         LMP_VOICE_LINEAR_BIT_POS_0|\
+         LMP_VOICE_AIR_CODING_CVSD)
+
+/* Default eSCO Channel Parameters */
+/* Transmit & Receive Bandwidth - 8000 octets/sec */
+#define LMP_ESCO_TX_BANDWIDTH_DEFAULT           8000
+#define LMP_ESCO_RX_BANDWIDTH_DEFAULT           8000
+
+#ifdef HCI_ENH_SCO
+/* Parameters related to Enhaced SCO Configuration */
+
+/* Coding Format */
+#define LMP_CODING_FRMT_U_LAW                       0x00
+#define LMP_CODING_FRMT_A_LAW                       0x01
+#define LMP_CODING_FRMT_CVSD                        0x02
+#define LMP_CODING_FRMT_TRANSPARENT                 0x03
+#define LMP_CODING_FRMT_LINEAR_PCM                  0x04
+#define LMP_CODING_FRMT_MSBC                        0x05
+#define LMP_CODING_FRMT_VS                          0xFF
+
+/* Transmit and Receive Bandwidth */
+#define LMP_ENH_SCO_TX_BANDWIDTH_DEFAULT            16000
+#define LMP_ENH_SCO_RX_BANDWIDTH_DEFAULT            16000
+
+/* Input and Output Data Path */
+#define ENH_SCO_DATA_PATH_HCI                       0x00
+#define ENH_SCO_DATA_PATH_AUDIO_TEST_MODE           0xFF
+
+/* MSBC Default Frame length */
+#define MSBC_FRAME_SIZE                             60
+#endif /* HCI_ENH_SCO */
+
+/* Default eSCO Max Latency */
+#define LMP_ESCO_MAX_LATENCY_DEFAULT            LMP_MAX_LATENCY_DONT_CARE
+
+/* Default eSCO Retransmission Effort */
+#define LMP_ESCO_RETX_EFFORT_DEFAULT            LMP_RETX_EFFORT_DONT_CARE
+
+/* Default eSCO Packet Type */
+#define LMP_ESCO_PACKET_TYPE_DEFAULT \
+        (LMP_ESCO_HV1|LMP_ESCO_HV2|LMP_ESCO_HV3|\
+         LMP_ESCO_EV3|LMP_ESCO_EV4|LMP_ESCO_EV5)
+
+/* Type of PIN Codes */
+#define HCI_VARIABLE_PIN_CODE                   0x00
+#define HCI_FIXED_PIN_CODE                      0x01
+
+/* Invalid HCI Connection Handle */
+#define HCI_INVALID_CONNECTION_HANDLE           0xFFFF
+
+/* Type of Link Keys */
+#define HCI_LINK_KEY_COMBINATION                0x00
+#define HCI_LINK_KEY_LOCAL_UNIT                 0x01
+#define HCI_LINK_KEY_REMOTE_UNIT                0x02
+#define HCI_LINK_KEY_DEBUG_COMBINATION          0x03
+#define HCI_LINK_KEY_UNAUTHENTICATED            0x04
+#define HCI_LINK_KEY_AUTHENTICATED              0x05
+#define HCI_LINK_KEY_CHANGED_COMBINATION        0x06
+
+#ifdef BT_EIR
+#define HCI_EIR_MAX_DATA_LEN                    240
+#endif /* BT_EIR */
+
+/** Maximum Advertising Data Length */
+#define HCI_MAX_ADVERTISING_DATA_LENGTH                  0x1F
+
+/** Advertising Enable/Disable */
+/** Advertising disabled */
+#define HCI_ADVERTISING_DISABLE                          0x00
+/** Advertising enabled */
+#define HCI_ADVERTISING_ENABLE                           0x01
+
+/** Advertising Type */
+/** Connectable undirected advertising */
+#define HCI_ADV_IND                                      0x00
+/** Connectable directed advertising */
+#define HCI_ADV_DIRECT_IND                               0x01
+/** Scannable undirected advertising */
+#define HCI_ADV_SCAN_IND                                 0x02
+/** Non connectable undirected advertising */
+#define HCI_ADV_NONCONN_IND                              0x03
+
+/** Scan Respond Event Type */
+#define HCI_SCAN_RSP                                     0x04
+
+/** Address Type */
+/** Public Device Address */
+#define BD_ADDR_TYPE_PUBLIC                              0x00
+/** Random Device Address */
+#define BD_ADDR_TYPE_RANDOM                              0x01
+
+/** Advertising Filter Policy */
+/** Allow Scan Request from Any, Allow Connect Request from Any */
+#define HCI_ADV_FLTR_SCAN_REQ_ANY_CON_REQ_ANY            0x00
+/** Allow Scan Request from White List Only, Allow Connect Request from Any */
+#define HCI_ADV_FLTR_SCAN_REQ_WH_LIST_CON_REQ_ANY        0x01
+/** Allow Scan Request from Any, Allow Connect Request from White List Only */
+#define HCI_ADV_FLTR_SCAN_REQ_ANY_CON_REQ_WH_LIST        0x02
+/**
+ * Allow Scan Request from White List Only, Allow Connect Request
+ * from White List Only.
+ */
+#define HCI_ADV_FLTR_SCAN_REQ_WH_LIST_CON_REQ_WH_LIST    0x03
+
+/** LE Scan Enable/Disable */
+/** Scanning disabled */
+#define HCI_LE_SCAN_DISABLE                              0x00
+/** Scanning enabled */
+#define HCI_LE_SCAN_ENABLE                               0x01
+
+/** LE Scan Filter Duplicates Enable/Disable */
+/** Duplicate filtering disabled */
+#define HCI_LE_SCAN_DUP_FLTR_DISABLE                     0x00
+/** Duplicate filtering enabled */
+#define HCI_LE_SCAN_DUP_FLTR_ENABLE                      0x01
+
+/** LE Scan Type */
+/** Passive Scanning. No SCAN_REQ packets shall be sent */
+#define HCI_LE_SCAN_TYPE_PASSIVE                         0x00
+/** Active scanning. SCAN_REQ packets may be sent */
+#define HCI_LE_SCAN_TYPE_ACTIVE                          0x01
+
+/** LE Scanning Filter Policy */
+/**
+ * Accept all advertisement packets.
+ * Directed advertising packets which are not addressed for this device
+ * shall be ignored.
+ */
+#define HCI_LE_SCAN_FLTR_ACCEPT_ALL                      0x00
+
+/**
+ * Ignore advertisement packets from devices not in the White List Only.
+ * Directed advertising packets which are not addressed for this device
+ * shall be ignored.
+ */
+#define HCI_LE_SCAN_FLTR_USE_WH_LIST                     0x01
+
+/** LE Initiator Filter Policy */
+/**
+ * White list is not used to determine which advertiser to connect to.
+ * Peer_Address_Type and Peer_Address shall be used.
+ */
+#define HCI_INIT_FLTR_DONOT_USE_WH_LIST                  0x00
+/**
+ * White list is used to determine which advertiser to connect to.
+ * Peer_Address_Type and Peer_Address shall be ignored.
+ */
+#define HCI_INIT_FLTR_USE_WH_LIST                        0x01
+
+/** LE Transmitter Test Packet Payload */
+/** Pseudo-Random bit sequence 9 */
+#define HCI_LE_TX_TEST_PKT_TYPE_00                       0x00
+/** Pattern of alternating bits ‘11110000’ */
+#define HCI_LE_TX_TEST_PKT_TYPE_01                       0x01
+/** Pattern of alternating bits ‘10101010’ */
+#define HCI_LE_TX_TEST_PKT_TYPE_02                       0x02
+/** Pseudo-Random bit sequence 15 */
+#define HCI_LE_TX_TEST_PKT_TYPE_03                       0x03
+/** Pattern of All ‘1’ bits */
+#define HCI_LE_TX_TEST_PKT_TYPE_04                       0x04
+/** Pattern of All ‘0’ bits */
+#define HCI_LE_TX_TEST_PKT_TYPE_05                       0x05
+/** Pattern of alternating bits ‘00001111’ */
+#define HCI_LE_TX_TEST_PKT_TYPE_06                       0x06
+/** Pattern of alternating bits ‘0101’ */
+#define HCI_LE_TX_TEST_PKT_TYPE_07                       0x07
+
+/** Transmit Power Level Type */
+/** Read Current Transmit Power Level */
+#define HCI_READ_CUR_TX_POWER_LEVEL                      0x00
+/** Read Maximum Transmit Power Level */
+#define HCI_READ_MAX_TX_POWER_LEVEL                      0x01
+
+/** Connection Parameter Range */
+/** Connection Interval Minimum - 0x0006 to 0x0C80 */
+#define HCI_LE_MIN_CONN_INTRVL_MIN_RANGE                 0x0006
+#define HCI_LE_MIN_CONN_INTRVL_MAX_RANGE                 0x0C80
+
+/** Connection Interval Maximum - 0x0006 to 0x0C80 */
+#define HCI_LE_MAX_CONN_INTRVL_MIN_RANGE                 0x0006
+#define HCI_LE_MAX_CONN_INTRVL_MAX_RANGE                 0x0C80
+
+/** Connection Latency - 0x0000 to 0x01F4 */
+#define HCI_LE_CONN_LATENCY_MIN_RANGE                    0x0000
+#define HCI_LE_CONN_LATENCY_MAX_RANGE                    0x01F4
+
+/** Supervision Timeout - 0x000A to 0x0C80 */
+#define HCI_LE_SUPERVISION_TO_MIN_RANGE                  0x000A
+#define HCI_LE_SUPERVISION_TO_MAX_RANGE                  0x0C80
+
+/**
+ * \defgroup hci_command_opcodes Command Opcodes
+ * \{
+ */
+
+/* +++ HCI Command OpCodes ++++++++++++++++++++++++++++++++++++++++ */
+/*
+ * HCI Commands defined for BLE Single Mode, with corresponding feature flags
+ *
+ * Note:
+ * ## Commands primarily required for Master(M) and Slave(S) are marked
+ * ## Remaining commands are applicable for both roles
+ *
+ * -- Reset Command
+ *    <HCI_RESET_SUPPORT>
+ *
+ * -- Read Local Version Information Command
+ *    <HCI_READ_LOCAL_VERSION_INFORMATION_SUPPORT>
+ *
+ * -- Read Local Supported Features Command
+ *    <HCI_READ_LOCAL_SUPPORTED_FEATURES_SUPPORT>
+ *
+ * -- Read BD_ADDR Command
+ *    <HCI_READ_BD_ADDR_SUPPORT>
+ *
+ * -- Set Event Mask Command
+ *    <HCI_SET_EVENT_MASK_SUPPORT>
+ *
+ * -- Disconnect Command
+ *    <HCI_DISCONNECT_SUPPORT>
+ *
+ * -- Read Remote Version Information Command
+ *    <HCI_READ_REMOTE_VERSION_INFORMATION_SUPPORT>
+ *
+ * -- Read Transmit Power Level Command
+ *    <HCI_READ_TRANSMIT_POWER_LEVEL_SUPPORT>
+ *
+ * -- Read RSSI Command
+ *    <HCI_READ_RSSI_SUPPORT>
+ *
+ * -- Read Buffer Size Command
+ *    <HCI_READ_BUFFER_SIZE_SUPPORT>
+ *
+ * -- Host Buffer Size Command
+ *    <HCI_HOST_BUFFER_SIZE_SUPPORT>
+ *
+ * -- Set Controller To Host Flow Control Command
+ *    <HCI_SET_HOST_CONTROLLER_TO_HOST_FLOW_CONTROL_SUPPORT>
+ *
+ * -- Host Number Of Completed Packets Command
+ * -- Read Local Supported Commands Command
+ *    <HCI_READ_LOCAL_SUPPORTED_COMMANDS_SUPPORT>
+ *
+ * -- LE Read Buffer Size Command
+ *    <HCI_LE_READ_BUFFER_SIZE_SUPPORT>
+ *
+ * -- LE Read Local Supported Features Command
+ *    <HCI_LE_READ_LOCAL_SUPPORTED_FEATURES_SUPPORT>
+ *
+ * -- LE Read Supported States Command
+ *    <HCI_LE_READ_SUPPORTED_STATES_SUPPORT>
+ *
+ * -- LE Add Device To White List Command
+ *    <HCI_LE_ADD_DEVICE_TO_WHITE_LIST_SUPPORT>
+ *
+ * -- LE Clear White List Command
+ *    <HCI_LE_CLEAR_WHITE_LIST_SUPPORT>
+ *
+ * -- LE Read White List Size Command
+ *    <HCI_LE_READ_WHITE_LIST_SIZE_SUPPORT>
+ *
+ * -- LE Remove Device From White List Command
+ *    <HCI_LE_REMOVE_DEVICE_FROM_WHITE_LIST_SUPPORT>
+ *
+ * -- LE Set Event Mask Command
+ *    <HCI_LE_SET_EVENT_MASK_SUPPORT>
+ *
+ * -- LE Test End Command
+ *    <HCI_LE_TEST_END_SUPPORT>
+ *
+ * -- LE Set Advertise Enable Command (S)
+ *    <HCI_LE_SET_ADVERTISING_ENABLE_SUPPORT>
+ *
+ * -- LE Set Advertising Data Command (S)
+ *    <HCI_LE_SET_ADVERTISING_DATA_SUPPORT>
+ *
+ * -- LE Set Advertising Parameters Command (S)
+ *    <HCI_LE_SET_ADVERTISING_PARAMETERS_SUPPORT>
+ *
+ * -- LE Set Random Address Command
+ *    <HCI_LE_SET_RANDOM_ADDRESS_SUPPORT>
+ *
+ * -- LE Read Advertising Channel TX Power Command
+ *    <HCI_LE_READ_ADVERTISING_CHANNEL_TX_POWER_SUPPORT>
+ *
+ * -- LE Transmitter Test Command
+ *    <HCI_LE_TRANSMITTER_TEST_COMMAND_SUPPORT>
+ *
+ * -- LE Set Scan Enable Command (M)
+ *    <HCI_LE_SET_SCAN_ENABLE_SUPPORT>
+ *
+ * -- LE Set Scan Parameters Command (M)
+ *    <HCI_LE_SET_SCAN_PARAMETERS_SUPPORT>
+ *
+ * -- LE Receiver Test Command
+ *    <HCI_LE_RECEIVER_TEST_COMMAND_SUPPORT>
+ *
+ * -- LE Set Scan Response Data Command (S)
+ *    <HCI_LE_SET_SCAN_RESPONSE_DATA_SUPPORT>
+ *
+ * -- LE Create Connection Cancel Command (M)
+ *    <HCI_LE_CREATE_CONNECTION_CANCEL_SUPPORT>
+ *
+ * -- LE Create Connection Command (M)
+ *    <HCI_LE_CREATE_CONNECTION_SUPPORT>
+ *
+ * -- LE Read Remote Used Features Command
+ *    <HCI_LE_READ_REMOTE_USED_FEATURES_SUPPORT>
+ *
+ * -- LE Connection Update Command (M)
+ *    <HCI_LE_CONNECTION_UPDATE_SUPPORT>
+ *
+ * -- LE Set Host Channel Classification Command (M)
+ *    <HCI_LE_SET_HOST_CHANNEL_CLASSIFICATION_SUPPORT>
+ *
+ * -- LE Read Channel Map Command
+ *    <HCI_LE_READ_CHANNEL_MAP_SUPPORT>
+ *
+ * -- LE Encrypt Command
+ *    <HCI_LE_ENCRYPT_SUPPORT>
+ *
+ * -- LE Long Term Key Requested  Reply Command
+ *    <HCI_LE_LONG_TERM_KEY_REQUESTED_REPLY_SUPPORT>
+ *
+ * -- LE Long Term Key Requested  Negative Reply Command
+ *    <HCI_LE_LONG_TERM_KEY_REQUESTED_NEGATIVE_REPLY_SUPPORT>
+ *
+ * -- LE Rand Command
+ *    <HCI_LE_RAND_SUPPORT>
+ *
+ * -- LE Start Encryption Command (M)
+ *    <HCI_LE_START_ENCRYPTION_SUPPORT>
+ */
+
+/* No Operation Opcode */
+#define HCI_NO_OPERATION_OPCODE                                 0x0000
+
+/* Link Control Commands - OGF : 0x01 */
+#define HCI_INQUIRY_OPCODE                                      0x0401
+#define HCI_INQUIRY_CANCEL_OPCODE                               0x0402
+#define HCI_PERIODIC_INQUIRY_MODE_OPCODE                        0x0403
+#define HCI_EXIT_PERIODIC_INQUIRY_MODE_OPCODE                   0x0404
+#define HCI_CREATE_CONNECTION_OPCODE                            0x0405
+#define HCI_DISCONNECT_OPCODE                                   0x0406
+#define HCI_ADD_SCO_CONNECTION_OPCODE                           0x0407
+#define HCI_ACCEPT_CONNECTION_REQUEST_OPCODE                    0x0409
+#define HCI_REJECT_CONNECTION_REQUEST_OPCODE                    0x040A
+#define HCI_LINK_KEY_REQUEST_REPLY_OPCODE                       0x040B
+#define HCI_LINK_KEY_REQUEST_NEGATIVE_REPLY_OPCODE              0x040C
+#define HCI_PIN_CODE_REQUEST_REPLY_OPCODE                       0x040D
+#define HCI_PIN_CODE_REQUEST_NEGATIVE_REPLY_OPCODE              0x040E
+#define HCI_CHANGE_CONNECTION_PACKET_TYPE_OPCODE                0x040F
+#define HCI_AUTHENTICATION_REQUESTED_OPCODE                     0x0411
+#define HCI_SET_CONNECTION_ENCRYPTION_OPCODE                    0x0413
+#define HCI_CHANGE_CONNECTION_LINK_KEY_OPCODE                   0x0415
+#define HCI_MASTER_LINK_KEY_OPCODE                              0x0417
+#define HCI_REMOTE_NAME_REQUEST_OPCODE                          0x0419
+#define HCI_READ_REMOTE_SUPPORTED_FEATURES_OPCODE               0x041B
+#define HCI_READ_REMOTE_VERSION_INFORMATION_OPCODE              0x041D
+#define HCI_READ_CLOCK_OFFSET_OPCODE                            0x041F
+
+#ifdef BT_HCI_1_2
+#define HCI_CREATE_CONNECTION_CANCEL_OPCODE                     0x0408
+#define HCI_REMOTE_NAME_REQUEST_CANCEL_OPCODE                   0x041A
+#define HCI_READ_REMOTE_EXTENDED_FEATURES_OPCODE                0x041C
+#define HCI_SETUP_SYNCHRONOUS_CONNECTION_OPCODE                 0x0428
+#define HCI_ACCEPT_SYNCHRONOUS_CONNECTION_REQUEST_OPCODE        0x0429
+#define HCI_REJECT_SYNCHRONOUS_CONNECTION_REQUEST_OPCODE        0x042A
+#endif /* BT_HCI_1_2 */
+
+#ifdef BT_SSP
+#define HCI_IO_CAP_REQUEST_REPLY_OPCODE                         0x042B
+#define HCI_IO_CAP_REQUEST_NEGATIVE_REPLY_OPCODE                0x0434
+#endif /* BT_SSP */
+
+#ifdef BT_SSP_UC
+#define HCI_USER_CONF_REQUEST_REPLY_OPCODE                      0x042C
+#define HCI_USER_CONF_REQUEST_NEGATIVE_REPLY_OPCODE             0x042D
+#endif /* BT_SSP_UC */
+
+#ifdef BT_SSP_PE
+#define HCI_USER_PASSKEY_REQUEST_REPLY_OPCODE                   0x042E
+#define HCI_USER_PASSKEY_REQUEST_NEGATIVE_REPLY_OPCODE          0x042F
+#endif /* BT_SSP_PE */
+
+#ifdef BT_SSP_OOB
+#define HCI_REMOTE_OOB_DATA_REQUEST_REPLY_OPCODE                0x0430
+#define HCI_REMOTE_OOB_DATA_REQUEST_NEGATIVE_REPLY_OPCODE       0x0433
+#endif /* BT_SSP_OOB */
+
+#ifdef HCI_ENH_SCO
+#define HCI_SETUP_ENHANCED_SYNCHRONOUS_CONNECTION_OPCODE        0x043D
+#define HCI_ACCEPT_ENHANCED_SYNCHRONOUS_CONNECTION_OPCODE       0x043E
+#endif /* HCI_ENH_SCO */
+
+/* Link Policy Commands - OGF : 0x02 */
+#define HCI_HOLD_MODE_OPCODE                                    0x0801
+#define HCI_SNIFF_MODE_OPCODE                                   0x0803
+#define HCI_EXIT_SNIFF_MODE_OPCODE                              0x0804
+#define HCI_PARK_MODE_OPCODE                                    0x0805
+#define HCI_EXIT_PARK_MODE_OPCODE                               0x0806
+#define HCI_QOS_SETUP_OPCODE                                    0x0807
+#define HCI_ROLE_DISCOVERY_OPCODE                               0x0809
+#define HCI_SWITCH_ROLE_OPCODE                                  0x080B
+#define HCI_READ_LINK_POLICY_SETTINGS_OPCODE                    0x080C
+#define HCI_WRITE_LINK_POLICY_SETTINGS_OPCODE                   0x080D
+
+#ifdef BT_HCI_1_2
+#define HCI_READ_DEFAULT_LINK_POLICY_SETTINGS_OPCODE            0x080E
+#define HCI_WRITE_DEFAULT_LINK_POLICY_SETTINGS_OPCODE           0x080F
+#define HCI_FLOW_SPECIFICATION_OPCODE                           0x0810
+#endif /* BT_HCI_1_2 */
+
+#ifdef BT_SSR
+#define HCI_SNIFF_SUBRATING_OPCODE                              0x0811
+#endif /* BT_SSR */
+
+/* Host Controller & BaseBand Commands - OGF : 0x03 */
+#define HCI_SET_EVENT_MASK_OPCODE                               0x0C01
+#define HCI_RESET_OPCODE                                        0x0C03
+#define HCI_SET_EVENT_FILTER_OPCODE                             0x0C05
+#define HCI_FLUSH_OPCODE                                        0x0C08
+#define HCI_READ_PIN_TYPE_OPCODE                                0x0C09
+#define HCI_WRITE_PIN_TYPE_OPCODE                               0x0C0A
+#define HCI_CREATE_NEW_UNIT_KEY_OPCODE                          0x0C0B
+#define HCI_CHANGE_LOCAL_NAME_OPCODE                            0x0C13
+#define HCI_READ_LOCAL_NAME_OPCODE                              0x0C14
+#define HCI_READ_CONNECTION_ACCEPT_TIMEOUT_OPCODE               0x0C15
+#define HCI_WRITE_CONNECTION_ACCEPT_TIMEOUT_OPCODE              0x0C16
+#define HCI_READ_PAGE_TIMEOUT_OPCODE                            0x0C17
+#define HCI_WRITE_PAGE_TIMEOUT_OPCODE                           0x0C18
+#define HCI_READ_SCAN_ENABLE_OPCODE                             0x0C19
+#define HCI_WRITE_SCAN_ENABLE_OPCODE                            0x0C1A
+#define HCI_READ_PAGE_SCAN_ACTIVITY_OPCODE                      0x0C1B
+#define HCI_WRITE_PAGE_SCAN_ACTIVITY_OPCODE                     0x0C1C
+#define HCI_READ_INQUIRY_SCAN_ACTIVITY_OPCODE                   0x0C1D
+#define HCI_WRITE_INQUIRY_SCAN_ACTIVITY_OPCODE                  0x0C1E
+#define HCI_READ_AUTHENTICATION_ENABLE_OPCODE                   0x0C1F
+#define HCI_WRITE_AUTHENTICATION_ENABLE_OPCODE                  0x0C20
+#define HCI_READ_ENCRYPTION_MODE_OPCODE                         0x0C21
+#define HCI_WRITE_ENCRYPTION_MODE_OPCODE                        0x0C22
+#define HCI_READ_CLASS_OF_DEVICE_OPCODE                         0x0C23
+#define HCI_WRITE_CLASS_OF_DEVICE_OPCODE                        0x0C24
+#define HCI_READ_VOICE_SETTING_OPCODE                           0x0C25
+#define HCI_WRITE_VOICE_SETTING_OPCODE                          0x0C26
+#define HCI_READ_AUTOMATIC_FLUSH_TIMEOUT_OPCODE                 0x0C27
+#define HCI_WRITE_AUTOMATIC_FLUSH_TIMEOUT_OPCODE                0x0C28
+#define HCI_READ_NUM_BROADCAST_RETRANSMISSIONS_OPCODE           0x0C29
+#define HCI_WRITE_NUM_BROADCAST_RETRANSMISSIONS_OPCODE          0x0C2A
+#define HCI_READ_HOLD_MODE_ACTIVITY_OPCODE                      0x0C2B
+#define HCI_WRITE_HOLD_MODE_ACTIVITY_OPCODE                     0x0C2C
+#define HCI_READ_TRANSMIT_POWER_LEVEL_OPCODE                    0x0C2D
+#define HCI_READ_SCO_FLOW_CONTROL_ENABLE_OPCODE                 0x0C2E
+#define HCI_WRITE_SCO_FLOW_CONTROL_ENABLE_OPCODE                0x0C2F
+#define HCI_SET_HOST_CONTROLLER_TO_HOST_FLOW_CONTROL_OPCODE     0x0C31
+#define HCI_HOST_BUFFER_SIZE_OPCODE                             0x0C33
+#define HCI_HOST_NUMBER_OF_COMPLETED_PACKETS_OPCODE             0x0C35
+#define HCI_READ_LINK_SUPERVISION_TIMEOUT_OPCODE                0x0C36
+#define HCI_WRITE_LINK_SUPERVISION_TIMEOUT_OPCODE               0x0C37
+#define HCI_READ_NUMBER_OF_SUPPORTED_IAC_OPCODE                 0x0C38
+#define HCI_READ_CURRENT_IAC_LAP_OPCODE                         0x0C39
+#define HCI_WRITE_CURRENT_IAC_LAP_OPCODE                        0x0C3A
+#define HCI_READ_PAGE_SCAN_PERIOD_MODE_OPCODE                   0x0C3B
+#define HCI_WRITE_PAGE_SCAN_PERIOD_MODE_OPCODE                  0x0C3C
+#define HCI_READ_PAGE_SCAN_MODE_OPCODE                          0x0C3D
+#define HCI_WRITE_PAGE_SCAN_MODE_OPCODE                         0x0C3E
+
+#ifdef BT_HCI_1_2
+#define HCI_SET_AFH_HOST_CHANNEL_CLASSIFICATION_OPCODE          0x0C3F
+#define HCI_READ_INQUIRY_SCAN_TYPE_OPCODE                       0x0C42
+#define HCI_WRITE_INQUIRY_SCAN_TYPE_OPCODE                      0x0C43
+#define HCI_READ_INQUIRY_MODE_OPCODE                            0x0C44
+#define HCI_WRITE_INQUIRY_MODE_OPCODE                           0x0C45
+#define HCI_READ_PAGE_SCAN_TYPE_OPCODE                          0x0C46
+#define HCI_WRITE_PAGE_SCAN_TYPE_OPCODE                         0x0C47
+#define HCI_READ_AFH_CHANNEL_ASSESSMENT_MODE_OPCODE             0x0C48
+#define HCI_WRITE_AFH_CHANNEL_ASSESSMENT_MODE_OPCODE            0x0C49
+#endif /* BT_HCI_1_2 */
+
+#ifdef BT_EIR
+#define HCI_READ_EXTENDED_INQUIRY_RESPONSE_OPCODE               0x0C51
+#define HCI_WRITE_EXTENDED_INQUIRY_RESPONSE_OPCODE              0x0C52
+#define HCI_READ_INQUIRY_RESP_TX_POWER_LEVEL_OPCODE             0x0C58
+#define HCI_WRITE_INQUIRY_RESP_TX_POWER_LEVEL_OPCODE            0x0C59
+#endif /* BT_EIR */
+
+#ifdef BT_EPR
+#define HCI_REFRESH_ENCRYPTION_KEY_OPCODE                       0x0C53
+#endif /* BT_EPR */
+
+#ifdef BT_EDR
+#define HCI_READ_DEFAULT_ERR_DATA_REPORTING_OPCODE              0x0C5A
+#define HCI_WRITE_DEFAULT_ERR_DATA_REPORTING_OPCODE             0x0C5B
+#endif /* BT_EDR */
+
+#ifdef BT_SSP
+#define HCI_READ_SIMPLE_PAIRING_MODE_OPCODE                     0x0C55
+#define HCI_WRITE_SIMPLE_PAIRING_MODE_OPCODE                    0x0C56
+#endif /* BT_SSP */
+
+#ifdef BT_SSP_PE
+#define HCI_SEND_KEY_PRESS_NOTIFICATION_OPCODE                  0x0C60
+#endif /* BT_SSP_PE */
+
+#ifdef BT_SSP_OOB
+#define HCI_READ_LOCAL_OOB_DATA_OPCODE                          0x0C57
+#endif /* BT_SSP_OOB */
+
+#ifdef BT_ENHANCED_FLUSH
+#define HCI_ENHANCED_FLUSH_OPCODE                               0x0C5F
+#endif /* BT_ENHANCED_FLUSH */
+
+#ifdef BT_3_0
+
+#ifdef HCI_FLOW_CONTROL_COMMANDS
+#define HCI_READ_FLOW_CONTROL_MODE_OPCODE                       0x0C66
+#define HCI_WRITE_FLOW_CONTROL_MODE_OPCODE                      0x0C67
+#endif /* HCI_FLOW_CONTROL_COMMANDS */
+
+#define HCI_READ_ENHANCED_TRANSMIT_POWER_LEVEL_OPCODE           0x0C68
+#endif /* BT_3_0 */
+
+#ifdef BT_BRSC
+#define HCI_READ_SECURE_CONNECTIONS_HOST_SUPPORT_OPCODE         0x0C79
+#define HCI_WRITE_SECURE_CONNECTIONS_HOST_SUPPORT_OPCODE        0x0C7A
+#endif /* BT_BRSC */
+
+#ifdef HCI_SET_EVENT_MASK_PAGE_2_SUPPORT
+#define HCI_SET_EVENT_MASK_PAGE_2_OPCODE                        0x0C63
+#endif /* HCI_SET_EVENT_MASK_PAGE_2_SUPPORT */
+
+#ifdef HCI_READ_AUTHENTICATED_PAYLOAD_TIMEOUT_SUPPORT
+#define HCI_READ_AUTHENTICATED_PAYLOAD_TIMEOUT_OPCODE           0x0C7B
+#endif /* HCI_READ_AUTHENTICATED_PAYLOAD_TIMEOUT_SUPPORT */
+
+#ifdef HCI_WRITE_AUTHENTICATED_PAYLOAD_TIMEOUT_SUPPORT
+#define HCI_WRITE_AUTHENTICATED_PAYLOAD_TIMEOUT_OPCODE          0x0C7C
+#endif /* HCI_WRITE_AUTHENTICATED_PAYLOAD_TIMEOUT_SUPPORT */
+
+/* Informational Parameters - OGF : 0x04 */
+#define HCI_READ_LOCAL_VERSION_INFORMATION_OPCODE               0x1001
+#define HCI_READ_LOCAL_SUPPORTED_COMMANDS_OPCODE                0x1002
+#define HCI_READ_LOCAL_SUPPORTED_FEATURES_OPCODE                0x1003
+#define HCI_READ_BUFFER_SIZE_OPCODE                             0x1005
+#define HCI_READ_COUNTRY_CODE_OPCODE                            0x1007
+#define HCI_READ_BD_ADDR_OPCODE                                 0x1009
+
+#ifdef BT_HCI_1_2
+#define HCI_READ_LOCAL_SUPPORTED_COMMANDS_OPCODE                0x1002
+#define HCI_READ_LOCAL_EXTENDED_FEATURES_OPCODE                 0x1004
+#endif /* BT_HCI_1_2 */
+
+#ifdef HCI_ENH_SCO
+#define HCI_READ_LOCAL_SUPPORTED_CODECS_OPCODE                  0x100B
+#endif /* HCI_ENH_SCO */
+
+/* Status Parameters - OGF : 0x05 */
+#define HCI_READ_FAILED_CONTACT_COUNTER_OPCODE                  0x1401
+#define HCI_RESET_FAILED_CONTACT_COUNTER_OPCODE                 0x1402
+#define HCI_GET_LINK_QUALITY_OPCODE                             0x1403
+#define HCI_READ_RSSI_OPCODE                                    0x1405
+
+#ifdef BT_HCI_1_2
+#define HCI_READ_AFH_CHANNEL_MAP_OPCODE                         0x1406
+#define HCI_READ_CLOCK_OPCODE                                   0x1407
+#endif /* BT_HCI_1_2 */
+
+#ifdef BT_3_0
+#define HCI_READ_ENCRYPTION_KEY_SIZE_OPCODE                     0x1408
+#endif /* BT_3_0 */
+
+/* Testing Commands - OGF : 0x06 */
+#ifdef HCI_TESTING_COMMANDS
+#define HCI_READ_LOOPBACK_MODE_OPCODE                           0x1801
+#define HCI_WRITE_LOOPBACK_MODE_OPCODE                          0x1802
+#define HCI_ENABLE_DEVICE_UNDER_TEST_MODE_OPCODE                0x1803
+#endif /* HCI_TESTING_COMMANDS */
+
+#ifdef BT_SSP_DEBUG
+#define HCI_WRITE_SIMPLE_PAIRING_DEBUG_MODE_OPCODE              0x1804
+#endif /* BT_SSP_DEBUG */
+
+#ifdef BT_BRSC_TEST
+#define HCI_WRITE_SECURE_CONNECTIONS_TEST_MODE_OPCODE           0x180A
+#endif /* BT_BRSC_TEST */
+
+/* Bluetooth Low Energy Commands */
+#ifdef BT_4_0
+#define HCI_LE_SET_EVENT_MASK_OPCODE                            0x2001
+#define HCI_LE_READ_BUFFER_SIZE_OPCODE                          0x2002
+#define HCI_LE_READ_LOCAL_SUPPORTED_FEATURES_OPCODE             0x2003
+#define HCI_LE_SET_RANDOM_ADDRESS_OPCODE                        0x2005
+#define HCI_LE_SET_ADVERTISING_PARAMETERS_OPCODE                0x2006
+#define HCI_LE_READ_ADVERTISING_CHANNEL_TX_POWER_OPCODE         0x2007
+#define HCI_LE_SET_ADVERTISING_DATA_OPCODE                      0x2008
+#define HCI_LE_SET_SCAN_RESPONSE_DATA_OPCODE                    0x2009
+#define HCI_LE_SET_ADVERTISING_ENABLE_OPCODE                    0x200A
+#define HCI_LE_SET_SCAN_PARAMETERS_OPCODE                       0x200B
+#define HCI_LE_SET_SCAN_ENABLE_OPCODE                           0x200C
+#define HCI_LE_CREATE_CONNECTION_OPCODE                         0x200D
+#define HCI_LE_CREATE_CONNECTION_CANCEL_OPCODE                  0x200E
+#define HCI_LE_READ_WHITE_LIST_SIZE_OPCODE                      0x200F
+#define HCI_LE_CLEAR_WHITE_LIST_OPCODE                          0x2010
+#define HCI_LE_ADD_DEVICE_TO_WHITE_LIST_OPCODE                  0x2011
+#define HCI_LE_REMOVE_DEVICE_FROM_WHITE_LIST_OPCODE             0x2012
+#define HCI_LE_CONNECTION_UPDATE_OPCODE                         0x2013
+#define HCI_LE_SET_HOST_CHANNEL_CLASSIFICATION_OPCODE           0x2014
+#define HCI_LE_READ_CHANNEL_MAP_OPCODE                          0x2015
+#define HCI_LE_READ_REMOTE_USED_FEATURES_OPCODE                 0x2016
+#define HCI_LE_ENCRYPT_OPCODE                                   0x2017
+#define HCI_LE_RAND_OPCODE                                      0x2018
+#define HCI_LE_START_ENCRYPTION_OPCODE                          0x2019
+#define HCI_LE_LONG_TERM_KEY_REQUESTED_REPLY_OPCODE             0x201A
+#define HCI_LE_LONG_TERM_KEY_REQUESTED_NEGATIVE_REPLY_OPCODE    0x201B
+#define HCI_LE_READ_SUPPORTED_STATES_OPCODE                     0x201C
+#define HCI_LE_RECEIVER_TEST_COMMAND_OPCODE                     0x201D
+#define HCI_LE_TRANSMITTER_TEST_COMMAND_OPCODE                  0x201E
+#define HCI_LE_TEST_END_OPCODE                                  0x201F
+#endif /* BT_4_0 */
+
+#ifdef HCI_LL_TOPOLOGY_CONN_UPDATE_SUPPORT
+#define HCI_LE_REMOTE_CONN_PARAM_REQ_RPLY_OPCODE                0x2020
+#define HCI_LE_REMOTE_CONN_PARAM_REQ_NEG_RPLY_OPCODE            0x2021
+#endif /* HCI_LL_TOPOLOGY_CONN_UPDATE_SUPPORT */
+
+/* BT 4.2 Specification */
+#ifdef BT_4_2
+#define HCI_LE_SET_DATA_LENGTH_OPCODE                           0x2022
+#define HCI_LE_READ_SUGGESTED_DEFAULT_DATA_LEN_OPCODE           0x2023
+#define HCI_LE_WRITE_SUGGESTED_DEFAULT_DATA_LEN_OPCODE          0x2024
+#define HCI_LE_READ_LOCAL_P_256_PUBLIC_KEY_OPCODE               0x2025
+#define HCI_LE_GENERATE_DHKEY_OPCODE                            0x2026
+#define HCI_LE_ADD_DEV_TO_RESOLVING_LIST_OPCODE                 0x2027
+#define HCI_LE_REMOVE_DEV_FROM_RESOLVING_LIST_OPCODE            0x2028
+#define HCI_LE_CLR_RESOLVING_LIST_OPCODE                        0x2029
+#define HCI_LE_READ_RESOLVING_LIST_SIZE_OPCODE                  0x202A
+#define HCI_LE_READ_PEER_RESOLVABLE_ADDR_OPCODE                 0x202B
+#define HCI_LE_READ_LOCAL_RESOLVABLE_ADDR_OPCODE                0x202C
+#define HCI_LE_SET_ADDR_RESOLUTION_ENABLE_OPCODE                0x202D
+#define HCI_LE_SET_RANDOM_PRIVATE_ADDR_TIMEOUT_OPCODE           0x202E
+#define HCI_LE_READ_MAXIMUM_DATA_LENGTH_OPCODE                  0x202F
+#endif /* BT_4_2 */
+
+/* Vendor Specific Parameters - OGF : 0x3F */
+
+/** \} */
+
+/** \} */
+
+/** \} */
+
+/**
+ * \defgroup hci_events Events
+ * \{
+ */
+
+/* +++ HCI Event Codes ++++++++++++++++++++++++++++++++++++++++++++ */
+#define HCI_INQUIRY_COMPLETE_EVENT                              0x01
+#define HCI_INQUIRY_RESULT_EVENT                                0x02
+#define HCI_CONNECTION_COMPLETE_EVENT                           0x03
+#define HCI_CONNECTION_REQUEST_EVENT                            0x04
+#define HCI_DISCONNECTION_COMPLETE_EVENT                        0x05
+#define HCI_AUTHENTICATION_COMPLETE_EVENT                       0x06
+#define HCI_REMOTE_NAME_REQUEST_COMPLETE_EVENT                  0x07
+#define HCI_ENCRYPTION_CHANGE_EVENT                             0x08
+#define HCI_CHANGE_CONNECTION_LINK_KEY_COMPLETE_EVENT           0x09
+#define HCI_MASTER_LINK_KEY_COMPLETE_EVENT                      0x0A
+#define HCI_READ_REMOTE_SUPPORTED_FEATURES_COMPLETE_EVENT       0x0B
+#define HCI_READ_REMOTE_VERSION_INFORMATION_COMPLETE_EVENT      0x0C
+#define HCI_QOS_SETUP_COMPLETE_EVENT                            0x0D
+#define HCI_COMMAND_COMPLETE_EVENT                              0x0E
+#define HCI_COMMAND_STATUS_EVENT                                0x0F
+#define HCI_HARDWARE_ERROR_EVENT                                0x10
+#define HCI_FLUSH_OCCURRED_EVENT                                0x11
+#define HCI_ROLE_CHANGE_EVENT                                   0x12
+#define HCI_NUMBER_OF_COMPLETED_PACKETS_EVENT                   0x13
+#define HCI_MODE_CHANGE_EVENT                                   0x14
+#define HCI_RETURN_LINK_KEYS_EVENT                              0x15
+#define HCI_PIN_CODE_REQUEST_EVENT                              0x16
+#define HCI_LINK_KEY_REQUEST_EVENT                              0x17
+#define HCI_LINK_KEY_NOTIFICATION_EVENT                         0x18
+#define HCI_LOOPBACK_COMMAND_EVENT                              0x19
+#define HCI_DATA_BUFFER_OVERFLOW_EVENT                          0x1A
+#define HCI_MAX_SLOTS_CHANGE_EVENT                              0x1B
+#define HCI_READ_CLOCK_OFFSET_COMPLETE_EVENT                    0x1C
+#define HCI_CONNECTION_PACKET_TYPE_CHANGED_EVENT                0x1D
+#define HCI_QOS_VIOLATION_EVENT                                 0x1E
+#define HCI_PAGE_SCAN_MODE_CHANGE_EVENT                         0x1F
+#define HCI_PAGE_SCAN_REPETITION_MODE_CHANGE_EVENT              0x20
+
+#ifdef BT_HCI_1_2
+#define HCI_FLOW_SPECIFICATION_COMPLETE_EVENT                   0x21
+#define HCI_INQUIRY_RESULT_WITH_RSSI_EVENT                      0x22
+#define HCI_REMOTE_EXTENDED_FEATURES_COMPLETE_EVENT             0x23
+#define HCI_SYNCHRONOUS_CONNECTION_COMPLETE_EVENT               0x2C
+#define HCI_SYNCHRONOUS_CONNECTION_CHANGED_EVENT                0x2D
+#endif /* BT_HCI_1_2 */
+
+#ifdef BT_2_1_EDR
+#define HCI_SNIFF_SUBRATING_EVENT                               0x2E
+#define HCI_EXTENDED_INQUIRY_RESULT_EVENT                       0x2F
+#define HCI_IO_CAPABILITY_REQUEST_EVENT                         0x31
+#define HCI_IO_CAPABILITY_RESPONSE_EVENT                        0x32
+#define HCI_USER_CONFIRMATION_REQUEST_EVENT                     0x33
+#define HCI_USER_PASSKEY_REQUEST_EVENT                          0x34
+#define HCI_REMOTE_OOB_DATA_REQUEST_EVENT                       0x35
+#define HCI_SIMPLE_PAIRING_COMPLETE_EVENT                       0x36
+#define HCI_LINK_SUPERVISION_TIMEOUT_CHANGED_EVENT              0x38
+#define HCI_ENHANCED_FLUSH_COMPLETE_EVENT                       0x39
+#define HCI_USER_PASSKEY_NOTIFICATION_EVENT                     0x3B
+#define HCI_KEY_PRESS_NOTIFICATION_EVENT                        0x3C
+#define HCI_REMOTE_HOST_SUPPORTED_FEATURES_NOTIFICATION_EVENT   0x3D
+#endif /* BT_2_1_EDR */
+
+#if ((defined BT_2_1_EDR) || (defined BT_4_0))
+#define HCI_ENCRYPTION_KEY_REFRESH_COMPLETE_EVENT               0x30
+#endif /* ((defined BT_2_1_EDR) || (defined BT_4_0)) */
+
+#ifdef BT_4_1
+#define HCI_AUTHENTICATED_PAYLOAD_TIMEOUT_EXPIRED_EVENT         0x57
+#endif /* BT_4_1 */
+
+/* HCI Vendor Specific Debug Event */
+#define HCI_VENDOR_SPECIFIC_DEBUG_EVENT                         0xFF
+
+#ifdef BT_4_0
+/**
+ *  LE Meta Event is used to encapsulate all LE Controller specific events.
+ *  Subevnt code the first octect of the event parameters.
+ *  The possible subevnt codes are:
+ *   - \ref HCI_LE_CONNECTION_COMPLETE_SUBEVENT
+ *   - \ref HCI_LE_ADVERTISING_REPORT_SUBEVENT
+ *   - \ref HCI_LE_CONNECTION_UPDATE_COMPLETE_SUBEVENT
+ *   - \ref HCI_LE_READ_REMOTE_USED_FEATURES_COMPLETE_SUBEVENT
+ *   - \ref HCI_LE_LONG_TERM_KEY_REQUESTED_SUBEVENT
+ *   - \ref HCI_LE_REMOTE_CONN_PARAM_REQ_SUBEVENT
+ *   - \ref HCI_LE_DATA_LENGTH_CHANGE_SUBEVENT
+ *   - \ref HCI_LE_READ_LOCAL_P256_PUBLIC_KEY_COMPLETE_SUBEVENT
+ *   - \ref HCI_LE_GENERATE_DHKEY_COMPLETE_SUBEVENT
+ *   - \ref HCI_LE_ENHANCED_CONNECTION_COMPLETE_SUBEVENT
+ *   - \ref HCI_LE_DIRECT_ADVERTISING_REPORT_SUBEVENT
+ */
+#define HCI_LE_META_EVENT                                       0x3E
+
+/* Bluetooth Low Energy Subevents */
+/**
+ *  The LE Connection Complete subevent indicates to both of the devices
+ *  forming the connection that a new connection has been created.
+ */
+#define HCI_LE_CONNECTION_COMPLETE_SUBEVENT                     0x01
+
+/**
+ *  The LE Advertising Report subevent indicates that a Bluetooth device or
+ *  multiple Bluetooth devices have responded to an active scan or received
+ *  some information during a passive scan.
+ */
+#define HCI_LE_ADVERTISING_REPORT_SUBEVENT                      0x02
+
+/**
+ *  The LE Connection Update Complete event is used to indicate that the
+ *  Controller process to update the connection has completed.
+ */
+#define HCI_LE_CONNECTION_UPDATE_COMPLETE_SUBEVENT              0x03
+
+/**
+ *  The LE Read Remote Used Features Complete event is used to indicate the
+ *  completion of the process of the Controller obtaining the used features
+ *  of the remote Bluetooth device.
+ */
+#define HCI_LE_READ_REMOTE_USED_FEATURES_COMPLETE_SUBEVENT      0x04
+
+/**
+ *  The LE Long Term Key Request event indicates that the master device is
+ *  attempting to encrypt or re-encrypt the link and is requesting the Long Term
+ *  key.
+ */
+#define HCI_LE_LONG_TERM_KEY_REQUESTED_SUBEVENT                 0x05
+#endif /* BT_4_0 */
+
+#ifdef HCI_LL_TOPOLOGY_CONN_UPDATE_SUPPORT
+/**
+ *  The LE Remote connection Paramter Request event indicates that the master
+ *  device or the slave device has received a change in connection paramters
+ *  request from its peer.
+ */
+#define HCI_LE_REMOTE_CONN_PARAM_REQ_SUBEVENT                   0x06
+#endif /* HCI_LL_TOPOLOGY_CONN_UPDATE_SUPPORT */
+
+#ifdef BT_4_2
+/**
+ * The LE Data Length Change event notifies the Host of a change to either the
+ * maximum Payload length or the maximum transmission time of Data Channel
+ * PDUs in either direction. The values reported are the maximum that will
+ * actually be used on the connection following the change.
+ */
+#define HCI_LE_DATA_LENGTH_CHANGE_SUBEVENT                      0x07
+
+/**
+ * This event is generated when local P-256 key generation is complete.
+ */
+#define HCI_LE_READ_LOCAL_P256_PUBLIC_KEY_COMPLETE_SUBEVENT     0x08
+
+/**
+ * This event indicates that LE Diffie Hellman key generation has been completed
+ * by the Controller.
+ */
+#define HCI_LE_GENERATE_DHKEY_COMPLETE_SUBEVENT                 0x09
+
+/**
+ * The LE Enhanced Connection Complete event indicates to both of the Hosts
+ * forming the connection that a new connection has been created.
+ */
+#define HCI_LE_ENHANCED_CONNECTION_COMPLETE_SUBEVENT            0x0A
+
+/**
+ * The LE Direct Advertising Report event indicates that directed advertisements
+ * have been received where the advertiser is using a resolvable private address
+ * and the Scan_Filter_Policy is equal to 0x02 or 0x03.
+ */
+#define HCI_LE_DIRECT_ADVERTISING_REPORT_SUBEVENT               0x0B
+#endif /* BT_4_2 */
+
+/*
+ * Defines for Link status (current mode) returned by
+ * BT_hci_get_connection_details()
+ */
+#define BT_HCI_ACTIVE_MODE           0x00
+#define BT_HCI_HOLD_MODE             0x01
+#define BT_HCI_SNIFF_MODE            0x02
+#define BT_HCI_PARK_MODE             0x03
+
+/* \} */
+
+/**
+ * \defgroup hci_utility_macros Utility Macros
+ * \{
+ */
+
+/* =================================================== Macros */
+#define hci_pack_1_byte_param(dest, src) \
+    *((dest) + 0) = (UCHAR)(*((UCHAR *)(src)));
+
+#define hci_pack_2_byte_param(dest, src) \
+    *((dest) + 0) = (UCHAR)(*((UINT16 *)(src))); \
+    *((dest) + 1) = (UCHAR)(*((UINT16 *)(src)) >> 8);
+
+#define hci_pack_3_byte_param(dest, src) \
+    *((dest) + 0) = (UCHAR)(*((UINT32 *)(src)));\
+    *((dest) + 1) = (UCHAR)(*((UINT32 *)(src)) >> 8);\
+    *((dest) + 2) = (UCHAR)(*((UINT32 *)(src)) >> 16);
+
+#define hci_pack_4_byte_param(dest, src) \
+    *((dest) + 0) = (UCHAR)(*((UINT32 *)(src)));\
+    *((dest) + 1) = (UCHAR)(*((UINT32 *)(src)) >> 8);\
+    *((dest) + 2) = (UCHAR)(*((UINT32 *)(src)) >> 16);\
+    *((dest) + 3) = (UCHAR)(*((UINT32 *)(src)) >> 24);
+
+#define hci_unpack_1_byte_param BT_UNPACK_LE_1_BYTE
+
+#define hci_unpack_2_byte_param BT_UNPACK_LE_2_BYTE
+
+#define hci_unpack_3_byte_param BT_UNPACK_LE_3_BYTE
+
+#define hci_unpack_4_byte_param BT_UNPACK_LE_4_BYTE
+
+/** \} */
+
+/**
+ * \addtogroup hci_defines Defines
+ * \{
+ */
+
+/**
+ * \defgroup hci_structures Structures
+ * \{
+ */
+
+/* =================================================== Structures/Data Types */
+/* HCI Link Key */
+typedef struct
+{
+    UCHAR  bd_addr[BT_BD_ADDR_SIZE];
+    UCHAR  link_key[16];
+
+} HCI_H_LINK_KEY;
+
+
+/* HCI Command/API Opcode */
+typedef struct
+{
+    UCHAR  ogf;
+    UINT16 ocf;
+
+} HCI_OPCODE;
+
+
+/* HCI Inquiry Result Structure */
+typedef struct
+{
+    UCHAR   bd_addr[BT_BD_ADDR_SIZE];
+    UCHAR   page_scan_repetition_mode;
+    UCHAR   page_scan_period_mode;
+    UCHAR   page_scan_mode;
+    UINT32  class_of_device;
+    UINT16  clock_offset;
+
+#ifdef BT_HCI_1_2
+    UCHAR   rssi;
+#endif /* BT_HCI_1_2 */
+
+} HCI_INQUIRY_RESULT;
+
+
+#ifdef BT_HCI_1_2
+/* Synchronous Connection Input Parameters */
+typedef struct
+{
+    UINT32  tx_bandwidth;
+    UINT32  rx_bandwidth;
+    UINT16  max_latency;
+    UINT16  voice_setting;
+    UINT16  packet_type;
+    UCHAR   rtx_effort;
+
+} HCI_SCO_IN_PARAMS;
+
+
+/* Synchronous Connection Output Parameters */
+typedef struct
+{
+    UINT16  sco_handle;
+    UCHAR   link_type;
+    UCHAR   tx_interval;
+    UCHAR   rtx_window;
+    UINT16  rx_length;
+    UINT16  tx_length;
+    UCHAR   air_mode;
+
+} HCI_SCO_OUT_PARAMS;
+#endif /* BT_HCI_1_2 */
+
+#ifdef HCI_ENH_SCO
+typedef struct
+{
+    /**
+     *  Coding format defined in Assigned Numbers document.
+     *  Example: LMP_CODING_FRMT_PCM, LMP_CODING_FRMT_VS etc.
+     */
+    UCHAR  coding_format;
+
+    /**
+     *  If Coding Format is not 0xFF (LMP_CODING_FRMT_VS),
+     *  Company ID and Vendor Specific Codec ID shall be ignored.
+     */
+    UINT16 company_id;
+
+    UINT16 vendor_codec_id;
+
+} HCI_CODING_FORMAT;
+
+typedef struct
+{
+    UINT32             tx_bandwidth;
+    UINT32             rx_bandwidth;
+    HCI_CODING_FORMAT  tx_coding_frmt;
+    HCI_CODING_FORMAT  rx_coding_frmt;
+    UINT16             tx_codec_frame_size;
+    UINT16             rx_codec_frame_size;
+    UINT32             input_bandwidth;
+    UINT32             output_bandwidth;
+    HCI_CODING_FORMAT  input_coding_frmt;
+    HCI_CODING_FORMAT  output_coding_frmt;
+    UINT16             input_coded_data_size;
+    UINT16             output_coded_data_size;
+    UCHAR              input_pcm_data_frmt;
+    UCHAR              output_pcm_data_frmt;
+    UCHAR              input_pcm_smpl_payload_msb_pos;
+    UCHAR              output_pcm_smpl_payload_msb_pos;
+    UCHAR              input_data_path;
+    UCHAR              output_data_path;
+    UCHAR              input_transport_unit_size;
+    UCHAR              output_transport_unit_size;
+    UINT16             max_latency;
+    UINT16             packet_type;
+    UCHAR              retransmission_effort;
+} HCI_ENH_SCO_PARAMS;
+#endif /* HCI_ENH_SCO */
+
+/* HCI Connection List */
+typedef struct
+{
+    /* ACL Connection Handle */
+    UINT16 acl_handle;
+
+    /*
+     *  SCO Handles for all SCO connections that exists with the
+     *  remote Device identified by the ACL Connection Handle.
+     */
+    UINT16 sco_handle [ HCI_MAX_SCO_CHANNELS ];
+
+    /* BD_ADDR of the Remote Device */
+    UCHAR  bd_addr[BT_BD_ADDR_SIZE];
+
+    /* Current Mode of the ACL Link */
+    UCHAR  current_mode;
+
+} HCI_CONNECTION_LIST;
+
+#ifdef HCI_TX_RUN_TIME_SELECTION
+typedef API_RESULT (* HCI_TRANSPORT_CB)
+                   (
+                       UCHAR    packet_type,
+                       UCHAR *  packet_data,
+                       UINT16   packet_len,
+                       UCHAR    flag
+                   ) DECL_REENTRANT;
+
+API_RESULT BT_hci_register_tx_cb (/* IN */ HCI_TRANSPORT_CB callback_ptr);
+#endif /* HCI_TX_RUN_TIME_SELECTION */
+
+
+/* HCI QoS */
+typedef struct
+{
+    /* Token Rate */
+    UINT32 token_rate;
+
+    /* Token Bucket Size */
+    UINT32 token_bucket_size;
+
+    /* Peak Bandwidth */
+    UINT32 peak_bandwidth;
+
+    /* Latency */
+    UINT32 latency;
+
+    /* Delay Variation */
+    UINT32 delay_variation;
+
+    /* Service Type */
+    UCHAR service_type;
+
+    /* Flow Direction */
+    UCHAR flow_direction;
+
+} HCI_QOS;
+
+
+#ifdef BT_EIR
+typedef struct
+{
+    /* EIR Data */
+    UCHAR  * eir_data;
+
+    /* EIR Data Length */
+    UCHAR    eir_data_len;
+
+    /* EIR Data Type */
+    UCHAR    eir_data_type;
+
+} HCI_EIR_DATA;
+#endif /* BT_EIR */
+
+
+
+/** \} */
+
+/** \} */
+
+
+/** \} */
+
+/**
+ * \defgroup hci_api API Definitions
+ * \{
+ */
+
+/* ==========================================================  API Functions */
+
+#ifdef __cplusplus
+extern "C"{
+#endif
+
+/* Internal Functions (Not APIs) ------------------------------------------- */
+/* \cond ignore_this Not to be documented - not used by application */
+API_RESULT hci_write_command_UCHAR
+           (
+               UINT16    opcode,
+               UCHAR     param
+           );
+
+API_RESULT hci_write_command_UINT16
+           (
+               UINT16    opcode,
+               UINT16    param
+           );
+
+API_RESULT hci_write_command_UINT16_UINT16
+           (
+               UINT16    opcode,
+               UINT16    param_1,
+               UINT16    param_2
+           );
+
+API_RESULT hci_write_command_UCHAR_array
+           (
+               UINT16    opcode,
+               UCHAR   * param,
+               UINT16    length
+           );
+
+/* Common API Handler */
+API_RESULT hci_common_api_handler_no_params
+           (
+               UINT16    opcode
+           );
+
+API_RESULT hci_write_command_connection_handle
+           (
+               UINT16    opcode,
+               UINT16    connection_handle
+           );
+
+API_RESULT hci_write_command_adv_scan_response_data
+           (
+               UINT16   opcode,
+               UCHAR    data_len,
+               UCHAR *  data_param
+           );
+
+#ifdef BT_4_2
+API_RESULT hci_write_command_BD_ADDR_with_TYPE
+           (
+               UINT16    opcode,
+               UCHAR     addr_type,
+               UCHAR   * bd_addr
+           );
+#endif /* BT_4_2 */
+
+/** \endcond */
+
+/* ------------------------------------------------------------------------- */
+
+
+/* HCI External APIs ------------------------------------------------------- */
+
+API_RESULT BT_hci_register_event_indication_callback
+           (
+               API_RESULT (* callback_ptr)
+                          (
+                              UINT8    event_code,
+                              UINT8 *  event_data,
+                              UINT8    event_datalen
+                          )
+           );
+
+API_RESULT BT_hci_register_error_indication_callback
+           (
+               API_RESULT (* callback_ptr)
+                          (
+                              UINT16  opcode,
+                              UINT16  error_code
+                          )
+           );
+
+#ifdef HCI_SCO
+API_RESULT BT_hci_register_sco_data_handler
+           (
+               API_RESULT (* callback_ptr) (UCHAR *, UINT16)
+           );
+#endif /* HCI_SCO */
+
+API_RESULT BT_hci_set_device_role
+           (
+               UCHAR *  bd_addr,
+               UCHAR    role
+           );
+
+API_RESULT BT_hci_get_local_bd_addr
+           (
+               UCHAR *  bd_addr
+           );
+
+API_RESULT BT_hci_get_acl_connection_handle
+           (
+               UCHAR *   bd_addr,
+               UINT16 *  handle
+           );
+
+API_RESULT BT_hci_get_sco_connection_handle
+           (
+               UCHAR *   bd_addr,
+               UINT16 *  handle,
+               UCHAR *   num_handle
+           );
+
+API_RESULT BT_hci_get_connection_details
+           (
+               HCI_CONNECTION_LIST *   hci_conn_list,
+               UCHAR                   num_allocated,
+               UCHAR *                 num_present
+           );
+
+#ifdef BT_4_0
+API_RESULT BT_hci_own_conn_bd_address
+           (
+               /* IN */  BT_DEVICE_ADDR *  remote_bd_addr,
+               /* OUT */ BT_DEVICE_ADDR *  bd_addr
+           );
+#endif /* BT_4_0 */
+
+API_RESULT BT_hci_decode_opcode
+           (
+               UINT16        opcode,
+               HCI_OPCODE *  hci_opcode
+           );
+
+API_RESULT BT_hci_decode_inquiry_result
+           (
+               UCHAR *               buffer,
+               HCI_INQUIRY_RESULT *  result
+           );
+
+#ifdef HCI_HAVE_INIT_COMMAND_MASK
+API_RESULT BT_hci_set_init_command_mask
+           (
+               UINT32    command_mask
+           );
+#endif /* HCI_HAVE_INIT_COMMAND_MASK */
+
+#ifdef BT_SUPPORT_CONTROLLER_INIT_SKIP
+API_RESULT BT_hci_set_controller_init (/* IN */ UCHAR state);
+#endif /* BT_SUPPORT_CONTROLLER_INIT_SKIP */
+
+API_RESULT BT_hci_get_connection_handle
+           (
+               BT_DEVICE_ADDR * bd_addr,
+               UCHAR link_type,
+               UINT16 *  handle
+           );
+
+API_RESULT BT_hci_get_connection_type
+           (
+               UCHAR *   bd_addr,
+               UCHAR     bd_addr_type,
+               UCHAR *   conn_type
+           );
+
+#ifdef BT_4_0
+
+#ifdef HCI_SUPPORT_GET_DEVICE_ROLE
+/**
+ *  \brief To get role of the local device.
+ *
+ *  \par Description:
+ *       This API can be used to get the local device role
+ *       (Master or Slave) in a HCI LE connection.
+ *
+ *       If the local device has a HCI LE connection,
+ *       role will be one of the following values
+ *       - BT_DEVICE_ROLE_MASTER
+ *       - BT_DEVICE_ROLE_SLAVE
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+API_RESULT BT_hci_le_get_device_role
+           (
+               BT_DEVICE_ADDR * bd_addr,
+               UCHAR          * role
+           );
+#endif /* HCI_SUPPORT_GET_DEVICE_ROLE */
+
+/**
+ *  \brief To get LE connection handle for specified Bluetooth Address and
+ *         Address type.
+ *
+ *  \par Description:
+ *      This API retrives the LE connection handle, if one exist, for a
+ *      specified remote Bluetooth Address and Address type as given by bd_addr
+ *      and bd_addr_type paramters respectively.
+ *
+ *  \param [in] bd_addr
+ *         The Remote Bluetooth Device Address for which the Connection
+ *         Handle to retrieved.
+ *  \param [out] handle
+ *         Pointer to a caller allocated UINT16 type variable onto which the
+ *         Connection Handle will be stored.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_get_le_connection_handle(bd_addr, handle)\
+        BT_hci_get_connection_handle   \
+        ((bd_addr), HCI_LE_LINK, (handle));
+#endif /* BT_4_0 */
+
+
+#ifdef BT_HCI_1_2
+API_RESULT BT_hci_decode_inquiry_result_rssi
+           (
+               UCHAR *               buffer,
+               HCI_INQUIRY_RESULT *  result
+           );
+
+API_RESULT BT_hci_set_esco_channel_parameters
+           (
+               HCI_SCO_IN_PARAMS *  sco_params
+           );
+
+#ifdef HCI_ENH_SCO
+API_RESULT BT_hci_set_enh_sco_channel_parameters
+           (
+               HCI_ENH_SCO_PARAMS *  enh_sco_params
+           );
+#endif /* HCI_ENH_SCO */
+#endif /* BT_HCI_1_2 */
+
+#ifdef HCI_SCO
+#if 0
+#define BT_hci_sco_write(p, pl) \
+        hci_transport_write_data (HCI_SCO_DATA_PACKET, (p), (pl), 0x01)
+#endif
+
+API_RESULT BT_hci_sco_write
+           (
+               UCHAR *    packet,
+               UINT16     packet_len
+           );
+
+#if defined BT_USB && defined WINDOWS
+API_RESULT BT_hci_usb_sco_set
+           (
+               UINT16    con_handle,
+               UCHAR     packet_size
+           );
+API_RESULT BT_hci_usb_sco_reset
+           (
+               UINT16    con_handle
+           );
+#else  /* BT_USB && WINDOWS */
+#define BT_hci_usb_sco_set(c, s)
+#define BT_hci_usb_sco_reset(c)
+#endif /* BT_USB && WINDOWS */
+#endif /* HCI_SCO */
+
+
+/* ------------------------------------------------------------------------- */
+
+/* HCI Link Control APIs --------------------------------------------------- */
+
+#ifndef HCI_LITE
+API_RESULT BT_hci_inquiry
+           (
+               UINT32   lap,
+               UCHAR    inquiry_length,
+               UCHAR    num_responses
+           );
+
+#define BT_hci_inquiry_cancel() \
+        hci_common_api_handler_no_params (HCI_INQUIRY_CANCEL_OPCODE)
+
+API_RESULT BT_hci_periodic_inquiry_mode
+           (
+               UINT16  max_period_length,
+               UINT16  min_period_length,
+               UINT32  lap,
+               UCHAR   inquiry_length,
+               UCHAR   num_responses
+           );
+
+#define BT_hci_exit_periodic_inquiry_mode() \
+        hci_common_api_handler_no_params (HCI_EXIT_PERIODIC_INQUIRY_MODE_OPCODE)
+#endif /* HCI_LITE */
+
+API_RESULT BT_hci_create_connection
+           (
+               UCHAR *   bd_addr,
+               UINT16    packet_type,
+               UCHAR     page_scan_repetition_mode,
+               UCHAR     page_scan_mode,
+               UINT16    clock_offset,
+               UCHAR     allow_role_switch
+           );
+
+API_RESULT BT_hci_add_sco_connection
+           (
+               UCHAR *   bd_addr,
+               UINT16    packet_type
+           );
+
+#define BT_hci_change_connection_packet_type(p1, p2) \
+        hci_write_command_UINT16_UINT16 \
+        (HCI_CHANGE_CONNECTION_PACKET_TYPE_OPCODE, (p1), (p2))
+
+API_RESULT BT_hci_remote_name_request
+           (
+               UCHAR *   bd_addr,
+               UCHAR     page_scan_repetition_mode,
+               UCHAR     page_scan_mode,
+               UINT16    clock_offset
+           );
+
+API_RESULT BT_hci_read_remote_supported_features
+           (
+               UINT16   connection_handle
+           );
+
+#ifdef HCI_READ_REMOTE_VERSION_INFORMATION_SUPPORT
+/**
+ *  \brief To retrieve version information of a remote Bluetooth device.
+ *
+ *  \par Description:
+ *       This API is used to obtain the values for the version information
+ *       of a remote Bluetooth device, identified by the connection_handle.
+ *       The connection_handle must be a connection handle for an ACL or LE
+ *       connection.
+ *
+ *       When the Controller receives the Read_Remote_Version_Information
+ *       command, the Controller shall send the Command Status event to
+ *       the Host. When the Link Manager or Link Layer has completed the
+ *       sequence to determine the remote version information, the local
+ *       Controller shall send a Read Remote Ver-sion Information Complete
+ *       event to the Host. The Read Remote Version Information Complete event
+ *       contains the status of this command, and parameters describing
+ *       the version and subversion of the LMP or Link Layer used by
+ *       the remote device.
+ *
+ *  \param [in] connection_handle
+ *         Connection Handle of the ACL Connection with
+ *         the remote Bluetooth device.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_read_remote_version_information(connection_handle) \
+        hci_write_command_connection_handle \
+        ( \
+               HCI_READ_REMOTE_VERSION_INFORMATION_OPCODE, \
+               (connection_handle) \
+        )
+#endif /* HCI_READ_REMOTE_VERSION_INFORMATION_SUPPORT */
+
+
+#define BT_hci_read_clock_offset(p1) \
+        hci_write_command_UINT16 (HCI_READ_CLOCK_OFFSET_OPCODE, (p1))
+
+#ifdef HCI_NO_ESCO_AUTO_ACCEPT
+void BT_hci_esco_connection_response
+     (
+         UCHAR *  bd_addr,
+         UCHAR    reject
+     );
+
+#define BT_hci_accept_esco_connection_request(addr) \
+        BT_hci_esco_connection_response ((addr), 0x00)
+
+#define BT_hci_reject_esco_connection_request(addr, reason) \
+        BT_hci_esco_connection_response ((addr), (reason))
+
+#ifdef HCI_ENH_SCO
+void BT_hci_enh_sco_connection_response
+     (
+         UCHAR *  bd_addr,
+         UCHAR    reject
+     );
+
+#define BT_hci_accept_enh_sco_connection_request(addr) \
+        BT_hci_enh_sco_connection_response ((addr), 0x00)
+
+#define BT_hci_reject_enh_sco_connection_request(addr, reason) \
+        BT_hci_enh_sco_connection_response ((addr), (reason))
+#endif /* HCI_ENH_SCO */
+
+#endif /* HCI_NO_ESCO_AUTO_ACCEPT */
+
+#ifdef HCI_DISCONNECT_SUPPORT
+/**
+ *  \brief To disconnect an ACL/SCO/eSCO/BLE link.
+ *
+ *  \par Description:
+ *       This API initiates termination of an existing ACL, SCO, eSCO or BLE
+ *       connection with a remote Bluetooth device, as identified by
+ *       the supplied Connection Handle.
+ *       The Reason command parameter indicates the reason for ending
+ *       the connection. The remote Controller will receive the Reason command
+ *       parameter in the Disconnection Complete event. All synchronous
+ *       connections on a physical link should be disconnected before the ACL
+ *       connection on the same physical connection is disconnected.
+ *
+ *       When the Controller receives the Disconnect command, it shall send
+ *       the Command Status event to the Host. The Disconnection Complete event
+ *       will occur at each Host when the termination of the connection has
+ *       completed, and indicates that this command has been completed.
+ *
+ *  \param [in] connection_handle
+ *         Connection Handle for the existing ACL, SCO, eSCO or BLE connection
+ *         to be disconnected.
+ *
+ *  \param [in] reason
+ *         This specifies the reason for disconnection.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+API_RESULT BT_hci_disconnect
+           (
+               UINT16  connection_handle,
+               UCHAR   reason
+           );
+#endif /* HCI_DISCONNECT_SUPPORT */
+
+/* ------------------------------------------------------------------------- */
+
+/* HCI Link Policy APIs ---------------------------------------------------- */
+
+API_RESULT BT_hci_hold_mode
+           (
+               UINT16  connection_handle,
+               UINT16  hold_max_interval,
+               UINT16  hold_min_interval
+           );
+
+API_RESULT BT_hci_sniff_mode
+           (
+               UINT16  connection_handle,
+               UINT16  sniff_max_interval,
+               UINT16  sniff_min_interval,
+               UINT16  sniff_attempt,
+               UINT16  sniff_timeout
+           );
+
+#define BT_hci_exit_sniff_mode(p1) \
+        hci_write_command_UINT16 (HCI_EXIT_SNIFF_MODE_OPCODE, (p1))
+
+API_RESULT BT_hci_park_mode
+           (
+               UINT16  connection_handle,
+               UINT16  beacon_max_interval,
+               UINT16  beacon_min_interval
+           );
+
+API_RESULT BT_hci_exit_park_mode
+           (
+               UINT16  connection_handle
+           );
+
+API_RESULT BT_hci_qos_setup
+           (
+               UINT16       connection_handle,
+               HCI_QOS *    qos_requested
+           );
+
+API_RESULT BT_hci_role_discovery
+           (
+               UINT16   connection_handle
+           );
+
+API_RESULT BT_hci_switch_role
+           (
+               UCHAR *  bd_addr,
+               UCHAR    role
+           );
+
+API_RESULT BT_hci_read_link_policy_settings
+           (
+               UINT16    connection_handle
+           );
+
+#define BT_hci_write_link_policy_settings(p1, p2) \
+        hci_write_command_UINT16_UINT16 \
+        (HCI_WRITE_LINK_POLICY_SETTINGS_OPCODE, (p1), (p2))
+
+/* ------------------------------------------------------------------------- */
+
+/* HCI Host Controller & Baseband APIs ------------------------------------- */
+
+#ifdef HCI_SET_EVENT_MASK_SUPPORT
+/**
+ *  \brief To set the HCI Event Filter at the local Bluetooth device.
+ *
+ *  \par Description:
+ *       This API is used to control which events are generated by the HCI for
+ *       the Host. If the bit in the Event_Mask is set to a one, then the
+ *       event associated with that bit will be enabled. For an LE Controller,
+ *       the "LE Meta Event" bit in the Event_Mask shall enable or disable all
+ *       LE events in the LE Meta Event.
+ *       The Host has to deal with each event that occurs. The event mask
+ *       allows the Host to control how much it is interrupted.
+ *
+ *  \param [in] event_mask
+ *         It is an 8 octet value. Refer to the Bluetooth HCI specification
+ *         for the definition of the masks for each event.
+ *         For LE Meta-Event, mask 0x2000000000000000 shall be set.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_set_event_mask(event_mask) \
+        hci_write_command_UCHAR_array \
+        (HCI_SET_EVENT_MASK_OPCODE, (event_mask), 8)
+#endif /* HCI_SET_EVENT_MASK_SUPPORT */
+
+#ifdef HCI_SET_EVENT_MASK_PAGE_2_SUPPORT
+/**
+ *  \brief To set the HCI Event Filter at the local Bluetooth device.
+ *
+ *  \par Description:
+ *       This API is used to control which events are generated by the HCI for
+ *       the Host. If the bit in the Event_Mask is set to a one, then the
+ *       event associated with that bit will be enabled. For an LE Controller,
+ *       the "LE Meta Event" bit in the Event_Mask shall enable or disable all
+ *       LE events in the LE Meta Event.
+ *       The Host has to deal with each event that occurs. The event mask
+ *       allows the Host to control how much it is interrupted.
+ *
+ *  \param [in] event_mask
+ *         It is an 8 octet value. Refer to the Bluetooth HCI specification
+ *         for the definition of the masks for each event.
+ *         For LE Meta-Event, mask 0x2000000000000000 shall be set.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_set_event_mask_page_2(event_mask) \
+        hci_write_command_UCHAR_array \
+        (HCI_SET_EVENT_MASK_PAGE_2_OPCODE, (event_mask), 8)
+#endif /* HCI_SET_EVENT_MASK_PAGE_2_SUPPORT */
+
+#ifdef HCI_RESET_SUPPORT
+/**
+ *  \brief To reset the local Bluetooth controller.
+ *
+ *  \par Description:
+ *       The Reset command will reset the Controller and the Link Manager
+ *       on the BR/EDR Controller, the PAL on an AMP Controller,
+ *       or the Link Layer on an LE Controller.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_reset() \
+        hci_common_api_handler_no_params (HCI_RESET_OPCODE)
+#endif /* HCI_RESET_SUPPORT */
+
+API_RESULT BT_hci_set_event_filter
+           (
+               UCHAR    filter_type,
+               UCHAR    filter_condition_type,
+               UCHAR *  condition,
+               UINT16   condition_length
+           );
+
+API_RESULT BT_hci_flush
+           (
+               UINT16  connection_handle
+           );
+
+#ifndef HCI_LITE
+#define BT_hci_create_new_unit_key() \
+        hci_common_api_handler_no_params (HCI_CREATE_NEW_UNIT_KEY_OPCODE)
+#endif /* HCI_LITE */
+
+API_RESULT BT_hci_change_local_name
+           (
+               UCHAR *  name,
+               UINT16   name_length
+           );
+
+#ifndef HCI_LITE
+#define BT_hci_read_local_name() \
+        hci_common_api_handler_no_params (HCI_READ_LOCAL_NAME_OPCODE)
+#endif /* HCI_LITE */
+
+#ifndef HCI_LITE
+#define BT_hci_read_connection_accept_timeout() \
+        hci_common_api_handler_no_params \
+        (HCI_READ_CONNECTION_ACCEPT_TIMEOUT_OPCODE)
+#endif /* HCI_LITE */
+
+API_RESULT BT_hci_write_connection_accept_timeout
+           (
+               UINT16  timeout
+           );
+
+#ifndef HCI_LITE
+#define BT_hci_read_page_timeout() \
+        hci_common_api_handler_no_params (HCI_READ_PAGE_TIMEOUT_OPCODE)
+#endif /* HCI_LITE */
+
+#define BT_hci_write_page_timeout(p1) \
+        hci_write_command_UINT16 (HCI_WRITE_PAGE_TIMEOUT_OPCODE, (p1))
+
+#ifndef HCI_LITE
+#define BT_hci_read_scan_enable() \
+        hci_common_api_handler_no_params (HCI_READ_SCAN_ENABLE_OPCODE)
+#endif /* HCI_LITE */
+
+#define BT_hci_write_scan_enable(p1) \
+        hci_write_command_UCHAR (HCI_WRITE_SCAN_ENABLE_OPCODE, (p1))
+
+#ifndef HCI_LITE
+#define BT_hci_read_page_scan_activity() \
+        hci_common_api_handler_no_params (HCI_READ_PAGE_SCAN_ACTIVITY_OPCODE)
+#endif /* HCI_LITE */
+
+#define BT_hci_write_page_scan_activity(p1, p2) \
+        hci_write_command_UINT16_UINT16 \
+        (HCI_WRITE_PAGE_SCAN_ACTIVITY_OPCODE, (p1), (p2))
+
+#ifndef HCI_LITE
+#define BT_hci_read_inquiry_scan_activity() \
+        hci_common_api_handler_no_params \
+        (HCI_READ_INQUIRY_SCAN_ACTIVITY_OPCODE)
+#endif /* HCI_LITE */
+
+#define BT_hci_write_inquiry_scan_activity(p1, p2) \
+        hci_write_command_UINT16_UINT16 \
+        (HCI_WRITE_INQUIRY_SCAN_ACTIVITY_OPCODE, (p1), (p2))
+
+#ifndef HCI_LITE
+#define BT_hci_read_authentication_enable() \
+        hci_common_api_handler_no_params (HCI_READ_AUTHENTICATION_ENABLE_OPCODE)
+#endif /* HCI_LITE */
+
+#define BT_hci_write_authentication_enable(p1) \
+        hci_write_command_UCHAR (HCI_WRITE_AUTHENTICATION_ENABLE_OPCODE, (p1))
+
+#ifndef HCI_LITE
+#define BT_hci_read_encryption_mode() \
+        hci_common_api_handler_no_params (HCI_READ_ENCRYPTION_MODE_OPCODE)
+#endif /* HCI_LITE */
+
+#define BT_hci_write_encryption_mode(p1) \
+        hci_write_command_UCHAR (HCI_WRITE_ENCRYPTION_MODE_OPCODE, (p1))
+
+#ifndef HCI_LITE
+#define BT_hci_read_class_of_device() \
+        hci_common_api_handler_no_params (HCI_READ_CLASS_OF_DEVICE_OPCODE)
+#endif /* HCI_LITE */
+
+API_RESULT BT_hci_write_class_of_device
+           (
+               UINT32  class_of_device
+           );
+
+#ifndef HCI_LITE
+#define BT_hci_read_voice_setting() \
+        hci_common_api_handler_no_params (HCI_READ_VOICE_SETTING_OPCODE)
+#endif /* HCI_LITE */
+
+API_RESULT BT_hci_write_voice_setting
+           (
+               UINT16  voice_setting
+           );
+
+API_RESULT BT_hci_read_automatic_flush_timeout
+           (
+               UINT16    handle
+           );
+
+API_RESULT BT_hci_write_automatic_flush_timeout
+           (
+               UINT16  handle,
+               UINT16  timeout
+           );
+
+#ifndef HCI_LITE
+#define BT_hci_read_num_broadcast_retransmissions() \
+        hci_common_api_handler_no_params \
+        (HCI_READ_NUM_BROADCAST_RETRANSMISSIONS_OPCODE)
+#endif /* HCI_LITE */
+
+API_RESULT BT_hci_write_num_broadcast_retransmissions
+           (
+               UCHAR  num_broadcast_rx
+           );
+
+#ifndef HCI_LITE
+#define BT_hci_read_hold_mode_activity() \
+        hci_common_api_handler_no_params (HCI_READ_HOLD_MODE_ACTIVITY_OPCODE)
+#endif /* HCI_LITE */
+
+API_RESULT BT_hci_write_hold_mode_activity
+           (
+               UCHAR  hold_mode_activity
+           );
+
+#ifndef HCI_LITE
+#define BT_hci_read_sco_flow_control_enable() \
+        hci_common_api_handler_no_params \
+        (HCI_READ_SCO_FLOW_CONTROL_ENABLE_OPCODE)
+#endif /* HCI_LITE */
+
+API_RESULT BT_hci_write_sco_flow_control_enable
+           (
+               UCHAR  flow_enable
+           );
+
+#ifdef HCI_SET_HOST_CONTROLLER_TO_HOST_FLOW_CONTROL_SUPPORT
+/**
+ *  \brief To set the Flow Control setting in the direction from the Bluetooth
+ *         device to the Host.
+ *
+ *  \par Description:
+ *       This API can be used to turn flow control on or off for ACL or
+ *       SCO/eSCO data sent in the direction from the Bluetooth device to
+ *       the Host Stack.
+ *       If flow control is turned off, the Host will not send the Host Number
+ *       of Completed Packets HCI command. The Bluetooth device will ignore
+ *       that command if the Host sends it and flow control is off.
+ *       If flow control is turned on for HCI ACL Data Packets and off for HCI
+ *       SCO Data Packets, Host Number of Completed Packets commands sent by the
+ *       Host should only contain Connection Handles for ACL connections.
+ *       If flow control is turned off for HCI ACL Data Packets and on for HCI
+ *       SCO Data Packets, Host Number of Completed Packets commands sent by the
+ *       Host should only contain Connection Handles for SCO connections.
+ *       If flow control is turned on for HCI ACL Data Packets and HCI SCO Data
+ *       Packets, the Host will send Host Number Of Completed Packets commands
+ *       both for ACL connections and SCO connections.
+ *       This Flow Control Enable setting must only be attempted if no
+ *       connections to other remote Bluetooth devices exist.
+ *
+ *  \param [in] flow_enable
+ *         Value of the Flow Control setting to be set in the Bluetooth device.
+ *         Value 0x00: Flow Control OFF for both ACL and SCO packets.
+ *         Value 0x01: Flow Control ON for ACL, OFF for SCO packets.
+ *         Value 0x02: Flow Control OFF for ACL, ON for SCO packets.
+ *         Value 0x03: Flow Control ON for both ACL and SCO packets.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+API_RESULT BT_hci_set_host_controller_to_host_flow_control
+           (
+               UCHAR  flow_enable
+           );
+#endif /* HCI_SET_HOST_CONTROLLER_TO_HOST_FLOW_CONTROL_SUPPORT */
+
+
+#ifdef HCI_HOST_CONTROLLER_FLOW_ON
+#ifdef HCI_HOST_BUFFER_SIZE_SUPPORT
+#define BT_hci_host_buffer_size() \
+        hci_common_api_handler_no_params (HCI_HOST_BUFFER_SIZE_OPCODE)
+#endif /* HCI_HOST_BUFFER_SIZE_SUPPORT */
+#endif /* HCI_HOST_CONTROLLER_FLOW_ON */
+
+API_RESULT BT_hci_read_link_supervision_timeout
+           (
+               UINT16    handle
+           );
+
+#define BT_hci_write_link_supervision_timeout(p1, p2) \
+        hci_write_command_UINT16_UINT16 \
+        (HCI_WRITE_LINK_SUPERVISION_TIMEOUT_OPCODE, (p1), (p2))
+
+#ifndef HCI_LITE
+#define BT_hci_read_number_of_supported_iac() \
+        hci_common_api_handler_no_params \
+        (HCI_READ_NUMBER_OF_SUPPORTED_IAC_OPCODE)
+
+#define BT_hci_read_current_iac_lap() \
+        hci_common_api_handler_no_params (HCI_READ_CURRENT_IAC_LAP_OPCODE)
+#endif /* HCI_LITE */
+
+API_RESULT BT_hci_write_current_iac_lap
+           (
+               UCHAR     num_iac,
+               UINT32 *  iac_lap
+           );
+
+#ifndef HCI_LITE
+#define BT_hci_read_page_scan_period_mode() \
+        hci_common_api_handler_no_params (HCI_READ_PAGE_SCAN_PERIOD_MODE_OPCODE)
+#endif /* HCI_LITE */
+
+API_RESULT BT_hci_write_page_scan_period_mode
+           (
+               UCHAR  mode
+           );
+
+#ifndef HCI_LITE
+#define BT_hci_read_page_scan_mode() \
+        hci_common_api_handler_no_params (HCI_READ_PAGE_SCAN_MODE_OPCODE)
+#endif /* HCI_LITE */
+
+API_RESULT BT_hci_write_page_scan_mode
+           (
+               UCHAR  mode
+           );
+
+#ifdef HCI_READ_TRANSMIT_POWER_LEVEL_SUPPORT
+/**
+ *  \brief To read the value of Transmit Power Level.
+ *
+ *  \par Description:
+ *       This command reads the values for the Transmit_Power_Level parameter
+ *       for the specified Connection_Handle. The Connection_Handle shall be
+ *       a Connection_Handle for an ACL connection.
+ *
+ *  \param [in] handle
+ *         Specifies which Connection_Handle’s Transmit Power Level setting
+ *         to read.
+ *         Range: 0x0000-0x0EFF (0x0F00 - 0x0FFF Reserved for future use)
+ *
+ *  \param [in] power_type
+ *         This parameter specifies whether the current or maximum power level
+ *         to read.
+ *         The valid values are:
+ *         Value 0x00: Read current Transmit Power Level.
+ *         Value 0x01: Read maximum Transmit Power Level.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+API_RESULT BT_hci_read_transmit_power_level
+           (
+               UINT16   handle,
+               UCHAR    power_type
+           );
+#endif /* HCI_READ_TRANSMIT_POWER_LEVEL_SUPPORT */
+
+/* ------------------------------------------------------------------------- */
+
+/* HCI Host Controller Informational APIs ---------------------------------- */
+#ifdef HCI_READ_LOCAL_VERSION_INFORMATION_SUPPORT
+/**
+ *  \brief To read Version information of the local Bluetooth device.
+ *
+ *  \par Description:
+ *       This API reads the values for the version information for the local
+ *       Controller.
+ *       The HCI Version information defines the version information of
+ *       the HCI layer. The LMP/PAL Version information defines the version
+ *       of the LMP or PAL. The Manufacturer_Name information indicates
+ *       the manufacturer of the local device.
+ *       The HCI Revision and LMP/PAL Subversion are implementation dependent.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_read_local_version_information() \
+        hci_common_api_handler_no_params \
+        (HCI_READ_LOCAL_VERSION_INFORMATION_OPCODE)
+#endif /* HCI_READ_LOCAL_VERSION_INFORMATION_SUPPORT */
+
+#ifdef HCI_READ_LOCAL_SUPPORTED_FEATURES_SUPPORT
+/**
+ *  \brief To read list of LMP features of the local Bluetooth device.
+ *
+ *  \par Description:
+ *       This API reads the list of features supported by the Link Manager
+ *       Protocol of the local Bluetooth device.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_read_local_supported_features() \
+        hci_common_api_handler_no_params \
+        (HCI_READ_LOCAL_SUPPORTED_FEATURES_OPCODE)
+#endif /* HCI_READ_LOCAL_SUPPORTED_FEATURES_SUPPORT */
+
+#ifdef HCI_READ_BD_ADDR_SUPPORT
+/**
+ *  \brief To read the Bluetooth Device Address from local Bluetooth device.
+ *
+ *  \par Description:
+ *       This API reads the Bluetooth Device Address (BD_ADDR) of the local
+ *       Bluetooth device.
+ *       On a BR/EDR Controller, this command reads the Bluetooth Controller
+ *       address (BD_ADDR).
+ *       On an LE Controller, this command shall read the Public Device
+ *       Address. If this Controller does not have a Public Device Address,
+ *       the value 0x000000000000 shall be returned.
+ *       On a BR/EDR/LE Controller, the public address shall be the same as
+ *       the BD_ADDR.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_read_bd_addr() \
+        hci_common_api_handler_no_params (HCI_READ_BD_ADDR_OPCODE)
+#endif /* HCI_READ_BD_ADDR_SUPPORT */
+
+#ifdef HCI_READ_BUFFER_SIZE_SUPPORT
+/**
+ *  \brief To read the size and number of buffers the local Bluetooth device
+ *         maintains for outgoing ACL, Synchronous (SCO/eSCO) and BLE data.
+ *
+ *  \par Description:
+ *       This API reads reads the size and number of buffers the local
+ *       Bluetooth device maintains for outgoing ACL, Synchronous (SCO/eSCO)
+ *       and BLE data.
+ *       The Read_Buffer_Size command is used toread the maximum size of
+ *       the data portion of HCI ACL and synchronous Data Packets sent from
+ *       the Host to the Controller. The Host will segment the data to be
+ *       transmitted from the Host to the Controller according to these sizes,
+ *       so that the HCI Data Packets will con-tain data with up to these
+ *       sizes. The Read_Buffer_Size command also returns the total number of
+ *       HCI ACL and synchronous Data Packets that can be stored in the data
+ *       buffers of the Controller. The Read_Buffer_Size command must be
+ *       issued by the Host before it sends any data to the Controller.
+ *       For a device supporting BR/EDR and LE, if the LE_Read_Buffer_Size
+ *       command returned zero for the number of buffers, then buffers
+ *       returned by Read_Buffer_Size are shared between BR/EDR and LE.
+ *       On an Primary Controller that supportsLE only, the Read_Buffer_Size
+ *       command shall not be supported (the LE_Read_Buffer_Size command is
+ *       to be used in this case).
+ *       The HC_ACL_Data_Packet_Length return parameter will be used to
+ *       determine the size of the L2CAP segments contained in ACL Data
+ *       Packets, which are transferred from the Host to the Controller to be
+ *       broken up into baseband pack-ets by the Link Manager.
+ *       The HC_Synchronous_Data_Packet_Length return parameter is used to
+ *       determine the maximum size of HCI synchronous Data Packets.
+ *       Both the Host and the Controller must support command and event
+ *       packets, where the data portion (excluding header) contained in the
+ *       packets is 255 octets in size. The HC_Total_Num_ACL_Data_Packets
+ *       return parameter contains the total number of HCI ACL Data Packets
+ *       that can be stored in the data buffers of the Controller. The Host
+ *       will determine how the buffers are to be divided between different
+ *       Connection Handles. The HC_Total_Num_Synchronous_Data_Packets return
+ *       parameter gives the sameinformation but for HCI synchronous Data
+ *       Packets.
+ *       Note: The HC_ACL_Data_Packet_Length and
+ *       HC_Synchronous_Data_Packet_Length return parameters do not include
+ *       the length of the HCI Data Packet header.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_read_buffer_size() \
+        hci_common_api_handler_no_params (HCI_READ_BUFFER_SIZE_OPCODE)
+#endif /* HCI_READ_BUFFER_SIZE_SUPPORT */
+
+
+#ifdef HCI_ENH_SCO
+/**
+ *  \brief To read list of codecs supported by the Controller.
+ *
+ *  \par Description:
+ *  This command reads a list of the Bluetooth SIG approved codecs supported
+ *  by the Controller, as well as vendor specific codecs, which are defined
+ *  by an individual manufacturer.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_read_local_supported_codecs() \
+        hci_common_api_handler_no_params \
+        (HCI_READ_LOCAL_SUPPORTED_CODECS_OPCODE)
+#endif /* HCI_ENH_SCO */
+
+/* ------------------------------------------------------------------------- */
+
+/* HCI Status Parameters APIs ---------------------------------------------- */
+
+#ifdef HCI_READ_RSSI_SUPPORT
+/**
+ *  \brief To retrieve the RSSI value for an ACL or BLE connection.
+ *
+ *  \par Description:
+ *       This API reads the value of Received Signal Strength Indication (RSSI)
+ *       value from the controller.
+ *       For a BR/EDR Controller, a Connection_Handle is used as the Handle
+ *       command parameter and return parameter. The RSSI parameter returns
+ *       the difference between the measured Received Signal Strength
+ *       Indication (RSSI) and the limits of the Golden Receive Power Range
+ *       for a Connection Handle to another BR/EDR Controller.
+ *       The Connection_Handle must be a Connection_Handle for an ACL
+ *       connection. Any positive RSSI value returned by the Controller
+ *       indicates how many dB the RSSI is above the upper limit, any
+ *       negative value indicates how many dB the RSSI is below the lower
+ *       limit. The value zero indicates that the RSSI is inside the Golden
+ *       Receive Power Range.
+ *       Note: How accurate the dB values will be depends on the Bluetooth
+ *       hardware. The only requirements for the hardware are that the BR/EDR
+ *       Controller is able to tell whether the RSSI is inside, above or below
+ *       the Golden Device Power Range.
+ *       The RSSI measurement compares the received signal power with two
+ *       threshold levels, which define the Golden Receive Power Range.
+ *       The lower threshold level corresponds to a received power between
+ *       -56 dBm and 6 dB above the actual sensitivity of the receiver.
+ *       The upper threshold level is 20 dB above the lower threshold level
+ *       to an accuracy of +/- 6 dB.
+ *       For an AMP Controller, a Physical_Link_Handle is used for the Handle
+ *       command parameter and return parameter. The meaning of the RSSI metric
+ *       is AMP type specific and defined in the AMP PALs.
+ *       For an LE transport, a Connection_Handle is used as the Handle command
+ *       parameter and return parameter. The meaning of the RSSI metric is an
+ *       absolute receiver signal strength value in dBm to ± 6 dBm accuracy.
+ *       If the RSSI cannot be read, the RSSI metric shall be set to 127.
+ *
+ *  \param [in] connection_handle
+ *         The Connection Handle to be used to identify the connection
+ *         for reading the RSSI.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_read_rssi(connection_handle) \
+        hci_write_command_connection_handle \
+        ( \
+               HCI_READ_RSSI_OPCODE, \
+               (connection_handle) \
+        )
+#endif /* HCI_READ_RSSI_SUPPORT */
+
+/* ------------------------------------------------------------------------- */
+/* HCI Bluetooth Low Energy API's ----------------------------------------------- */
+
+#ifdef BT_4_0
+#ifdef HCI_LE_SET_EVENT_MASK_SUPPORT
+/**
+ *  \brief To set the LE event mask.
+ *
+ *  \par Description:
+ *    The BT_hci_le_set_event_mask API is used to control which LE events are
+ *    generated by the HCI for the Host. If the bit in the LE_Event_Mask is set
+ *    to a one, then the event associated with that bit will be enabled.
+ *    The Host has to deal with each event that is generated by an LE
+ *    Controller. The event mask allows the Host to control which events will
+ *    interrupt it.
+ *    For LE events to be generated, the LE Meta-Event bit in the Event_Mask
+ *    shall also be set. If thatbit is not set, then LE events not shall be
+ *    generated, regard-less of how the LE_Event_Mask is set.
+ *
+ *  \param p1 LE Event Mask
+ *     - 0x0000000000000000: No LE events specified
+ *     - 0x0000000000000001: LE Connection Complete Event
+ *     - 0x0000000000000002: LE Advertising Report Event
+ *     - 0x0000000000000004: LE Connection Update Complete Event
+ *     - 0x0000000000000008: LE Read Remote Used Features Complete Event
+ *     - 0x0000000000000010: LE Long Term Key Request Event
+ *     - 0x0000000000000020: LE Remote Connection Parameter Request Event
+ *     - 0x0000000000000040: LE Data Length Change Event
+ *     - 0x0000000000000080: LE Read Local P-256 Public Key Complete Event
+ *     - 0x0000000000000100: LE Generate DHKey Complete Event
+ *     - 0x0000000000000200: LE Enhanced Connection Complete Event
+ *     - 0x0000000000000400: LE Direct Advertising Report Event
+ *     - 0x000000000000001F: Default
+ *     - 0xFFFFFFFFFFFFF800: Reserved for future use
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_set_event_mask(p1)  \
+        hci_write_command_UCHAR_array \
+        (HCI_LE_SET_EVENT_MASK_OPCODE, (p1), 8)
+#endif /* HCI_LE_SET_EVENT_MASK_SUPPORT */
+
+#ifdef HCI_LE_READ_BUFFER_SIZE_SUPPORT
+/**
+ *  \brief To read the size and number of buffers the local Bluetooth
+ *         controller maintains for outgoing LE data.
+ *
+ *  \par Description:
+ *       This API is usedto read the maximum size of the data portion of HCI
+ *       LE ACL Data Packets sent from the Host to the Controller.
+ *       The Host will segment the data transmitted to the Controller
+ *       according to these values, so that the HCIData Packets will contain
+ *       datawith up to this size. The LE_Read_Buffer_Size command also returns
+ *       the total number of HCI LE ACL Data Packets that can be stored in the
+ *       data buffers of the Controller. The LE_Read_Buffer_Size command must
+ *       be issued by the Host before it sends any data to an LE Controller.
+ *       If the Controller returns a length value of zero, the Host shall use
+ *       the Read_Buffer_Size command to determine the size of the data
+ *       buffers (shared between BR/EDR and LE transports).
+ *       Note: Both the Read_Buffer_Size and LE_Read_Buffer_Size commands may
+ *       return buffer length parameter valuesthat are non-zero. This allows
+ *       a Controller to offer differentsized buffers for BR/EDRdata packets
+ *       and LE data packets.
+ *       The HC_LE_ACL_Data_Packet_Length return parameter shall be used to
+ *       determine the size of the L2CAP PDU segments contained in ACL Data
+ *       Packets, which are transferred from the Host to the Controller to be
+ *       broken up into packets by the Link Layer. Both the Host and the
+ *       Controller shall support command and event packets, where the data
+ *       portion (excluding header) contained in the packets is 255 octets in
+ *       size. The HC_Total_Num_LE_ACL_Data_Packets return parameter contains
+ *       the total number of HCI ACL Data Packets that can be stored in the
+ *       data buffers of the Controller. The Host determines how the buffers
+ *       are to be divided between different Connection Handles.
+ *       Note: The HC_LE_ACL_Data_Packet_Length return parameter does not
+ *       include the length of the HCI Data Packet header.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_read_buffer_size()  \
+        hci_common_api_handler_no_params \
+        (HCI_LE_READ_BUFFER_SIZE_OPCODE)
+#endif /* HCI_LE_READ_BUFFER_SIZE_SUPPORT */
+
+#ifdef HCI_LE_READ_LOCAL_SUPPORTED_FEATURES_SUPPORT
+/**
+ *  \brief To read supported LE features by local Bluetooth Controller.
+ *
+ *  \par Description:
+ *       This API can be used to request the list of the supported LE features.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_read_local_supported_features()  \
+        hci_common_api_handler_no_params \
+        (HCI_LE_READ_LOCAL_SUPPORTED_FEATURES_OPCODE)
+#endif /* HCI_LE_READ_LOCAL_SUPPORTED_FEATURES_SUPPORT */
+
+#ifdef HCI_LE_SET_RANDOM_ADDRESS_SUPPORT
+/**
+ *  \brief To set the LE Random Device Address of local Bluetooth Device.
+ *
+ *  \par Description:
+ *       This API can be used to set the LE Random Device Address in the
+ *       Controller.
+ *
+ *  \param  rand_addr
+ *          LE Random Device Address
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_set_random_address(rand_addr)  \
+        hci_write_command_UCHAR_array \
+        (HCI_LE_SET_RANDOM_ADDRESS_OPCODE, (rand_addr), BT_BD_ADDR_SIZE)
+#endif /* HCI_LE_SET_RANDOM_ADDRESS_SUPPORT */
+
+#ifdef HCI_LE_SET_ADVERTISING_PARAMETERS_SUPPORT
+/**
+ *  \brief To set advertising parameters.
+ *
+ *  \par Description:
+ *       This API can be used to set the advertising parameters.
+ *       The Advertising_Interval_Min shall be less than or equal to the
+ *       Advertising_Interval_Max. The Advertising_Interval_Min and
+ *       Advertising_Interval_Max should not be the same value to enable the
+ *       Controller to determine the bestadvertising interval given other
+ *       activities. For directed advertising, when Advertising_Type is
+ *       0x01 (ADV_DIRECT_IND), the Advertising_Interval_Min and
+ *       Advertising_Interval_Max parameters are not used and shall be ignored.
+ *       The Advertising_Type is used to determine the packet type that is used
+ *       for advertising when advertising is enabled.
+ *       The Advertising_Interval_Min and Advertising_Interval_Max shall not be
+ *       set to less than 0x00A0 (100 ms) if the Advertising_Type is set to
+ *       0x02 (ADV_SCAN_IND) or 0x03 (ADV_NONCONN_IND). The Own_Address_Type
+ *       determines if the advertising packets are identified with the Public
+ *       Device Address of the device, or a Random Device Address as written by
+ *       the LE_Set_Random_Address command.
+ *       If directed advertising is performed, then the Direct_Address_Type and
+ *       Direct_Address shall be valid, otherwise they shall be ignored by the
+ *       Controller and not used. The Advertising_Channel_Map is a bit field
+ *       that indicates the advertising channels that shall be used when
+ *       transmitting advertising packets. At least one channel bit shall be
+ *       set in the Advertising_Channel_Map parameter.
+ *       The Advertising_Filter_Policy parameter shall be ignored when directed
+ *       advertising is enabled.
+ *
+ *  \param  advertising_interval_min
+ *          Minimum advertising interval for non-directed advertising.
+ *
+ *  \param  advertising_interval_max
+ *          Maximum advertising interval for non-directed advertising.
+ *
+ *  \param  advertising_type
+ *          One of the following types.
+ *          0x00: Connectable undirected advertising (ADV_IND) (default)
+ *          0x01: Connectable directed advertising (ADV_DIRECT_IND)
+ *          0x02: Scannable undirected advertising (ADV_SCAN_IND)
+ *          0x03: Non-connectable undirected advertising (ADV_NONCONN_IND)
+ *
+ *  \param  own_addr_type
+ *          Address Type of Local Device - Public (0x00) or Random (0x01).
+ *
+ *  \param  direct_addr_type
+ *          Address Type of Remote Device - Public (0x00) or Random (0x01).
+ *          Used in the case of directed advertising, otherwise ignored.
+ *
+ *  \param  direct_addr
+ *          Bluetooth Device Address of Remote Device.
+ *          Used in the case of directed advertising, otherwise ignored.
+ *
+ *  \param  advertising_channel_map
+ *          Channle map selection, using bitmask.
+ *          xxxxxxx1b: Enable channel 37 use
+ *          xxxxxx1xb: Enable channel 38 use
+ *          xxxxx1xxb: Enable channel 39 use
+ *
+ *  \param  advertising_filter_policy
+ *          One of the following values
+ *          0x00: Allow Scan Request from Any,
+ *                Allow Connect Request from Any (default).
+ *          0x01: Allow Scan Request from White List Only,
+ *                Allow Connect Request from Any.
+ *          0x02: Allow Scan Request from Any,
+ *                Allow Connect Request from White List Only.
+ *          0x03: Allow Scan Request from White List Only,
+ *                Allow Connect Request from White List Only.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+API_RESULT BT_hci_le_set_advertising_parameters
+           (
+                UINT16   advertising_interval_min,
+                UINT16   advertising_interval_max,
+                UCHAR    advertising_type,
+                UCHAR    own_addr_type,
+                UCHAR    direct_addr_type,
+                UCHAR *  direct_addr,
+                UCHAR    advertising_channel_map,
+                UCHAR    advertising_filter_policy
+           );
+#endif /* HCI_LE_SET_ADVERTISING_PARAMETERS_SUPPORT */
+
+#ifdef HCI_LE_READ_ADVERTISING_CHANNEL_TX_POWER_SUPPORT
+/**
+ *  \brief To read the transmit power level used for LE advertising channel
+ *         packets.
+ *
+ *  \par Description:
+ *       This API can be used to read the transmit power level used for LE
+ *       advertising channel packets.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_read_advertising_channel_tx_power()  \
+        hci_common_api_handler_no_params \
+        (HCI_LE_READ_ADVERTISING_CHANNEL_TX_POWER_OPCODE)
+#endif /* HCI_LE_READ_ADVERTISING_CHANNEL_TX_POWER_SUPPORT */
+
+#ifdef HCI_LE_SET_ADVERTISING_DATA_SUPPORT
+/**
+ *  \brief To set advertising data used in advertsing packets that have a data
+ *  field.
+ *
+ *  \par Description:
+ *       This API is used to set the data used in advertsing packets
+ *       that have a data field.
+ *
+ *  \param advertising_data_len
+ *         The number of significantoctets in the Advertising_Data.
+ *
+ *  \param advertising_data
+ *         Advertising data.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_set_advertising_data(advertising_data_len, advertising_data)\
+        hci_write_command_adv_scan_response_data \
+        ( \
+            HCI_LE_SET_ADVERTISING_DATA_OPCODE, \
+            (advertising_data_len), \
+            (advertising_data) \
+        )
+#endif /* HCI_LE_SET_ADVERTISING_DATA_SUPPORT */
+
+#ifdef HCI_LE_SET_SCAN_RESPONSE_DATA_SUPPORT
+/**
+ *  \brief To provide data used in Scanning Packets that have a data field.
+ *
+ *  \par Description:
+ *       This API can be used to set the data used in Scanning Packets that
+ *       have a data field.
+ *
+ *  \param scan_data_len
+ *         The number of significant octets in the Scan_Response_Data
+ *
+ *  \param scan_data
+ *         Scan data used in scan packets
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_set_scan_response_data(scan_data_len, scan_data) \
+        hci_write_command_adv_scan_response_data \
+        ( \
+            HCI_LE_SET_SCAN_RESPONSE_DATA_OPCODE, \
+            (scan_data_len), \
+            (scan_data) \
+        )
+#endif /* HCI_LE_SET_SCAN_RESPONSE_DATA_SUPPORT */
+
+#ifdef HCI_LE_SET_ADVERTISING_ENABLE_SUPPORT
+/**
+ *  \brief To request the local Bluetooth Device to start or stop advertising.
+ *
+ *  \par Description:
+ *       This API can be used to request the Controller to start or stop
+ *       advertising. The timing of advertisements as per the advertising
+ *       parameters as set using \ref BT_hci_le_set_advertising_parameters
+ *       API.
+ *
+ *       The device will continue advertising until another
+ *       \ref BT_hci_le_set_advertising_enable with advertising_enable set to
+ *       0x00 (Advertising is disabled) or until a connection is created or
+ *       until the Advertising is timed out due to Directed Advertising.
+ *       In these cases, advertising is then disabled.
+ *
+ *  \param advertising_enable
+ *       Enable/Disable Advertising
+ *       0x00: Disable Advertising
+ *       0x01: Enable Advertising
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_set_advertising_enable(advertising_enable)  \
+        hci_write_command_UCHAR \
+        (HCI_LE_SET_ADVERTISING_ENABLE_OPCODE, (advertising_enable))
+#endif /* HCI_LE_SET_ADVERTISING_ENABLE_SUPPORT */
+
+#ifdef HCI_LE_SET_SCAN_PARAMETERS_SUPPORT
+/**
+ *  \brief To set scan parameters.
+ *
+ *  \par Description:
+ *       This API can be used to set the scan parameters.
+ *       The LE_Scan_Type parameter controls the type of scan to perform.
+ *       The LE_Scan_Interval and LE_Scan_Window parameters are recommendations
+ *       from the Host on how long (LE_Scan_Window) and how frequently
+ *       (LE_Scan_Interval) the Controller should scan. The LE_Scan_Window
+ *       parameter shall always be set to a value smaller or equal to the value
+ *       set for the LE_Scan_Interval parameter. If they are set to the same
+ *       value scanning should be run continuously.
+ *       The Own_Address_Type parameter determines the address used (Public or
+ *       Random Device Address) when performing active scan.
+ *       The Host shall not issue this command when scanning is enabled in the
+ *       Controller; if it is the Command Disallowed error code shall be used.
+ *
+ *  \param  le_scan_type
+ *          One of the following scan types.
+ *          0x00: Passive Scanning. No SCAN_REQ packets shall be sent (default)
+ *          0x01: Active scanning. SCAN_REQ packets may be sent.
+ *
+ *  \param  le_scan_interval
+ *          The time interval from when the Controller started its last
+ *          LE scan until it begins the subsequent LE scan.
+ *
+ *  \param  le_scan_window
+ *          The duration of the LE scan. LE_Scan_Window shall be less than
+ *          or equal to LE_Scan_Interval
+ *
+ *  \param  own_addr_type
+ *          Address Type of Local Device - Public (0x00) or Random (0x01).
+ *
+ *  \param  scan_filter_policy
+ *          One of the following values
+ *          0x00: Accept all advertisement packets (default).
+ *                Directed advertising packets which are not addressed
+ *                for this device shall be ignored.
+ *          0x01: Ignore advertisement packets from devices not in the White
+ *                List Only.
+ *                Directed advertising packets which are not addressed for
+ *                this device shall be ignored.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+API_RESULT BT_hci_le_set_scan_parameters
+           (
+                UCHAR    le_scan_type,
+                UINT16   le_scan_interval,
+                UINT16   le_scan_window,
+                UCHAR    own_addr_type,
+                UCHAR    scan_filter_policy
+           );
+#endif /* HCI_LE_SET_SCAN_PARAMETERS_SUPPORT */
+
+#ifdef HCI_LE_SET_SCAN_ENABLE_SUPPORT
+/**
+ *  \brief To request the local Bluetooth Device to start or stop scanning.
+ *
+ *  \par Description:
+ *       This API can be used to request the Controller to start or stop
+ *       scanning. Scanning is used to discover advertising devices nearby.
+ *       The Filter_Duplicatesparameter controls whether the Link Layer shall
+ *       filter duplicate advertising reportsto the Host, or if it shall
+ *       generate advertising reports for each packet received.
+ *
+ *  \param le_scan_enable
+ *       Enable/Disable Scanning
+ *       0x00: Disable Scanning
+ *       0x01: Enable Scanning
+ *
+ *  \param filter_dups
+ *       Enable/Disable Duplicate Filtering
+ *       0x00: Disable Duplicate Filtering
+ *       0x01: Enable Duplicate Filtering
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+API_RESULT BT_hci_le_set_scan_enable
+           (
+                UCHAR    le_scan_enable,
+                UCHAR    filter_dups
+           );
+#endif /* HCI_LE_SET_SCAN_ENABLE_SUPPORT */
+
+#ifdef HCI_LE_CREATE_CONNECTION_SUPPORT
+/**
+ *  \brief To create LE Connection with remote device.
+ *
+ *  \par Description:
+ *       This API is used to create a Link Layer connection to a connectable
+ *       advertiser.
+ *       The LE_Scan_Interval and LE_Scan_Window parameters are recommendations
+ *       from the Host on how long (LE_Scan_Window) and how frequently
+ *       (LE_Scan_Interval) the Controller should scan. The LE_Scan_Window
+ *       parameter shall be set to a value smaller or equal to the value set
+ *       for the LE_Scan_Interval parameter. If both are set to the same value,
+ *       scanning should run continuously.
+ *       The Initiator_Filter_Policy is used to determine whether the White
+ *       List is used. If the White List is not used, the Peer_Address_Type and
+ *       the Peer_Address parameters specify the address type and address of
+ *       the advertising device to connect to.
+ *       The Link Layer shall set the address in the CONNECT_REQ packets to
+ *       either the Public Device Address or the Random Device Addressed based
+ *       on the Own_Address_Type parameter.
+ *       The Conn_Interval_Min and Conn_Interval_Max parameters define the
+ *       minimum and maximum allowed connection interval. The Conn_Interval_Min
+ *       parameter shall not be greater thanthe Conn_Interval_Max parameter.
+ *       The Conn_Latency parameter defines the maximum allowed connection
+ *       latency.
+ *       The Supervision_Timeout parameter defines the linksupervision timeout
+ *       for the connection. The Supervision_Timeout in milliseconds shall be
+ *       larger than the Conn_Interval_Max in milliseconds.
+ *       The Minimum_CE_Length and Maximum_CE_Length parameters are informative
+ *       parameters providing the Controller with the expected minimum and
+ *       maximum length of the connection events. The Minimum_CE_Length
+ *       parameter shall be less than or equal to the Maximum_CE_Length
+ *       parameter.
+ *       The Host shall not issue this command when another
+ *       LE_Create_Connection is pending in the Controller; if this does occur
+ *       the Controller shall return the Command Disallowed error code shall
+ *       be used.
+ *
+ *  \param  le_scan_interval
+ *          The time interval from when the Controller started its last
+ *          LE scan until it begins the subsequent LE scan.
+ *
+ *  \param  le_scan_window
+ *          The duration of the LE scan. LE_Scan_Window shall be less than
+ *          or equal to LE_Scan_Interval
+ *
+ *  \param  initiator_filter_policy
+ *          0x00: White list is not used to determine which advertiser
+ *                to connect to.
+ *                Peer_Address_Type and Peer_Address shall be used.
+ *          0x01: White list is used to determine which advertiser
+ *                to connect to.
+ *                Peer_Address_Type and Peer_Address shall be ignored.
+ *
+ *  \param  peer_address_type
+ *          Address Type of Remote Device - Public (0x00) or Random (0x01).
+ *
+ *  \param  peer_address
+ *          Bluetooth Device Address of Remote Device.
+ *
+ *  \param  own_address_type
+ *          Address Type of Local Device - Public (0x00) or Random (0x01).
+ *
+ *  \param  conn_interval_min
+ *          Minimum value for the connection event interval.
+ *          This shall be less than or equal to Conn_Interval_Max.
+ *
+ *  \param  conn_interval_max
+ *          Maximum value for the connection event interval.
+ *          This shall be greater than or equal to Conn_Interval_Min.
+ *
+ *  \param  conn_latency
+ *          Slave latency for the connection in number of connection events.
+ *
+ *  \param  supervision_timeout
+ *          Supervision Timeout for the LE Link.
+ *
+ *  \param  minimum_ce_length
+ *          Information parameter about the minimum length of connection
+ *          needed for this LE connection.
+ *
+ *  \param  maximum_ce_length
+ *          Information parameter about the maximum length of connection
+ *          needed for this LE connection.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+API_RESULT BT_hci_le_create_connection
+           (
+                UINT16   le_scan_interval,
+                UINT16   le_scan_window,
+                UCHAR    initiator_filter_policy,
+                UCHAR    peer_address_type,
+                UCHAR *  peer_address,
+                UCHAR    own_address_type,
+                UINT16   conn_interval_min,
+                UINT16   conn_interval_max,
+                UINT16   conn_latency,
+                UINT16   supervision_timeout,
+                UINT16   maximum_ce_length,
+                UINT16   minimum_ce_length
+           );
+#endif /* HCI_LE_CREATE_CONNECTION_SUPPORT */
+
+#ifdef HCI_LE_CREATE_CONNECTION_CANCEL_SUPPORT
+/**
+ *  \brief To cancel the Create Connection procedure.
+ *
+ *  \par Description:
+ *       This API is used to cancel the LE_Create_Connection command.
+ *       This API shall only be initiated after
+ *       \ref BT_hci_le_create_connection has been initiated.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_create_connection_cancel()  \
+        hci_common_api_handler_no_params \
+        (HCI_LE_CREATE_CONNECTION_CANCEL_OPCODE)
+#endif /* HCI_LE_CREATE_CONNECTION_CANCEL_SUPPORT */
+
+#ifdef HCI_LE_READ_WHITE_LIST_SIZE_SUPPORT
+/**
+ *  \brief To read the total number of white list entries that can be stored
+ *         in the local Device.
+ *
+ *  \par Description:
+ *       This API can be used to read the total number of white list entries
+ *       that can be stored in the local device.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_read_white_list_size()  \
+        hci_common_api_handler_no_params \
+        (HCI_LE_READ_WHITE_LIST_SIZE_OPCODE)
+#endif /* HCI_LE_READ_WHITE_LIST_SIZE_SUPPORT */
+
+#ifdef HCI_LE_CLEAR_WHITE_LIST_SUPPORT
+/**
+ *  \brief To clear the white list stored in the local device.
+ *
+ *  \par Description:
+ *       This API can be used to clear the white list stored in the local
+ *       device.
+ *       This command can be used at any time except when:
+ *       - The advertising filter policy uses the white list and advertising is
+ *          enabled.
+ *       - The scanning filter policy uses white list and scanning is enabled.
+ *       - The initiator filter policy uses the white list and a response to
+ *         \ref BT_hci_le_create_connection API is outstanding.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_clear_white_list()  \
+        hci_common_api_handler_no_params \
+        (HCI_LE_CLEAR_WHITE_LIST_OPCODE)
+#endif /* HCI_LE_CLEAR_WHITE_LIST_SUPPORT */
+
+#if ((defined HCI_LE_ADD_DEVICE_TO_WHITE_LIST_SUPPORT) || \
+     (defined HCI_LE_REMOVE_DEVICE_FROM_WHITE_LIST_SUPPORT))
+/**
+ * \cond ignore_this Ignore this fundtion while generating doxygen document
+ */
+API_RESULT BT_hci_le_add_remove_device_to_white_list
+           (
+                UINT16   opcode,
+                UCHAR    addr_type,
+                UCHAR *  addr
+           );
+/**
+ * \endcond
+ */
+#endif
+
+#ifdef HCI_LE_ADD_DEVICE_TO_WHITE_LIST_SUPPORT
+/**
+ *  \brief To add a single device to the white list stored in the local device.
+ *
+ *  \par Description:
+ *       This API can be used to add a single device to the white list
+ *       stored in the local device.
+ *       This command can be used at any time except when:
+ *       - The advertising filter policy uses the white list and advertising is
+ *          enabled.
+ *       - The scanning filter policy uses the white list and
+ *         scanning is enabled.
+ *       - The initiator filter policy uses the white list and a response to
+ *         \ref BT_hci_le_create_connection API is outstanding.
+ *
+ *  \param addr_type
+ *         Bluetooth Device Address Type of the device address to be added.
+ *  \param addr
+ *         Bluetooth Device Address to be added to the white list.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_add_device_to_white_list(addr_type, addr)\
+        BT_hci_le_add_remove_device_to_white_list\
+        (HCI_LE_ADD_DEVICE_TO_WHITE_LIST_OPCODE, (addr_type), (addr))
+#endif /* HCI_LE_ADD_DEVICE_TO_WHITE_LIST_SUPPORT */
+
+#ifdef HCI_LE_REMOVE_DEVICE_FROM_WHITE_LIST_SUPPORT
+/**
+ *  \brief To remove a single device from the white list stored in the local
+ *         device.
+ *
+ *  \par Description:
+ *       This API can be used to remove a single device from the white list
+ *       stored in the local device.
+ *       This command can be used at any time except when:
+ *       - The advertising filter policy uses the white list and advertising is
+ *         enabled.
+ *       - The scanning filter policy uses the white list and scanning is
+ *         enabled.
+ *       - The initiator filter policy uses the white list and a response to
+ *         \ref BT_hci_le_create_connection API is outstanding.
+ *
+ *  \param addr_type
+ *         Bluetooth Device Address Type of the device address to be removed.
+ *  \param addr
+ *         Bluetooth Device Address to be removed.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_remove_device_from_white_list(addr_type, addr)\
+        BT_hci_le_add_remove_device_to_white_list\
+        (HCI_LE_REMOVE_DEVICE_FROM_WHITE_LIST_OPCODE , (addr_type), (addr))
+#endif /* HCI_LE_REMOVE_DEVICE_FROM_WHITE_LIST_SUPPORT */
+
+#ifdef HCI_LE_CONNECTION_UPDATE_SUPPORT
+/**
+ *  \brief To change LE Connection Parameters with remote device.
+ *
+ *  \par Description:
+ *       This API is used to change the Link Layer connection parameters of
+ *       a connection. This command shall only be used when the local device’s
+ *       role is Master.
+ *       The Conn_Interval_Min and Conn_Interval_Max parameters are used to
+ *       define the minimum and maximum allowed connection interval. The
+ *       Conn_Interval_Min parameter shall not be greater than the
+ *       Conn_Interval_Max parameter.
+ *       The Conn_Latency parameter shall define the maximum allowed
+ *       connection latency.
+ *       The Supervision_Timeout parameter shall define the link supervision
+ *       timeout for the LE link. The Supervision_Timeout shall be larger than
+ *       the Conn_Interval_Max.
+ *       The Minimum_CE_Length and Maximum_CE_Length are information parameters
+ *       providing the Controller with a hint about the expected minimum and
+ *       maximum length of the connection events. The Minimum_CE_Length shall
+ *       be less than or equal to the Maximum_CE_Length.
+ *
+ *  \param  connection_handle
+ *          Connection handle to identify the connection.
+ *
+ *  \param  conn_interval_min
+ *          Minimum value for the connection event interval.
+ *          This shall be less than or equal to Conn_Interval_Max.
+ *
+ *  \param  conn_interval_max
+ *          Maximum value for the connection event interval.
+ *          This shall be greater than or equal to Conn_Interval_Min.
+ *
+ *  \param  conn_latency
+ *          Slave latency for the connection in number of connection events.
+ *
+ *  \param  supervision_timeout
+ *          Supervision Timeout for the LE Link.
+ *
+ *  \param  minimum_ce_length
+ *          Information parameter about the minimum length of connection
+ *          needed for this LE connection.
+ *
+ *  \param  maximum_ce_length
+ *          Information parameter about the maximum length of connection
+ *          needed for this LE connection.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+API_RESULT BT_hci_le_connection_update
+           (
+                UINT16   connection_handle,
+                UINT16   conn_interval_min,
+                UINT16   conn_interval_max,
+                UINT16   conn_latency,
+                UINT16   supervision_timeout,
+                UINT16   minimum_ce_length,
+                UINT16   maximum_ce_length
+           );
+#endif /* HCI_LE_CONNECTION_UPDATE_SUPPORT */
+
+#ifdef HCI_LE_SET_HOST_CHANNEL_CLASSIFICATION_SUPPORT
+/**
+ *  \brief To specify a channel classification for data channels based on its
+ *         \"local information\".
+ *
+ *  \par Description:
+ *       This API is used to specify a channel classification for data
+ *       channels based on its \"local information\". This classification
+ *       persists until overwritten with a subsequent
+ *       \ref BT_hci_le_set_host_channel_classification API is initiated or
+ *       until the Controller is reset.
+ *       If this command is used, the Host should send it within 10 seconds
+ *       of knowing that the channel classification has changed. The interval
+ *       between two successive commands sent shall be at least one second.
+ *       This command shall only be used when the local device supports
+ *       the Master role.
+ *
+ *  \param  channel_map
+ *          This parameter contains 5 octet byte stream conatining, 37 1-bit
+ *          fields. The nth such field (in the range 0 to 36) contains the
+ *          value for the link laye channel index n.
+ *          - Channel n is bad: 0
+ *          - Channel n is unknown: 1
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_set_host_channel_classification(channel_map)  \
+        hci_write_command_UCHAR_array \
+        (HCI_LE_SET_HOST_CHANNEL_CLASSIFICATION_OPCODE, (channel_map), 5)
+#endif /* HCI_LE_SET_HOST_CHANNEL_CLASSIFICATION_SUPPORT */
+
+#ifdef HCI_LE_READ_CHANNEL_MAP_SUPPORT
+/**
+ *  \brief To read current channel map for specified connection handle.
+ *
+ *  \par Description:
+ *       This API can be used to read current channel map for the specified
+ *       connection handle.
+ *       The returned value indicates the state of the Channel_Map specified
+ *       by the last transmitted or received Channel_Map (in a CONNECT_REQ or
+ *       LL_CHANNEL_MAP_REQ message) for the specified Connection_Handle,
+ *       regardless of whether the Master has received an acknowledgement.
+ *
+ *  \param conn_handle
+ *         Connection Handle to be used to identify remote device.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_read_channel_map(conn_handle)  \
+        hci_write_command_connection_handle \
+        (HCI_LE_READ_CHANNEL_MAP_OPCODE, (conn_handle))
+#endif /* HCI_LE_READ_CHANNEL_MAP_SUPPORT */
+
+#ifdef HCI_LE_READ_REMOTE_USED_FEATURES_SUPPORT
+/**
+ *  \brief To read a list of the used LE features from the remote device.
+ *
+ *  \par Description:
+ *       This API can be used to request for the list of used LE features from
+ *       remote device which is associated with specfied connection handle.
+ *
+ *  \param conn_handle
+ *         Connection Handle to be used to identify remote device.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_read_remote_used_features(conn_handle)  \
+        hci_write_command_connection_handle \
+        (HCI_LE_READ_REMOTE_USED_FEATURES_OPCODE, (conn_handle))
+#endif /* HCI_LE_READ_REMOTE_USED_FEATURES_SUPPORT */
+
+#ifdef HCI_LE_ENCRYPT_SUPPORT
+/**
+ *  \brief To perform AES Encryption.
+ *
+ *  \par Description:
+ *       The LE_Encrypt command is used to request the Controller to encrypt
+ *       the Plaintext_Data in the command using the Key given in the command
+ *       and returns the Encrypted_Data to the Host. The AES-128 bit block
+ *       cypher is defined in NIST Publication FIPS-197.
+
+ *  \param key
+ *         128 bit key for the encryption of the data given in the command.
+ *         The most significant octet of the key corresponds to key[0] using
+ *         the notation specified in FIPS 197.
+ *  \param plain_text
+ *         128 bit data block that is requested to be encrypted.
+ *         The most significant octet of the PlainText_Data corresponds to
+ *         in[0] using the notation specified in FIPS 197.
+ *  \param cmd_counter
+ *         Command Counter
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+API_RESULT BT_hci_le_encrypt
+           (
+                UCHAR *  key,
+                UCHAR *  plain_text,
+                UCHAR *  cmd_counter
+           );
+#endif /* HCI_LE_ENCRYPT_SUPPORT */
+
+#ifdef HCI_LE_RAND_SUPPORT
+/**
+ *  \brief To request for 8 octects of random data to be generated.
+ *
+ *  \par Description:
+ *       This API can be used to request for 8 octects of random data to be
+ *       generated.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_rand()  \
+        hci_common_api_handler_no_params \
+        (HCI_LE_RAND_OPCODE)
+#endif /* HCI_LE_RAND_SUPPORT */
+
+#ifdef HCI_LE_START_ENCRYPTION_SUPPORT
+/**
+ *  \brief To request for encryption or re-encryption of a BLE connection.
+ *
+ *  \par Description:
+ *       This API is used to authenticate the given encryption key associated
+ *       with the remote device specified by the connection handle, and once
+ *       authenticated will encrypt the connection.
+ *       If the connection is already encrypted then the Controller shall
+ *       pause connection encryption before attempting to authenticate the
+ *       given encryption key, and then re-encrypt the connection. While
+ *       encryption is paused no user data shall be transmitted.
+ *       On an authentication failure, the connection shall be automatically
+ *       disconnected by the Link Layer. If this command succeeds, then the
+ *       connection shall be encrypted.
+ *       This command shall only beused when the local device’s role is Master.
+ *
+ *  \param conn_handle
+ *         Connection handle to identify the connection
+ *
+ *  \param random_number
+ *         64-bit Random Number
+ *
+ *  \param encrypted_diversifier
+ *         16-bit encryption diversifier (ediv)
+ *
+ *  \param long_term_key
+ *         128-bit long term key (LTK)
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+API_RESULT BT_hci_le_start_encryption
+           (
+                UINT16   conn_handle,
+                UCHAR *  random_number,
+                UINT16   encrypted_diversifier,
+                UCHAR *  long_term_key
+           );
+#endif /* HCI_LE_START_ENCRYPTION_SUPPORT */
+
+#ifdef HCI_LE_LONG_TERM_KEY_REQUESTED_REPLY_SUPPORT
+/**
+ *  \brief To respond for LE_Long_Term_Key_Request.
+ *
+ *  \par Description:
+ *       The LE_Long_Term_Key_Request Reply command is used to reply to an LE
+ *       Long Term Key Request event from the Controller, and specifies the
+ *       Long_Term_Key parameter that shall be used for this Connection_Handle.
+ *
+ *  \param connection_handle
+ *         Connection handle to identify the connection.
+ *
+ *  \param long_term_key
+ *         128-bit long term key (LTK) for the given connection.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+API_RESULT BT_hci_le_long_term_key_requested_reply
+           (
+                UINT16   connection_handle,
+                UCHAR *  long_term_key
+           );
+#endif /* HCI_LE_LONG_TERM_KEY_REQUESTED_REPLY_SUPPORT */
+
+#ifdef HCI_LE_LONG_TERM_KEY_REQUESTED_NEGATIVE_REPLY_SUPPORT
+/**
+ *  \brief To reply with a negative response for a Long Term Key request.
+ *
+ *  \par Description:
+ *       This API can be used to reply to an LE Long Term Key Request event
+ *       from the Controller if the Host cannot provide a Long Term Key for
+ *       this Connection_Handle.
+ *
+ *  \param conn_handle
+ *         Connection handle to identify the connection.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_long_term_key_requested_negative_reply(conn_handle)  \
+        hci_write_command_connection_handle \
+        (HCI_LE_LONG_TERM_KEY_REQUESTED_NEGATIVE_REPLY_OPCODE, (conn_handle))
+#endif /* HCI_LE_LONG_TERM_KEY_REQUESTED_NEGATIVE_REPLY_SUPPORT */
+
+#ifdef HCI_LE_READ_SUPPORTED_STATES_SUPPORT
+/**
+ *  \brief To read local Bluetooth device supported states and state
+ *         combinations.
+ *
+ *  \par Description:
+ *       This API can be used to read local Bluetooth device supported states
+ *       and state combinations.
+ *       The state and state combination is 8 octect bit field. If a bit is set
+ *       to 1 then this state or state combination is suppoted by controller.
+ *       Multiple bits in LE_States may be set to 1 to indicate support for
+ *       multiple state and state combinations.
+ *       All the Advertising type withthe Initiate State combinations shall be
+ *       set only if the corresponding Advertising types and Master Role
+ *       combination are set.
+ *       All the Scanning types and the Initiate State combinations shall be
+ *       set only if the corresponding Scanning types and Master Role
+ *       combination are set.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_read_supported_states()  \
+        hci_common_api_handler_no_params \
+        (HCI_LE_READ_SUPPORTED_STATES_OPCODE)
+#endif /* HCI_LE_READ_SUPPORTED_STATES_SUPPORT */
+
+#ifdef HCI_LE_RECEIVER_TEST_COMMAND_SUPPORT
+/**
+ *  \brief To start a test where the DUT receives test reference packets at a
+ *  fixed interval.
+ *
+ *  \par Description:
+ *       This API can be used to  start a test where the DUT receives test
+ *       reference packets at a fixed interval. The tester generates the
+ *       test reference packets.
+ *
+ *  \param rx_freq Receive frequency range.
+ *                 rx_freq : N = (F - 2402) / 2
+ *                 Range: 0x00 - 0x27.
+ *                 Frequency Range : 2402 MHz to 2480 MHz
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_receiver_test_command(rx_freq)  \
+        hci_write_command_UCHAR \
+        (HCI_LE_RECEIVER_TEST_COMMAND_OPCODE, (rx_freq))
+#endif /* HCI_LE_RECEIVER_TEST_COMMAND_SUPPORT */
+
+#ifdef HCI_LE_TRANSMITTER_TEST_COMMAND_SUPPORT
+/**
+ *  \brief To start a test where the DUT generates test reference
+ *         packets at a fixed interval.
+ *
+ *  \par Description:
+ *       This API can be used to start a test where the DUT generates
+ *       test reference packets at a fixed interval. The Bluetooth device
+ *       shall transmit at maximum power.
+ *       An LE Controller supporting the LE_Transmitter_Test command shall
+ *       support Packet_Payload values 0x00, 0x01 and 0x02. An LE Controller
+ *       may support other values of Packet_Payload.
+ *
+ *  \param tx_frequency
+ *         Trasmit frequency<br>
+ *         tx_frequency = (F - 2402) / 2<br>
+ *         Value Range: 0x00 to 0x27.<br>
+ *         Frequency Range : 2402 MHz to 2480 MHz
+ *  \param test_data_length
+ *         Length in bytes of payload data in each packet<br>
+ *         Range: 0x00 to 0x25
+ *  \param packet_payload
+ *         Packet payload
+ *          - Pseudo-Random bit sequence 9: 0x00
+ *          - Pattern of alternating bits 11110000: 0x01
+ *          - Pattern of alternating bits 10101010: 0x02
+ *          - Pseudo-Random bit sequence 15: 0x03
+ *          - Pattern of All 1 bits: 0x04
+ *          - Pattern of All ‘0’ bits: 0x05
+ *          - Pattern of alternating bits 00001111: 0x06
+ *          - Pattern of alternating bits 0101: 0x07
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+API_RESULT BT_hci_le_transmitter_test_command
+           (
+                UCHAR    tx_frequency,
+                UCHAR    test_data_length,
+                UCHAR    packet_payload
+           );
+#endif /* HCI_LE_TRANSMITTER_TEST_COMMAND_SUPPORT */
+
+#ifdef HCI_LE_TEST_END_SUPPORT
+/**
+ *  \brief To stop any test which is in progress.
+ *
+ *  \par Description:
+ *       This API can be used to stop any test which is in progress.
+ *       The Number_Of_Packets for a transmitter test shall bereported as
+ *       0x0000. The Number_Of_Packets is an unsigned number and contains
+ *       the number of received packets.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_test_end()  \
+        hci_common_api_handler_no_params \
+        (HCI_LE_TEST_END_OPCODE)
+#endif /* HCI_LE_TEST_END_SUPPORT */
+
+#endif /* BT_4_0 */
+
+#ifdef HCI_READ_AUTHENTICATED_PAYLOAD_TIMEOUT_SUPPORT
+/**
+ *  \brief To read authenticated payload timeout for a connection.
+ *
+ *  \par Description:
+ *       This command reads the Authenticated_Payload_Timeout parameter in the
+ *       Primary Controller on the specified Connection_Handle.
+ *       When the Connection_Handle is associated with an ACL connection,
+ *       the The Link Manager will use this parameter to trigger when to use
+ *       the LMP ping sequence. When the Connection_Handle is associated with
+ *       an LE connection, the Link Layer will use this parameter to trigger
+ *       when to use the LE ping sequence.
+ *
+ *  \param [in] connection_handle
+ *         Connection Handle of the ACL Connection with
+ *         the remote Bluetooth device.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_read_authenticated_payload_timeout(connection_handle) \
+        hci_write_command_connection_handle \
+        ( \
+               HCI_READ_AUTHENTICATED_PAYLOAD_TIMEOUT_OPCODE, \
+               (connection_handle) \
+        )
+#endif /* HCI_READ_AUTHENTICATED_PAYLOAD_TIMEOUT_SUPPORT */
+
+#ifdef HCI_WRITE_AUTHENTICATED_PAYLOAD_TIMEOUT_SUPPORT
+/**
+ *  \brief To write authenticated payload timeout for a connection.
+ *
+ *  \par Description:
+ *       This command writes the Authenticated_Payload_Timeout parameter in
+ *       the Primary Controller for the specified Connection_Handle.
+ *       When the Connection_Handle identifies a BR/EDR ACL connection and
+ *       the connection is in sniff mode, the Authenticated_Payload_Timeout
+ *       shall be equal to or greater than Tsniff. If the connection is in sniff
+ *       subrating mode, the Authenticated_Payload_Timeout shall be equal to or
+ *       greater than (max subrate)xTsniff. If the connection is put into hold
+ *       mode, the Authenticated_Payload_Timeout shall be equal to or greater
+ *       than the holdTO value. If the connection is in Park state or if the
+ *       Connection_Handle corresponds to a synchronous connection, this command
+ *       shall be rejected with the error code Command Disallowed (0x0C).
+ *
+ *       When the Connection_Handle identifies an LE connection,
+ *       the Authenticated_Payload_Timeout shall be equal to or greater than
+ *       connInterval * (1 + connSlaveLatency) if the device is master and equal
+ *       to or greater than connInterval if the device is slave.
+ *
+ *       The master of an LE connection may change the connInterval resulting it
+ *       to be larger than the Authentication_Payload_Timeout used by LE slave.
+ *       In this case, the slave Host may receive one or more Authentication
+ *       Payload Timeout Expired events without sending LL_PING_REQ
+ *       to the master.
+ *
+ *  \param [in] connection_handle
+ *         Connection Handle of the ACL Connection with
+ *         the remote Bluetooth device.
+ *
+ *  \param [in] authenticated_payload_timeout
+ *         Authenticated Payload Timeout.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+API_RESULT BT_hci_write_authenticated_payload_timeout
+          (
+              /* IN */ UINT16 connection_handle,
+              /* IN */ UINT16 authenticated_payload_timeout
+          );
+#endif /* HCI_WRITE_AUTHENTICATED_PAYLOAD_TIMEOUT_SUPPORT */
+
+/* HCI Testing Commands APIs ----------------------------------------------- */
+
+#ifdef HCI_TESTING_COMMANDS
+
+#define BT_hci_read_loopback_mode() \
+        hci_common_api_handler_no_params (HCI_READ_LOOPBACK_MODE_OPCODE)
+
+API_RESULT BT_hci_write_loopback_mode
+           (
+               UCHAR     loopback_mode
+           );
+
+#define BT_hci_enable_device_under_test_mode() \
+        hci_common_api_handler_no_params \
+        (HCI_ENABLE_DEVICE_UNDER_TEST_MODE_OPCODE)
+
+#endif /* HCI_TESTING_COMMANDS */
+
+#ifdef BT_BRSC_TEST
+API_RESULT BT_hci_write_secure_connections_test_mode
+           (
+               UINT16 connection_handle,
+               UCHAR  dm1_acl_u_mode,
+               UCHAR  esco_loopback_mode
+           );
+#endif /* BT_BRSC_TEST */
+
+/* ------------------------------------------------------------------------- */
+
+/* New APIs from Bluetooth Spec 1.2 ---------------------------------------- */
+
+#ifdef BT_HCI_1_2
+
+/* Name Changes in HCI Commands from Bluetooth Specification 1.2 */
+
+#define BT_hci_write_local_name \
+        BT_hci_change_local_name
+
+#define BT_hci_read_synchronous_flow_control_enable \
+        BT_hci_read_sco_flow_control_enable
+
+#define BT_hci_park_state \
+        BT_hci_park_mode
+
+#define BT_hci_exit_park_state \
+        BT_hci_exit_park_mode
+
+#define BT_hci_write_synchronous_flow_control_enable \
+        BT_hci_write_sco_flow_control_enable
+
+#define BT_hci_set_controller_to_host_flow_control \
+        BT_hci_set_host_controller_to_host_flow_control
+
+
+
+/* New HCI Commands from Bluetooth Specification 1.2 */
+
+API_RESULT BT_hci_create_connection_cancel
+           (
+               UCHAR *   bd_addr
+           );
+
+API_RESULT BT_hci_remote_name_request_cancel
+           (
+               UCHAR *   bd_addr
+           );
+
+API_RESULT BT_hci_read_remote_extended_features
+           (
+               UINT16    handle,
+               UCHAR     page_number
+           );
+
+API_RESULT BT_hci_setup_synchronous_connection
+           (
+               UINT16                handle,
+               HCI_SCO_IN_PARAMS *   sco_in_params
+           );
+
+#ifdef HCI_ENH_SCO
+API_RESULT BT_hci_setup_enh_synchronous_connection
+           (
+               UINT16                handle,
+               HCI_ENH_SCO_PARAMS  * enh_sco_params
+           );
+#endif /* HCI_ENH_SCO */
+
+API_RESULT BT_hci_flow_specification
+           (
+               UINT16       handle,
+               HCI_QOS *    qos_requested
+           );
+
+#define BT_hci_read_default_link_policy_settings() \
+        hci_common_api_handler_no_params \
+        (HCI_READ_DEFAULT_LINK_POLICY_SETTINGS_OPCODE)
+
+#define BT_hci_write_default_link_policy_settings(p1) \
+        hci_write_command_UINT16 \
+        (HCI_WRITE_DEFAULT_LINK_POLICY_SETTINGS_OPCODE, (p1))
+
+API_RESULT BT_hci_set_afh_host_channel_classification
+           (
+               UCHAR *  channel_params
+           );
+
+#ifndef HCI_LITE
+#define BT_hci_read_inquiry_scan_type() \
+        hci_common_api_handler_no_params (HCI_READ_INQUIRY_SCAN_TYPE_OPCODE)
+#endif /* HCI_LITE */
+
+#define BT_hci_write_inquiry_scan_type(p1) \
+        hci_write_command_UCHAR (HCI_WRITE_INQUIRY_SCAN_TYPE_OPCODE, (p1))
+
+#ifndef HCI_LITE
+#define BT_hci_read_inquiry_mode() \
+        hci_common_api_handler_no_params (HCI_READ_INQUIRY_MODE_OPCODE)
+#endif /* HCI_LITE */
+
+API_RESULT BT_hci_write_inquiry_mode
+           (
+               UCHAR     inquiry_mode
+           );
+
+#ifndef HCI_LITE
+#define BT_hci_read_page_scan_type() \
+        hci_common_api_handler_no_params (HCI_READ_PAGE_SCAN_TYPE_OPCODE)
+#endif /* HCI_LITE */
+
+#define BT_hci_write_page_scan_type(p1) \
+        hci_write_command_UCHAR (HCI_WRITE_PAGE_SCAN_TYPE_OPCODE, (p1))
+
+#ifndef HCI_LITE
+#define BT_hci_read_afh_channel_assessment_mode() \
+        hci_common_api_handler_no_params \
+        (HCI_READ_AFH_CHANNEL_ASSESSMENT_MODE_OPCODE)
+#endif /* HCI_LITE */
+
+API_RESULT BT_hci_write_afh_channel_assessment_mode
+           (
+               UCHAR    afh_assessment_mode
+           );
+
+API_RESULT BT_hci_read_afh_channel_map
+           (
+               UINT16    handle
+           );
+
+#ifdef HCI_READ_LOCAL_SUPPORTED_COMMANDS_SUPPORT
+/**
+ *  \brief To read list of supported HCI Commands from the local Bluetooth
+ *         device.
+ *
+ *  \par Description:
+ *       This API reads the list of supported HCI commands from the Link
+ *       Manager Protocol of the local Bluetooth device.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_read_local_supported_commands() \
+        hci_common_api_handler_no_params \
+        (HCI_READ_LOCAL_SUPPORTED_COMMANDS_OPCODE)
+#endif /* HCI_READ_LOCAL_SUPPORTED_COMMANDS_SUPPORT */
+
+API_RESULT BT_hci_read_local_extended_features
+           (
+               UCHAR     page_number
+           );
+
+API_RESULT BT_hci_read_clock
+           (
+               UCHAR     which_clock,
+               UINT16    handle
+           );
+
+#endif /* BT_HCI_1_2 */
+
+#ifdef HCI_LL_TOPOLOGY_CONN_UPDATE_SUPPORT
+/**
+ *  \brief To accept change connection parameter request
+ *
+ *  \par Description:
+ *       This API can be used by both the master Host and the slave Host
+ *       to reply to the HCI LE Remote Connection Parameter Request event.
+ *       This indicates that the Host has accepted the remote device’s
+ *       request to change connection parameters.
+ *
+ *  \param [in] connection_handle
+ *         Connection Handle for the existing BLE connection.
+ *
+ *  \param  conn_interval_min (IN)
+ *          Minimum value for the connection event interval.
+ *          This shall be less than or equal to Conn_Interval_Max.
+ *
+ *  \param  conn_interval_max (IN)
+ *          Maximum value for the connection event interval.
+ *          This shall be greater than or equal to Conn_Interval_Min.
+ *
+ *  \param  conn_latency (IN)
+ *          Slave latency for the connection in number of connection events.
+ *
+ *  \param  supervision_timeout (IN)
+ *          Supervision Timeout for the LE Link.
+ *
+ *  \param  minimum_ce_length (IN)
+ *          Information parameter about the minimum length of connection
+ *          needed for this LE connection.
+ *
+ *  \param  maximum_ce_length (IN)
+ *          Information parameter about the maximum length of connection
+ *          needed for this LE connection.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+API_RESULT BT_hci_le_remote_conn_param_req_reply
+           (
+                UINT16   connection_handle,
+                UINT16   conn_interval_min,
+                UINT16   conn_interval_max,
+                UINT16   conn_latency,
+                UINT16   supervision_timeout,
+                UINT16   minimum_ce_length,
+                UINT16   maximum_ce_length
+           );
+
+/**
+ *  \brief To reject change connection parameter request
+ *
+ *  \par Description:
+ *       This API can be used by both the master Host and the slave Host
+ *       to reply to the HCI LE Remote Connection Parameter Request event.
+ *       This indicates that the Host has rejected the remote device’s request
+ *       to change connection parameters.
+ *       The reason for the rejection is given in the Reason parameter.
+ *
+ *  \param [in] connection_handle
+ *         Connection Handle for the existing BLE connection.
+ *
+ *  \param [in] reason
+ *         This specifies the reason for rejecting connection parameter
+ *         update request.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+API_RESULT BT_hci_le_remote_conn_param_req_negtive_reply
+           (
+                UINT16   connection_handle,
+                UCHAR    reason
+           );
+#endif /* HCI_LL_TOPOLOGY_CONN_UPDATE_SUPPORT */
+
+/* New APIs from Bluetooth Spec 4.2 ---------------------------------------- */
+
+/* Data Length Extention Related */
+#ifdef HCI_LE_SET_DATA_LENGTH_SUPPORT
+/**
+ *  \brief To suggest maximum transmission packet size and maximum packet transmission time
+ *  to be used for a given connection.
+ *
+ *  \par Description:
+ *       This API is used to suggest maximum transmission packet size and maximum packet
+ *       transmission time (connMaxTxOctets and connMaxTxTime) to be used for a given connection.
+ *       The Controller may use smaller or larger values based on local information.
+ *
+ *  \param [in] connection_handle
+ *         Connection Handle for the existing BLE connection.
+ *
+ *  \param [in] tx_octets
+ *         This specifies the preferred maximum number of payload octets that the local Controller
+ *         should include in a single Link Layer Data Channel PDU.
+ *
+ *  \param [in] tx_time
+ *         This specifies the preferred maximum number of microseconds that the local Controller
+ *         should use to transmit a single Link Layer Data Channel PDU.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+API_RESULT BT_hci_le_set_data_length
+           (
+                UINT16   connection_handle,
+                UINT16   tx_octets,
+                UINT16   tx_time
+           );
+#endif /* HCI_LE_SET_DATA_LENGTH_SUPPORT */
+
+#ifdef HCI_LE_READ_SUGGESTED_DEFAULT_DATA_LEN_SUPPORT
+/**
+ *  \brief To read the Host's preferred values for the Controller's maximum transmitted
+ *  number of payload octets and maximum packet transmission time to be used for new connections.
+ *
+ *  \par Description:
+ *       This API is used to read the Host's preferred values for the Controller's maximum
+ *       transmitted number of payload octets and maximum packet transmission time to be used
+ *       for new connections (connInitialMaxTxOctets and connInitialMaxTxTime).
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_le_read_suggested_default_data_length() \
+        hci_common_api_handler_no_params \
+        (HCI_LE_READ_SUGGESTED_DEFAULT_DATA_LEN_OPCODE)
+#endif /* HCI_LE_READ_SUGGESTED_DEFAULT_DATA_LEN_SUPPORT */
+
+#ifdef HCI_LE_WRITE_SUGGESTED_DEFAULT_DATA_LEN_SUPPORT
+/**
+ *  \brief To specify its preferred values for the Controller's maximum transmission number
+ *  of payload octets and maximum packet transmission time to be used for new connections.
+ *
+ *  \par Description:
+ *       This API is used to specify its preferred values for the Controller's maximum transmission
+ *       number of payload octets and maximum packet transmission time to be used for new
+ *       connections (connInitialMaxTxOctets and connInitialMaxTxTime).
+ *       The Controller may use smaller or larger values based on local information.
+ *
+ *  \param [in] suggested_max_tx_octets
+ *         This specifies the Host's suggested value for the Controller's maximum transmitted
+ *         number of payload octets to be used for new connections - connInitialMaxTxOctets.
+ *
+ *  \param [in] suggested_max_tx_time
+ *         This specifies the Host's suggested value for the Controller's maximum packet
+ *         transmission time to be used for new connections - connInitialMaxTxTime.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+API_RESULT BT_hci_le_write_suggested_default_data_length
+           (
+                UINT16   suggested_max_tx_octets,
+                UINT16   suggested_max_tx_time
+           );
+#endif /* HCI_LE_WRITE_SUGGESTED_DEFAULT_DATA_LEN_SUPPORT */
+
+/* LE Secure Connections Related */
+#ifdef HCI_LE_READ_LOCAL_P_256_PUBLIC_KEY_SUPPORT
+/**
+ *  \brief To return the local P-256 public key from the Controller.
+ *
+ *  \par Description:
+ *       This API is used to return the local P-256 public key from the Controller.
+ *       The Controller shall generate a new P-256 public/private key pair upon receipt
+ *       of this command.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_le_read_local_p256_public_key() \
+        hci_common_api_handler_no_params \
+        (HCI_LE_READ_LOCAL_P_256_PUBLIC_KEY_OPCODE)
+#endif /* HCI_LE_READ_LOCAL_P_256_PUBLIC_KEY_SUPPORT */
+
+#ifdef HCI_LE_GENERATE_DHKEY_SUPPORT
+/**
+ *  \brief To initiate generation of a Diffie-Hellman key in the Controller for use over
+ *  the LE transport.
+ *
+ *  \par Description:
+ *       This API is used to initiate generation of a Diffie-Hellman key in the Controller
+ *       for use over the LE transport. This command takes the remote P-256 public key as input.
+ *       The Diffie-Hellman key generation uses the private key generated by
+ *       LE_Read_Local_P256_Public_Key command.
+ *
+ *  \param [in] remote_public_key
+ *         The remote P-256 public key:
+ *             X, Y format
+ *             Octets 31-0: X co-ordinate
+ *             Octets 63-32: Y co-ordinate
+ *             Little Endian Format
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_le_generate_dhkey(remote_public_key) \
+        hci_write_command_UCHAR_array \
+        (HCI_LE_GENERATE_DHKEY_OPCODE, (remote_public_key), 64)
+#endif /* HCI_LE_GENERATE_DHKEY_SUPPORT */
+
+/* Privacy 1.2 related HCI Commands */
+#ifdef HCI_LE_ADD_DEV_TO_RESOLVING_LIST_SUPPORT
+/**
+ *  \brief To Add Device to Resolving Lists.
+ *    This command cannot be used when address translation is enabled in the Controller and:
+ *    - Advertising is enabled
+ *    - Scanning is enabled
+ *    - Create connection command is outstanding
+ *
+ *  \par Description:
+ *     This API can be used Add Device to Resolving Lists.
+ *
+ *  \param [in] peer_id_addr_type
+ *       - Public identity Address: \ref BT_BD_PUBLIC_ADDRESS_TYPE (0x00)
+ *       - Random identity Address: \ref BT_BD_RANDOM_ADDRESS_TYPE (0x01)
+ *
+ *  \param [in] peer_id_addr
+ *    Public or Random (static) Identity address of the peer device
+ *
+ *  \param [in] peer_irk
+ *    IRK of the peer device
+ *
+ *  \param [in] local_irk
+ *    IRK of the local device
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+API_RESULT BT_hci_le_add_device_to_resolving_list
+           (
+                UCHAR    peer_id_addr_type,
+                UCHAR *  peer_id_addr,
+                UCHAR *  peer_irk,
+                UCHAR *  local_irk
+           );
+#endif /* HCI_LE_ADD_DEV_TO_RESOLVING_LIST_SUPPORT */
+
+#ifdef HCI_LE_REMOVE_DEV_FROM_RESOLVING_LIST_SUPPORT
+/**
+ *  \brief To remove one device from the list of address translations used
+ *   to resolve Resolvable Private Addresses in the controller.
+ *
+ *  \par Description:
+ *       This API can be used to remove one device from the list of address
+ *       translations used to resolve Resolvable Private Addresses in the controller.
+ *       This command cannot be used when address translation is enabled in the
+ *       Controller and:
+ *       - Advertising is enabled
+ *       - Scanning is enabled
+ *       - Create connection command is outstanding
+ *
+ *  \param [in] peer_iden_addr_type
+ *         Public or Random (static) Identity Address Type of the device address to be removed.
+ *  \param [in] peer_iden_addr
+ *         Public or Random (static) Identity Address of the peer device to be removed.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_remove_device_from_resolving_list(peer_iden_addr_type, peer_iden_addr)\
+        hci_write_command_BD_ADDR_with_TYPE \
+        (HCI_LE_REMOVE_DEV_FROM_RESOLVING_LIST_OPCODE , (peer_iden_addr_type), (peer_iden_addr))
+#endif /* HCI_LE_REMOVE_DEV_FROM_RESOLVING_LIST_SUPPORT */
+
+#ifdef HCI_LE_CLR_RESOLVING_LIST_SUPPORT
+/**
+ *  \brief To remove all devices from the list of address translations
+ *   used to resolve Resolvable Private Addresses in the Controller.
+ *
+ *  \par Description:
+ *       This API is used to remove all devices from the list of address translations
+ *       used to resolve Resolvable Private Addresses in the Controller.
+ *       This command cannot be used when address translation is enabled in the
+ *       Controller and:
+ *       - Advertising is enabled
+ *       - Scanning is enabled
+ *       - Create connection command is outstanding
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_le_clear_resolving_list() \
+        hci_common_api_handler_no_params \
+        (HCI_LE_CLR_RESOLVING_LIST_OPCODE)
+#endif /* HCI_LE_CLR_RESOLVING_LIST_SUPPORT */
+
+#ifdef HCI_LE_READ_RESOLVING_LIST_SIZE_SUPPORT
+/**
+ *  \brief To read the total number of address translation
+ *    entries in the resolving list that can be stored in the Controller.
+ *
+ *  \par Description:
+ *       This API is used to read the total number of address
+ *       translation entries in the resolving list that can be stored in the Controller.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+#define BT_hci_le_read_resolving_list_size() \
+        hci_common_api_handler_no_params \
+        (HCI_LE_READ_RESOLVING_LIST_SIZE_OPCODE)
+#endif /* HCI_LE_READ_RESOLVING_LIST_SIZE_SUPPORT */
+
+
+#ifdef HCI_LE_READ_PEER_RESOLVABLE_ADDR_SUPPORT
+/**
+ *  \brief To get the current peer Resolvable Private Address being
+ *   used for the corresponding peer Public or Random (static) Identity Address.
+ *
+ *  \par Description:
+ *       This API is used to get the current peer Resolvable Private Address being used for
+ *     the corresponding peer Public or Random (static) Identity Address.
+ *
+ *  \param [in] peer_iden_addr_type
+ *         Public or Random (static) Identity Address Type of the device address to be read.
+ *  \param [in] peer_iden_addr
+ *         Public or Random (static) Identity Address of the peer device to be read.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_read_peer_resolvable_address(peer_iden_addr_type, peer_iden_addr)\
+        hci_write_command_BD_ADDR_with_TYPE \
+        (HCI_LE_READ_PEER_RESOLVABLE_ADDR_OPCODE, (peer_iden_addr_type), (peer_iden_addr))
+#endif /* HCI_LE_READ_PEER_RESOLVABLE_ADDR_SUPPORT */
+
+
+#ifdef HCI_LE_READ_LOCAL_RESOLVABLE_ADDR_SUPPORT
+/**
+ *  \brief To get the current local Resolvable Private Address being used
+ *  for the corresponding peer Identity Address.
+ *
+ *  \par Description:
+ *       This API is is used to get the current local Resolvable Private Address being
+ *   used for the corresponding peer Identity Address.
+ *
+ *  \param [in] peer_iden_addr_type
+ *         Public or Random (static) Identity Address Type of the device address to be read.
+ *  \param [in] peer_iden_addr
+ *         Public or Random (static) Identity Address of the peer device to be read.
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_read_local_resolvable_address(peer_iden_addr_type, peer_iden_addr)\
+        hci_write_command_BD_ADDR_with_TYPE \
+        (HCI_LE_READ_LOCAL_RESOLVABLE_ADDR_OPCODE, (peer_iden_addr_type), (peer_iden_addr))
+#endif /* HCI_LE_READ_LOCAL_RESOLVABLE_ADDR_SUPPORT */
+
+
+#ifdef HCI_LE_SET_ADDR_RESOLUTION_ENABLE_SUPPORT
+/**
+ *  \brief To enable resolution of Resolvable Private Addresses in the Controller.
+ *
+ *  \par Description:
+ *       This API can be used to enable resolution of Resolvable Private Addresses in the Controller
+ *       This can be used at any time except when:
+ *       - Advertising is enabled
+ *       - Scanning is enabled
+ *       - Create connection command is outstanding
+ *
+ *  \param [in] addr_resolution_enable
+ *         Enable/Disable Resolution of of Resolvable Private Addresses
+ *         0x00: Address Resolution in controller disabled
+ *         0x01: Address Resolution in controller enabled
+ *
+ *  \return API_RESULT
+ *     API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_set_address_resolution_enable(addr_resolution_enable)  \
+       hci_write_command_UCHAR \
+       (HCI_LE_SET_ADDR_RESOLUTION_ENABLE_OPCODE, (addr_resolution_enable))
+#endif /* HCI_LE_SET_ADDR_RESOLUTION_ENABLE_SUPPORT */
+
+
+#ifdef HCI_LE_SET_RANDOM_PRIVATE_ADDR_TIMEOUT_SUPPORT
+
+/**
+ *  \brief To set the length of time the controller uses a Random Private Address
+ *  before a new random private address is generated and starts being used
+ *
+ *  \par Description:
+ *       This API is used to set the length of time the controller uses a Random Private Address
+ *       before a new random private address is generated and starts being used
+ *
+ *  \param [in] rpa_timeout
+ *         rpa_Timeout measured in seconds
+ *         Range for N: 0x0001 – 0xFFFF (1 sec – approximately 18.2 hours)
+ *         Default: N = 0x0384 (900 secs or 15 minutes)
+ *
+ *  \return API_RESULT
+ *  API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_set_ramdom_private_address_timeout(rpa_timeout)\
+        hci_write_command_UINT16 \
+        (HCI_LE_SET_RANDOM_PRIVATE_ADDR_TIMEOUT_OPCODE , (rpa_timeout))
+#endif /* HCI_LE_SET_RANDOM_PRIVATE_ADDR_TIMEOUT_SUPPORT */
+
+
+#ifdef HCI_LE_READ_MAXIMUM_DATA_LEN_SUPPORT
+
+/**
+ *  \brief To read the Controller’s maximum supported payload octets and packet duration times
+ *  for transmission and reception
+ *
+ *  \par Description:
+ *       This API is used to read the Controller’s maximum supported payload octets and
+ *       packet duration times for transmission and reception (supportedMaxTxOctets and
+ *       supportedMaxTxTime, supportedMaxRxOctets, and supportedMaxRxTime)
+ *
+ *  \return API_RESULT
+ *  API_SUCCESS or one of the error codes as defined in \ref BLE_ERROR_CODES.
+ */
+#define BT_hci_le_read_maximum_data_length() \
+        hci_common_api_handler_no_params \
+        (HCI_LE_READ_MAXIMUM_DATA_LENGTH_OPCODE)
+#endif /* HCI_LE_READ_MAXIMUM_DATA_LEN_SUPPORT */
+
+/* ------------------------------------------------------------------------- */
+
+/* New APIs from Bluetooth Spec 2.1+EDR ------------------------------------ */
+
+#ifdef BT_SSR
+API_RESULT BT_hci_sniff_subrating
+           (
+               /* IN */ UINT16    connection_handle,
+               /* IN */ UINT16    maximum_latency,
+               /* IN */ UINT16    minimum_remote_timeout,
+               /* IN */ UINT16    minimum_local_timeout
+           );
+#endif /* BT_SSR */
+
+#ifdef BT_EIR
+#define BT_hci_read_extended_inquiry_response() \
+        hci_common_api_handler_no_params \
+        (HCI_READ_EXTENDED_INQUIRY_RESPONSE_OPCODE)
+
+API_RESULT BT_hci_write_extended_inquiry_response
+           (
+               /* IN */ UCHAR             fec_required,
+               /* IN */ HCI_EIR_DATA *    eir_data_field,
+               /* IN */ UCHAR             total_eir_fields
+           );
+
+#define BT_hci_read_inquiry_response_transmit_power_level() \
+        hci_common_api_handler_no_params \
+        (HCI_READ_INQUIRY_RESPONSE_TRANSMIT_POWER_LEVEL_OPCODE)
+
+API_RESULT BT_hci_write_inquiry_response_transmit_power_level
+           (
+               /* IN */ CHAR    tx_power
+           );
+#endif /* BT_EIR */
+
+#ifdef BT_EPR
+#define BT_hci_refresh_encryption_key(p1) \
+        hci_write_command_UINT16 (HCI_REFRESH_ENCRYPTION_KEY_OPCODE, (p1))
+#endif /* BT_EPR */
+
+#ifdef BT_EDR
+#define BT_hci_read_default_erroneous_data_reporting() \
+        hci_common_api_handler_no_params \
+        (HCI_READ_DEFAULT_ERRONEOUS_DATA_REPORTING_OPCODE)
+
+API_RESULT BT_hci_write_default_erroneous_data_reporting
+           (
+               UCHAR  erroneous_data_reporting
+           );
+#endif /* BT_EDR */
+
+#ifdef BT_SSP
+#define BT_hci_read_simple_pairing_mode() \
+        hci_common_api_handler_no_params (HCI_READ_SIMPLE_PAIRING_MODE_OPCODE)
+
+#define BT_hci_write_simple_pairing_mode(p1) \
+        hci_write_command_UCHAR (HCI_WRITE_SIMPLE_PAIRING_MODE_OPCODE, (p1))
+#endif /* BT_SSP */
+
+#ifdef BT_SSP_PE
+API_RESULT BT_hci_send_keypress_notification
+           (
+               UCHAR *    bd_addr,
+               UCHAR      notification_type
+           );
+#endif /* BT_SSP_PE */
+
+#ifdef BT_SSP_OOB
+#define BT_hci_read_local_oob_data() \
+        hci_common_api_handler_no_params (HCI_READ_LOCAL_OOB_DATA_OPCODE)
+#endif /* BT_SSP_OOB */
+
+#ifdef BT_ENHANCED_FLUSH
+API_RESULT BT_hci_enhanced_flush
+           (
+               /* IN */ UINT16    connection_handle,
+               /* IN */ UCHAR     packet_type
+           );
+#endif /* BT_ENHANCED_FLUSH */
+
+#ifdef BT_SSP_DEBUG
+#define BT_hci_write_simple_pairing_debug_mode(p1) \
+        hci_write_command_UCHAR \
+        (HCI_WRITE_SIMPLE_PAIRING_DEBUG_MODE_OPCODE, (p1))
+#endif /* BT_SSP_DEBUG */
+
+
+/* ------------------------------------------------------------------------- */
+
+/* New APIs from Bluetooth Spec 3.0 ---------------------------------------- */
+#ifdef BT_3_0
+
+#ifdef HCI_FLOW_CONTROL_COMMANDS
+#define BT_hci_read_flow_control_mode() \
+        hci_common_api_handler_no_params (HCI_READ_FLOW_CONTROL_MODE_OPCODE)
+
+API_RESULT BT_hci_write_flow_control_mode
+           (
+                UCHAR  flow_control_mode
+           );
+#endif /* HCI_FLOW_CONTROL_COMMANDS */
+
+API_RESULT BT_hci_read_encryption_key_size
+           (
+                UINT16   connection_handle
+           );
+
+API_RESULT BT_hci_read_enhanced_transmit_power_level
+           (
+                UINT16   handle,
+                UCHAR    power_type
+           );
+#endif /* BT_3_0 */
+
+#ifdef BT_BRSC
+#define BT_hci_read_secure_connections_host_support()  \
+        hci_common_api_handler_no_params (HCI_READ_SECURE_CONNECTIONS_HOST_SUPPORT_OPCODE)
+
+#define BT_hci_write_secure_connections_host_support(enable)  \
+        hci_write_command_UCHAR \
+        (HCI_WRITE_SECURE_CONNECTIONS_HOST_SUPPORT_OPCODE, (enable))
+#endif /* BT_BRSC */
+
+/* ------------------------------------------------------------------------- */
+
+/* HCI Vendor Specific Commands APIs --------------------------------------- */
+/**
+ *  \brief To send a vendor specific HCI command to the local Bluetooth device.
+ *
+ *  \par Description:
+ *       This API can be used to send vendor specific HCI commands to the local
+ *       Bluetooth device. The HCI Opcode and parameters are specific to
+ *       the vendor specific command. Refer to the documentation of
+ *       the Bluetooth device to find out the details of available vendor
+ *       specific commands.
+ *
+ *  \param [in] ocf
+ *         Opcode Command Field for the vendor specific Opcode.
+ *
+ *  \param [in] params
+ *         Parameters to be framed for the vendor specific HCI command.
+ *
+ *  \param [in] params_length
+ *         Total length of the parameters passed.
+ *
+ *  \return
+ *      API_RESULT: API_SUCCESS or one of the error codes as defined in
+ *                  BT_error.h or Host Controller Error Codes section.
+ */
+API_RESULT BT_hci_vendor_specific_command
+           (
+               UINT16   ocf,
+               UCHAR *  params,
+               UCHAR    params_length
+           );
+
+/* ------------------------------------------------------------------------- */
+
+
+/* APIs for EtherMind Security Manager ------------------------------------- */
+API_RESULT hci_sm_link_key_request_reply
+           (UCHAR *bd_addr, UCHAR *link_key, UCHAR link_key_present);
+
+API_RESULT hci_sm_pin_code_request_reply
+           (UCHAR *bd_addr, UCHAR *pin_code, UCHAR pin_length);
+
+API_RESULT hci_sm_set_pin_type_master_link_key (UINT16 opcode, UCHAR flag);
+
+#define hci_sm_set_pin_type(pt) \
+        hci_sm_set_pin_type_master_link_key (HCI_WRITE_PIN_TYPE_OPCODE, (pt))
+#define hci_sm_master_link_key(kf) \
+        hci_sm_set_pin_type_master_link_key (HCI_MASTER_LINK_KEY_OPCODE, (kf))
+
+#ifdef BT_SSP_UC
+API_RESULT hci_sm_user_confirmation_request_reply
+           (
+               UCHAR *    bd_addr,
+               UCHAR      confirmation_accept
+           );
+#endif /* BT_SSP_UC */
+
+#ifdef BT_SSP_PE
+API_RESULT hci_sm_user_passkey_request_reply
+           (
+               UCHAR *    bd_addr,
+               UCHAR *    passkey
+           );
+#endif /* BT_SSP_PE */
+
+/* ------------------------------------------------------------------------- */
+
+
+#ifdef __cplusplus
+};
+#endif
+
+/* \} */
+
+#endif /* _H_BT_HCI_API_ */
+

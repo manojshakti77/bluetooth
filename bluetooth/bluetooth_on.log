@@ -1,0 +1,177 @@
+HCI sniffer - Bluetooth packet analyzer ver 5.37
+device: hci0 snap_len: 1500 filter: 0xffffffffffffffff
+2016-12-07 04:58:39.125496 < HCI Command: Reset (0x03|0x0003) plen 0
+2016-12-07 04:58:39.456480 > HCI Event: Command Complete (0x0e) plen 4
+    Reset (0x03|0x0003) ncmd 2
+    status 0x00
+2016-12-07 04:58:39.456571 < HCI Command: Read Local Supported Features (0x04|0x0003) plen 0
+2016-12-07 04:58:39.459421 > HCI Event: Command Complete (0x0e) plen 12
+    Read Local Supported Features (0x04|0x0003) ncmd 1
+    status 0x00
+    Features: 0xff 0xfe 0x0f 0xfe 0xdb 0xff 0x7b 0x87
+2016-12-07 04:58:39.459487 < HCI Command: Read Local Version Information (0x04|0x0001) plen 0
+2016-12-07 04:58:39.462413 > HCI Event: Command Complete (0x0e) plen 12
+    Read Local Version Information (0x04|0x0001) ncmd 1
+    status 0x00
+    HCI Version: 4.0 (0x6) HCI Revision: 0xf00
+    LMP Version: 4.0 (0x6) LMP Subversion: 0xf00
+    Manufacturer: Intel Corp. (2)
+2016-12-07 04:58:39.462492 < HCI Command: Read BD ADDR (0x04|0x0009) plen 0
+2016-12-07 04:58:39.465351 > HCI Event: Command Complete (0x0e) plen 10
+    Read BD ADDR (0x04|0x0009) ncmd 1
+    status 0x00 bdaddr 2C:6E:85:DB:9C:6D
+2016-12-07 04:58:39.465461 < HCI Command: Read Buffer Size (0x04|0x0005) plen 0
+2016-12-07 04:58:39.468384 > HCI Event: Command Complete (0x0e) plen 11
+    Read Buffer Size (0x04|0x0005) ncmd 1
+    status 0x00
+    ACL MTU 1021:5 SCO MTU 96:6
+2016-12-07 04:58:39.468465 < HCI Command: Read Class of Device (0x03|0x0023) plen 0
+2016-12-07 04:58:39.470392 > HCI Event: Command Complete (0x0e) plen 7
+    Read Class of Device (0x03|0x0023) ncmd 2
+    status 0x00 class 0x0c0000
+2016-12-07 04:58:39.470458 < HCI Command: Read Local Name (0x03|0x0014) plen 0
+2016-12-07 04:58:39.479560 > HCI Event: Command Complete (0x0e) plen 252
+    Read Local Name (0x03|0x0014) ncmd 1
+    status 0x00 name 'ubuntu'
+2016-12-07 04:58:39.479650 < HCI Command: Read Voice Setting (0x03|0x0025) plen 0
+2016-12-07 04:58:39.481399 > HCI Event: Command Complete (0x0e) plen 6
+    Read Voice Setting (0x03|0x0025) ncmd 1
+    status 0x00 voice setting 0x0060
+2016-12-07 04:58:39.481462 < HCI Command: Read Number of Supported IAC (0x03|0x0038) plen 0
+2016-12-07 04:58:39.483425 > HCI Event: Command Complete (0x0e) plen 5
+    Read Number of Supported IAC (0x03|0x0038) ncmd 1
+    0000: 00 02                                             ..
+2016-12-07 04:58:39.483495 < HCI Command: Read Current IAC LAP (0x03|0x0039) plen 0
+2016-12-07 04:58:39.485382 > HCI Event: Command Complete (0x0e) plen 8
+    Read Current IAC LAP (0x03|0x0039) ncmd 2
+    IAC 0x9e8b33 (General Inquiry Access Code)
+2016-12-07 04:58:39.485448 < HCI Command: Set Event Filter (0x03|0x0005) plen 1
+    type 0 condition 0
+    Clear all filters
+2016-12-07 04:58:39.487387 > HCI Event: Command Complete (0x0e) plen 4
+    Set Event Filter (0x03|0x0005) ncmd 1
+    status 0x00
+2016-12-07 04:58:39.487458 < HCI Command: Write Connection Accept Timeout (0x03|0x0016) plen 2
+    timeout 32000
+2016-12-07 04:58:39.489305 > HCI Event: Command Complete (0x0e) plen 4
+    Write Connection Accept Timeout (0x03|0x0016) ncmd 1
+    status 0x00
+2016-12-07 04:58:39.489373 < HCI Command: LE Read Buffer Size (0x08|0x0002) plen 0
+2016-12-07 04:58:39.491241 > HCI Event: Command Complete (0x0e) plen 7
+    LE Read Buffer Size (0x08|0x0002) ncmd 1
+    status 0x00 pktlen 0x001b maxpkt 0x07
+2016-12-07 04:58:39.491318 < HCI Command: LE Read Local Supported Features (0x08|0x0003) plen 0
+2016-12-07 04:58:39.493214 > HCI Event: Command Complete (0x0e) plen 12
+    LE Read Local Supported Features (0x08|0x0003) ncmd 1
+    status 0x00 features 0x0100000000000000 (Link Layer supports LE Encryption)
+2016-12-07 04:58:39.493315 < HCI Command: LE Read Supported States (0x08|0x001c) plen 0
+2016-12-07 04:58:39.495176 > HCI Event: Command Complete (0x0e) plen 12
+    LE Read Supported States (0x08|0x001c) ncmd 1
+    0000: 00 ff ff ff 1f 00 00 00  00                       .........
+2016-12-07 04:58:39.495243 < HCI Command: Read Local Supported Commands (0x04|0x0002) plen 0
+2016-12-07 04:58:39.499392 > HCI Event: Command Complete (0x0e) plen 68
+    Read Local Supported Commands (0x04|0x0002) ncmd 1
+    status 0x00
+    Commands: fffffb03ceffefffff3fff9ff30fe8fe3ff78fff1c00000061f7ffff7f
+2016-12-07 04:58:39.499510 < HCI Command: Write Simple Pairing Mode (0x03|0x0056) plen 1
+    mode 0x01
+2016-12-07 04:58:39.501159 > HCI Event: Command Complete (0x0e) plen 4
+    Write Simple Pairing Mode (0x03|0x0056) ncmd 1
+    status 0x00
+2016-12-07 04:58:39.501271 < HCI Command: Write Inquiry Mode (0x03|0x0045) plen 1
+    mode 2
+2016-12-07 04:58:39.504371 > HCI Event: Command Complete (0x0e) plen 4
+    Write Inquiry Mode (0x03|0x0045) ncmd 2
+    status 0x00
+2016-12-07 04:58:39.504493 < HCI Command: Read Inquiry Response Transmit Power Level (0x03|0x0058) plen 0
+2016-12-07 04:58:39.506123 > HCI Event: Command Complete (0x0e) plen 5
+    Read Inquiry Response Transmit Power Level (0x03|0x0058) ncmd 1
+    status 0x00 level 7
+2016-12-07 04:58:39.506325 < HCI Command: Read Local Extended Features (0x04|0x0004) plen 1
+    page 1
+2016-12-07 04:58:39.508107 > HCI Event: Command Complete (0x0e) plen 14
+    Read Local Extended Features (0x04|0x0004) ncmd 1
+    status 0x00 page 1 max 1
+    Features: 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00
+2016-12-07 04:58:39.508339 < HCI Command: Set Event Mask (0x03|0x0001) plen 8
+    Mask: 0xfffffbff07f8bf3d
+2016-12-07 04:58:39.510087 > HCI Event: Command Complete (0x0e) plen 4
+    Set Event Mask (0x03|0x0001) ncmd 1
+    status 0x00
+2016-12-07 04:58:39.510193 < HCI Command: Read Stored Link Key (0x03|0x000d) plen 7
+    bdaddr 00:00:00:00:00:00 all 1
+2016-12-07 04:58:39.512089 > HCI Event: Command Complete (0x0e) plen 8
+    Read Stored Link Key (0x03|0x000d) ncmd 1
+    status 0x00 max 5 num 0
+2016-12-07 04:58:39.512197 < HCI Command: Write Default Link Policy Settings (0x02|0x000f) plen 2
+    policy 0x07
+    Link policy: RSWITCH HOLD SNIFF 
+2016-12-07 04:58:39.514085 > HCI Event: Command Complete (0x0e) plen 4
+    Write Default Link Policy Settings (0x02|0x000f) ncmd 1
+    status 0x00
+2016-12-07 04:58:39.514193 < HCI Command: Read Page Scan Activity (0x03|0x001b) plen 0
+2016-12-07 04:58:39.517311 > HCI Event: Command Complete (0x0e) plen 8
+    Read Page Scan Activity (0x03|0x001b) ncmd 2
+    status 0x00 interval 2048 window 18
+2016-12-07 04:58:39.517422 < HCI Command: Read Page Scan Type (0x03|0x0046) plen 0
+2016-12-07 04:58:39.519145 > HCI Event: Command Complete (0x0e) plen 5
+    Read Page Scan Type (0x03|0x0046) ncmd 2
+    0000: 00 00                                             ..
+2016-12-07 04:58:39.519266 < HCI Command: LE Set Event Mask (0x08|0x0001) plen 8
+    mask 0x1f00000000000000 (Reserved)
+2016-12-07 04:58:39.521064 > HCI Event: Command Complete (0x0e) plen 4
+    LE Set Event Mask (0x08|0x0001) ncmd 1
+    status 0x00
+2016-12-07 04:58:39.521171 < HCI Command: LE Read Advertising Channel Tx Power (0x08|0x0007) plen 0
+2016-12-07 04:58:39.523079 > HCI Event: Command Complete (0x0e) plen 5
+    LE Read Advertising Channel Tx Power (0x08|0x0007) ncmd 1
+    status 0x00 level 0x7 (dBm)
+2016-12-07 04:58:39.523188 < HCI Command: LE Read White List Size (0x08|0x000f) plen 0
+2016-12-07 04:58:39.525068 > HCI Event: Command Complete (0x0e) plen 5
+    LE Read White List Size (0x08|0x000f) ncmd 1
+    0000: 00 20                                             . 
+2016-12-07 04:58:39.525177 < HCI Command: LE Clear White List (0x08|0x0010) plen 0
+2016-12-07 04:58:39.527075 > HCI Event: Command Complete (0x0e) plen 4
+    LE Clear White List (0x08|0x0010) ncmd 1
+    status 0x00
+2016-12-07 04:58:39.527183 < HCI Command: Write LE Host Supported (0x03|0x006d) plen 2
+  0000: 01 00                                             ..
+2016-12-07 04:58:39.529067 > HCI Event: Command Complete (0x0e) plen 4
+    Write LE Host Supported (0x03|0x006d) ncmd 1
+    0000: 00                                                .
+2016-12-07 04:58:39.529195 < HCI Command: Delete Stored Link Key (0x03|0x0012) plen 7
+    bdaddr 00:00:00:00:00:00 all 1
+2016-12-07 04:58:39.531071 > HCI Event: Command Complete (0x0e) plen 6
+    Delete Stored Link Key (0x03|0x0012) ncmd 1
+    status 0x00 deleted 0
+2016-12-07 04:58:39.531213 < HCI Command: LE Set Advertising Data (0x08|0x0008) plen 32
+  0000: 06 02 01 02 02 0a 07 00  00 00 00 00 00 00 00 00  ................
+  0010: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  ................
+2016-12-07 04:58:39.533080 > HCI Event: Command Complete (0x0e) plen 4
+    LE Set Advertising Data (0x08|0x0008) ncmd 1
+    status 0x00
+2016-12-07 04:58:39.533252 < HCI Command: LE Set Scan Response Data (0x08|0x0009) plen 32
+  0000: 08 07 09 75 62 75 6e 74  75 00 00 00 00 00 00 00  ...ubuntu.......
+  0010: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  ................
+2016-12-07 04:58:39.536283 > HCI Event: Command Complete (0x0e) plen 4
+    LE Set Scan Response Data (0x08|0x0009) ncmd 1
+    status 0x00
+2016-12-07 04:58:39.536348 < HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 3
+2016-12-07 04:58:39.539274 > HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 2
+    status 0x00
+2016-12-07 04:58:39.539338 < HCI Command: Write Local Name (0x03|0x0013) plen 248
+    name 'ubuntu'
+2016-12-07 04:58:39.542284 > HCI Event: Command Complete (0x0e) plen 4
+    Write Local Name (0x03|0x0013) ncmd 1
+    status 0x00
+2016-12-07 04:58:39.542442 < HCI Command: Write Extended Inquiry Response (0x03|0x0052) plen 241
+    fec 0x00
+    Complete local name: 'ubuntu'
+    TX power level: 7
+    Unknown type 0x10 with 8 bytes data
+    Complete service classes: 0x1800 0x1801 0x110e 0x110c 0x1112 0x110a 0x110b
+2016-12-07 04:58:39.545158 > HCI Event: Command Complete (0x0e) plen 4
+    Write Extended Inquiry Response (0x03|0x0052) ncmd 1
+    status 0x00
