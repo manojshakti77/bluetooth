@@ -87,6 +87,33 @@ typedef struct
         unsigned char  plen;
 	unsigned char cod[3];	
 }hci_set_cod;
+
+typedef struct
+{
+	unsigned char pkt_type;
+    unsigned char opcode_msb;         /* OCF & OGF */
+    unsigned char opcode_lsb;         /* OCF & OGF */
+    unsigned char plen;
+	unsigned char scan_param;	
+}hci_set_scan;
+
+typedef struct
+{
+	unsigned char pkt_type;
+    unsigned char opcode_msb;         /* OCF & OGF */
+    unsigned char opcode_lsb;         /* OCF & OGF */
+    unsigned char plen;
+	unsigned char le_adv_enable;	
+	
+}hci_set_le_adv;
+typedef struct
+{
+	unsigned char pkt_type;
+    unsigned char opcode_msb;         /* OCF & OGF */
+    unsigned char opcode_lsb;         /* OCF & OGF */
+    unsigned char plen;
+	unsigned char spp_param;	
+}hci_set_spp;
 struct hci_filter {
         unsigned int type_mask;
         unsigned int event_mask[2];
@@ -117,4 +144,3 @@ static inline void hci_filter_set_opcode(int opcode, struct hci_filter *f)
 {       
         f->opcode = opcode;
 }    
-
