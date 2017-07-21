@@ -1,0 +1,1377 @@
+HCI sniffer - Bluetooth packet analyzer ver 5.37
+btsnoop version: 1 datalink type: 1002
+< HCI Command: Write Voice Setting (0x03|0x0026) plen 2
+    voice setting 0x0060
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Voice Setting (0x03|0x0026) ncmd 1
+    status 0x00
+< HCI Command: Write Extended Inquiry Response (0x03|0x0052) plen 241
+    fec 0x01
+    Complete local name: 'MotoE2(4G-LTE)'
+    Complete service classes: 0x1105 0x1112 0x112f 0x1200 0x1132
+    Unknown type 0x05 with 0 bytes data
+    Unknown type 0x07 with 0 bytes data
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Extended Inquiry Response (0x03|0x0052) ncmd 1
+    status 0x00
+< HCI Command: Write Extended Inquiry Response (0x03|0x0052) plen 241
+    fec 0x01
+    Complete local name: 'MotoE2(4G-LTE)'
+    Complete service classes: 0x1105 0x1112 0x111f 0x112f 0x1200 0x1132
+    Unknown type 0x05 with 0 bytes data
+    Unknown type 0x07 with 0 bytes data
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Extended Inquiry Response (0x03|0x0052) ncmd 1
+    status 0x00
+< HCI Command: Write Extended Inquiry Response (0x03|0x0052) plen 241
+    fec 0x01
+    Complete local name: 'MotoE2(4G-LTE)'
+    Complete service classes: 0x1105 0x110c 0x1112 0x111f 0x112f 0x1200 0x1132
+    Unknown type 0x05 with 0 bytes data
+    Unknown type 0x07 with 0 bytes data
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Extended Inquiry Response (0x03|0x0052) ncmd 1
+    status 0x00
+< HCI Command: Write Class of Device (0x03|0x0024) plen 3
+    class 0x5a020c
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Class of Device (0x03|0x0024) ncmd 1
+    status 0x00
+< HCI Command: Write Extended Inquiry Response (0x03|0x0052) plen 241
+    fec 0x01
+    Complete local name: 'MotoE2(4G-LTE)'
+    Complete service classes: 0x1105 0x110a 0x110c 0x1112 0x111f 0x112f 0x1200 0x1132
+    Unknown type 0x05 with 0 bytes data
+    Unknown type 0x07 with 0 bytes data
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Extended Inquiry Response (0x03|0x0052) ncmd 1
+    status 0x00
+< HCI Command: Write Extended Inquiry Response (0x03|0x0052) plen 241
+    fec 0x01
+    Complete local name: 'MotoE2(4G-LTE)'
+    Complete service classes: 0x1105 0x110a 0x110c 0x110e 0x1112 0x111f 0x112f 0x1200 0x1132
+    Unknown type 0x05 with 0 bytes data
+    Unknown type 0x07 with 0 bytes data
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Extended Inquiry Response (0x03|0x0052) ncmd 1
+    status 0x00
+< HCI Command: Write Current IAC LAP (0x03|0x003a) plen 4
+    IAC 0x9e8b33 (General Inquiry Access Code)
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Current IAC LAP (0x03|0x003a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 1
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 3
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 2
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 0
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Extended Inquiry Response (0x03|0x0052) plen 241
+    fec 0x01
+    Complete local name: 'MotoE2(4G-LTE)'
+    Complete service classes: 0x1105 0x110a 0x110c 0x110e 0x1112 0x1116 0x111f 0x112f 0x1200 0x1132
+    Unknown type 0x05 with 0 bytes data
+    Unknown type 0x07 with 0 bytes data
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Extended Inquiry Response (0x03|0x0052) ncmd 1
+    status 0x00
+< HCI Command: Write Extended Inquiry Response (0x03|0x0052) plen 241
+    fec 0x01
+    Complete local name: 'MotoE2(4G-LTE)'
+    Complete service classes: 0x1105 0x110a 0x110c 0x110e 0x1112 0x1115 0x1116 0x111f 0x112f 0x1200 0x1132
+    Unknown type 0x05 with 0 bytes data
+    Unknown type 0x07 with 0 bytes data
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Extended Inquiry Response (0x03|0x0052) ncmd 1
+    status 0x00
+< HCI Command: Write Extended Inquiry Response (0x03|0x0052) plen 241
+    fec 0x01
+    Complete local name: 'MotoE2(4G-LTE)'
+    Complete service classes: 0x1105 0x110a 0x110c 0x110e 0x1112 0x1115 0x1116 0x111f 0x112f 0x1200 0x1132
+    Unknown type 0x05 with 0 bytes data
+    Unknown type 0x07 with 0 bytes data
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Extended Inquiry Response (0x03|0x0052) ncmd 1
+    status 0x00
+< HCI Command: Write Extended Inquiry Response (0x03|0x0052) plen 241
+    fec 0x01
+    Complete local name: 'MotoE2(4G-LTE)'
+    Complete service classes: 0x1105 0x110a 0x110c 0x110e 0x1112 0x1115 0x1116 0x111f 0x112f 0x1200 0x1132
+    Unknown type 0x05 with 0 bytes data
+    Unknown type 0x07 with 0 bytes data
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Extended Inquiry Response (0x03|0x0052) ncmd 1
+    status 0x00
+< HCI Command: Write Extended Inquiry Response (0x03|0x0052) plen 241
+    fec 0x01
+    Complete local name: 'MotoE2(4G-LTE)'
+    Complete service classes: 0x1105 0x110a 0x110c 0x110e 0x1112 0x1115 0x1116 0x111f 0x112f 0x1200 0x1132
+    Unknown type 0x05 with 0 bytes data
+    Unknown type 0x07 with 0 bytes data
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Extended Inquiry Response (0x03|0x0052) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 0
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 2
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Vendor (0x3f|0x0157) plen 3
+> HCI Event: Command Complete (0x0e) plen 7
+    Vendor (0x3f|0x0157) ncmd 1
+< HCI Command: Vendor (0x3f|0x0157) plen 16
+> HCI Event: Command Complete (0x0e) plen 7
+    Vendor (0x3f|0x0157) ncmd 1
+< HCI Command: LE Set Scan Parameters (0x08|0x000b) plen 7
+    type 0x01 (active)
+    interval 5000.000ms window 5000.000ms
+    own address: 0x01 (Random) policy: All
+> HCI Event: Command Complete (0x0e) plen 4
+    LE Set Scan Parameters (0x08|0x000b) ncmd 1
+    status 0x00
+< HCI Command: LE Set Scan Enable (0x08|0x000c) plen 2
+    value 0x01 (scanning enabled)
+    filter duplicates 0x00 (disabled)
+> HCI Event: Command Complete (0x0e) plen 4
+    LE Set Scan Enable (0x08|0x000c) ncmd 1
+    status 0x00
+< HCI Command: Set Event Filter (0x03|0x0005) plen 2
+    type 1 condition 0
+    Inquiry result for all devices
+> HCI Event: Command Complete (0x0e) plen 4
+    Set Event Filter (0x03|0x0005) ncmd 1
+    status 0x00
+< HCI Command: Write Current IAC LAP (0x03|0x003a) plen 4
+    IAC 0x9e8b33 (General Inquiry Access Code)
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Current IAC LAP (0x03|0x003a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 3
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 3
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Inquiry (0x01|0x0001) plen 5
+    lap 0x9e8b33 len 10 num 0
+> HCI Event: Command Status (0x0f) plen 4
+    Inquiry (0x01|0x0001) status 0x00 ncmd 1
+< HCI Command: Inquiry Cancel (0x01|0x0002) plen 0
+> HCI Event: Command Complete (0x0e) plen 4
+    Inquiry Cancel (0x01|0x0002) ncmd 1
+    status 0x00
+< HCI Command: LE Set Scan Enable (0x08|0x000c) plen 2
+    value 0x00 (scanning disabled)
+    filter duplicates 0x01 (enabled)
+> HCI Event: Command Complete (0x0e) plen 4
+    LE Set Scan Enable (0x08|0x000c) ncmd 1
+    status 0x00
+< HCI Command: LE Set Scan Parameters (0x08|0x000b) plen 7
+    type 0x01 (active)
+    interval 5000.000ms window 5000.000ms
+    own address: 0x01 (Random) policy: All
+> HCI Event: Command Complete (0x0e) plen 4
+    LE Set Scan Parameters (0x08|0x000b) ncmd 1
+    status 0x00
+< HCI Command: Vendor (0x3f|0x0157) plen 3
+> HCI Event: Command Complete (0x0e) plen 7
+    Vendor (0x3f|0x0157) ncmd 1
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 2
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 2
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Extended Inquiry Response (0x03|0x0052) plen 241
+    fec 0x01
+    Complete local name: 'MotoE2(4G-LTE)'
+    Complete service classes: 0x1105 0x110a 0x110c 0x110e 0x1112 0x1115 0x1116 0x111f 0x112f 0x1200 0x1132
+    Unknown type 0x05 with 0 bytes data
+    Unknown type 0x07 with 0 bytes data
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Extended Inquiry Response (0x03|0x0052) ncmd 1
+    status 0x00
+< HCI Command: Write Extended Inquiry Response (0x03|0x0052) plen 241
+    fec 0x01
+    Complete local name: 'MotoE2(4G-LTE)'
+    Complete service classes: 0x1105 0x110a 0x110c 0x110e 0x1112 0x1115 0x1116 0x111f 0x112f 0x1200 0x1132
+    Unknown type 0x05 with 0 bytes data
+    Unknown type 0x07 with 0 bytes data
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Extended Inquiry Response (0x03|0x0052) ncmd 1
+    status 0x00
+< HCI Command: Vendor (0x3f|0x0159) plen 0
+> HCI Event: Command Complete (0x0e) plen 20
+    Vendor (0x3f|0x0159) ncmd 1
+> HCI Event: Command Complete (0x0e) plen 4
+    Unknown (0x00|0x0000) ncmd 1
+< HCI Command: Vendor (0x3f|0x0159) plen 0
+> HCI Event: Command Complete (0x0e) plen 20
+    Vendor (0x3f|0x0159) ncmd 1
+> HCI Event: Command Complete (0x0e) plen 4
+    Unknown (0x00|0x0000) ncmd 1
+< HCI Command: Write Current IAC LAP (0x03|0x003a) plen 4
+    IAC 0x9e8b33 (General Inquiry Access Code)
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Current IAC LAP (0x03|0x003a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 3
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 3
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 2
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 2
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Current IAC LAP (0x03|0x003a) plen 4
+    IAC 0x9e8b33 (General Inquiry Access Code)
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Current IAC LAP (0x03|0x003a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 3
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 3
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Vendor (0x3f|0x0159) plen 0
+> HCI Event: Command Complete (0x0e) plen 20
+    Vendor (0x3f|0x0159) ncmd 1
+> HCI Event: Command Complete (0x0e) plen 4
+    Unknown (0x00|0x0000) ncmd 1
+< HCI Command: Vendor (0x3f|0x0159) plen 0
+> HCI Event: Command Complete (0x0e) plen 20
+    Vendor (0x3f|0x0159) ncmd 1
+> HCI Event: Command Complete (0x0e) plen 4
+    Unknown (0x00|0x0000) ncmd 1
+< HCI Command: Vendor (0x3f|0x0157) plen 3
+> HCI Event: Command Complete (0x0e) plen 7
+    Vendor (0x3f|0x0157) ncmd 1
+< HCI Command: Vendor (0x3f|0x0157) plen 16
+> HCI Event: Command Complete (0x0e) plen 7
+    Vendor (0x3f|0x0157) ncmd 1
+< HCI Command: LE Set Scan Parameters (0x08|0x000b) plen 7
+    type 0x01 (active)
+    interval 5000.000ms window 5000.000ms
+    own address: 0x01 (Random) policy: All
+> HCI Event: Command Complete (0x0e) plen 4
+    LE Set Scan Parameters (0x08|0x000b) ncmd 1
+    status 0x00
+< HCI Command: LE Set Scan Enable (0x08|0x000c) plen 2
+    value 0x01 (scanning enabled)
+    filter duplicates 0x00 (disabled)
+> HCI Event: Command Complete (0x0e) plen 4
+    LE Set Scan Enable (0x08|0x000c) ncmd 1
+    status 0x00
+< HCI Command: Set Event Filter (0x03|0x0005) plen 2
+    type 1 condition 0
+    Inquiry result for all devices
+> HCI Event: Command Complete (0x0e) plen 4
+    Set Event Filter (0x03|0x0005) ncmd 1
+    status 0x00
+< HCI Command: Inquiry (0x01|0x0001) plen 5
+    lap 0x9e8b33 len 10 num 0
+> HCI Event: Command Status (0x0f) plen 4
+    Inquiry (0x01|0x0001) status 0x00 ncmd 1
+> HCI Event: Inquiry Result with RSSI (0x22) plen 15
+    bdaddr 00:02:5B:00:A5:A5 mode 1 clkoffset 0x662e class 0x200404 rssi -38
+< HCI Command: Inquiry Cancel (0x01|0x0002) plen 0
+> HCI Event: Command Complete (0x0e) plen 4
+    Inquiry Cancel (0x01|0x0002) ncmd 1
+    status 0x00
+< HCI Command: LE Set Scan Enable (0x08|0x000c) plen 2
+    value 0x00 (scanning disabled)
+    filter duplicates 0x01 (enabled)
+> HCI Event: Command Complete (0x0e) plen 4
+    LE Set Scan Enable (0x08|0x000c) ncmd 1
+    status 0x00
+< HCI Command: LE Set Scan Parameters (0x08|0x000b) plen 7
+    type 0x01 (active)
+    interval 5000.000ms window 5000.000ms
+    own address: 0x01 (Random) policy: All
+> HCI Event: Command Complete (0x0e) plen 4
+    LE Set Scan Parameters (0x08|0x000b) ncmd 1
+    status 0x00
+< HCI Command: Vendor (0x3f|0x0157) plen 3
+> HCI Event: Command Complete (0x0e) plen 7
+    Vendor (0x3f|0x0157) ncmd 1
+< HCI Command: Vendor (0x3f|0x0157) plen 3
+> HCI Event: Command Complete (0x0e) plen 7
+    Vendor (0x3f|0x0157) ncmd 1
+< HCI Command: Delete Stored Link Key (0x03|0x0012) plen 7
+    bdaddr 00:02:5B:00:A5:A5 all 0
+> HCI Event: Command Complete (0x0e) plen 6
+    Delete Stored Link Key (0x03|0x0012) ncmd 1
+    status 0x00 deleted 0
+< HCI Command: Remote Name Request (0x01|0x0019) plen 10
+    bdaddr 00:02:5B:00:A5:A5 mode 1 clkoffset 0x662e (valid)
+> HCI Event: Command Status (0x0f) plen 4
+    Remote Name Request (0x01|0x0019) status 0x00 ncmd 1
+> HCI Event: Remote Host Supported Features Notification (0x3d) plen 14
+    bdaddr 00:02:5B:00:A5:A5
+    Features: 0x03 0x00 0x00 0x00 0x00 0x00 0x00 0x00
+> HCI Event: Remote Name Req Complete (0x07) plen 255
+    status 0x00 bdaddr 00:02:5B:00:A5:A5 name 'CSR8670-Stereo Gaming Headset'
+< HCI Command: Create Connection (0x01|0x0005) plen 13
+    bdaddr 00:02:5B:00:A5:A5 ptype 0xcc18 rswitch 0x01 clkoffset 0x662e (valid)
+    Packet type: DM1 DM3 DM5 DH1 DH3 DH5 
+> HCI Event: Command Status (0x0f) plen 4
+    Create Connection (0x01|0x0005) status 0x00 ncmd 1
+> HCI Event: Connect Complete (0x03) plen 11
+    status 0x00 handle 22 bdaddr 00:02:5B:00:A5:A5 type ACL encrypt 0x00
+< HCI Command: Read Remote Version Information (0x01|0x001d) plen 2
+    handle 22
+> HCI Event: Command Status (0x0f) plen 4
+    Read Remote Version Information (0x01|0x001d) status 0x00 ncmd 1
+< ACL data: handle 22 flags 0x02 dlen 10
+    L2CAP(s): Info req: type 2
+< HCI Command: Write Link Policy Settings (0x02|0x000d) plen 4
+    handle 22 policy 0x07
+    Link policy: RSWITCH HOLD SNIFF 
+> HCI Event: Read Remote Ver Info Complete (0x0c) plen 8
+    status 0x00 handle 22
+    LMP Version: 4.1 (0x7) LMP Subversion: 0x2abe
+    Manufacturer: Cambridge Silicon Radio (10)
+> HCI Event: Page Scan Repetition Mode Change (0x20) plen 7
+    bdaddr 00:02:5B:00:A5:A5 mode 1
+> HCI Event: Command Complete (0x0e) plen 6
+    Write Link Policy Settings (0x02|0x000d) ncmd 1
+    status 0x00 handle 22
+< HCI Command: Write Link Supervision Timeout (0x03|0x0037) plen 4
+    handle 22 timeout 8000
+> HCI Event: Max Slots Change (0x1b) plen 3
+    handle 22 slots 5
+> HCI Event: Command Complete (0x0e) plen 6
+    Write Link Supervision Timeout (0x03|0x0037) ncmd 1
+    status 0x00 handle 22
+< HCI Command: Read Remote Supported Features (0x01|0x001b) plen 2
+    handle 22
+> HCI Event: Command Status (0x0f) plen 4
+    Read Remote Supported Features (0x01|0x001b) status 0x00 ncmd 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Read Remote Supported Features (0x0b) plen 11
+    status 0x00 handle 22
+    Features: 0xff 0xff 0x8f 0xfe 0xdb 0xff 0x5b 0x87
+< HCI Command: Read Remote Extended Features (0x01|0x001c) plen 3
+    handle 22 page 1
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Info rsp: type 2 result 0
+      Extended feature mask 0x00b8
+        Enhanced Retransmission mode
+        Streaming mode
+        FCS Option
+        Fixed Channels
+> HCI Event: Command Status (0x0f) plen 4
+    Read Remote Extended Features (0x01|0x001c) status 0x00 ncmd 1
+> HCI Event: Read Remote Extended Features (0x23) plen 13
+    status 0x00 handle 22 page 1 max 1
+    Features: 0x03 0x00 0x00 0x00 0x00 0x00 0x00 0x00
+< ACL data: handle 22 flags 0x02 dlen 10
+    L2CAP(s): Info req: type 3
+< HCI Command: Authentication Requested (0x01|0x0011) plen 2
+    handle 22
+> HCI Event: Command Status (0x0f) plen 4
+    Authentication Requested (0x01|0x0011) status 0x00 ncmd 1
+< HCI Command: Change Connection Packet Type (0x01|0x000f) plen 4
+    handle 22 ptype 0xcc18
+    Packet type: DM1 DM3 DM5 DH1 DH3 DH5 
+> HCI Event: Link Key Request (0x17) plen 6
+    bdaddr 00:02:5B:00:A5:A5
+> HCI Event: Command Status (0x0f) plen 4
+    Change Connection Packet Type (0x01|0x000f) status 0x00 ncmd 1
+< HCI Command: Write Link Policy Settings (0x02|0x000d) plen 4
+    handle 22 policy 0x07
+    Link policy: RSWITCH HOLD SNIFF 
+> HCI Event: Command Complete (0x0e) plen 6
+    Write Link Policy Settings (0x02|0x000d) ncmd 1
+    status 0x00 handle 22
+< HCI Command: Link Key Request Negative Reply (0x01|0x000c) plen 6
+    bdaddr 00:02:5B:00:A5:A5
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 20
+    L2CAP(s): Info rsp: type 3 result 0
+      Fixed channel list 0x00000076
+        L2CAP Signalling Channel
+        L2CAP Connless
+> HCI Event: Command Complete (0x0e) plen 10
+    Link Key Request Negative Reply (0x01|0x000c) ncmd 1
+    status 0x00 bdaddr 00:02:5B:00:A5:A5
+> HCI Event: IO Capability Request (0x31) plen 6
+    bdaddr 00:02:5B:00:A5:A5
+< HCI Command: IO Capability Request Reply (0x01|0x002b) plen 9
+    bdaddr 00:02:5B:00:A5:A5 capability 0x01 oob 0x00 auth 0x03
+    Capability: DisplayYesNo (OOB data not present)
+    Authentication: Dedicated Bonding (MITM Protection)
+> HCI Event: Command Complete (0x0e) plen 10
+    IO Capability Request Reply (0x01|0x002b) ncmd 1
+    status 0x00 bdaddr 00:02:5B:00:A5:A5
+> HCI Event: IO Capability Response (0x32) plen 9
+    bdaddr 00:02:5B:00:A5:A5 capability 0x03 oob 0x00 auth 0x02
+    Capability: NoInputNoOutput (OOB data not present)
+    Authentication: Dedicated Bonding (No MITM Protection)
+> HCI Event: User Confirmation Request (0x33) plen 10
+    bdaddr 00:02:5B:00:A5:A5 passkey 832803
+< HCI Command: User Confirmation Request Reply (0x01|0x002c) plen 6
+    bdaddr 00:02:5B:00:A5:A5
+> HCI Event: Command Complete (0x0e) plen 10
+    User Confirmation Request Reply (0x01|0x002c) ncmd 1
+    status 0x00 bdaddr 00:02:5B:00:A5:A5
+> HCI Event: Simple Pairing Complete (0x36) plen 7
+    status 0x00 bdaddr 00:02:5B:00:A5:A5
+> HCI Event: Link Key Notification (0x18) plen 23
+    bdaddr 00:02:5B:00:A5:A5 key D05D84274299164C76919C1CCAD2A3A8 type 4
+    Type: Unauthenticated Combination Key
+> HCI Event: Auth Complete (0x06) plen 3
+    status 0x00 handle 22
+> HCI Event: Connection Packet Type Changed (0x1d) plen 5
+    status 0x00 handle 22 ptype 0xcc18
+    Packet type: DM1 DM3 DM5 DH1 DH3 DH5 
+< HCI Command: Remote Name Request (0x01|0x0019) plen 10
+    bdaddr 00:02:5B:00:A5:A5 mode 1 clkoffset 0x662e (valid)
+> HCI Event: Command Status (0x0f) plen 4
+    Remote Name Request (0x01|0x0019) status 0x00 ncmd 1
+> HCI Event: Remote Name Req Complete (0x07) plen 255
+    status 0x00 bdaddr 00:02:5B:00:A5:A5 name 'CSR8670-Stereo Gaming Headset'
+< ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Connect req: psm 1 scid 0x0040
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x0080 scid 0x0040 result 1 status 2
+      Connection pending - Authorization pending
+> HCI Event: Encrypt Change (0x08) plen 4
+    status 0x00 handle 22 encrypt 0x01
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x0080 scid 0x0040 result 0 status 0
+      Connection successful
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x0080 flags 0x00 clen 4
+      MTU 672 
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x0040 flags 0x00 clen 4
+      MTU 48 
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x0080 flags 0x00 result 0 clen 0
+      Success
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x0040 flags 0x00 result 0 clen 0
+      Success
+< ACL data: handle 22 flags 0x02 dlen 24
+    L2CAP(d): cid 0x0080 len 20 [psm 1]
+        SDP SSA Req: tid 0x0 len 0xf
+          pat uuid-16 0x1200 (PNPInfo)
+          max 656
+          aid(s) 0x0000 - 0xffff
+          cont 00
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(d): cid 0x0040 len 10 [psm 1]
+        SDP SSA Rsp: tid 0x0 len 0x5
+          count 2
+          cont 00
+< ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Disconn req: dcid 0x0080 scid 0x0040
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Disconn rsp: dcid 0x0080 scid 0x0040
+< ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Connect req: psm 1 scid 0x0046
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x00c0 scid 0x0046 result 1 status 2
+      Connection pending - Authorization pending
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x00c0 scid 0x0046 result 0 status 0
+      Connection successful
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x00c0 flags 0x00 clen 4
+      MTU 672 
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x0046 flags 0x00 clen 4
+      MTU 48 
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x00c0 flags 0x00 result 0 clen 0
+      Success
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x0046 flags 0x00 result 0 clen 0
+      Success
+< ACL data: handle 22 flags 0x02 dlen 24
+    L2CAP(d): cid 0x00c0 len 20 [psm 1]
+        SDP SSA Req: tid 0x0 len 0xf
+          pat uuid-16 0x0100 (L2CAP)
+          max 656
+          aid(s) 0x0000 - 0xffff
+          cont 00
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 52
+    L2CAP(d): cid 0x0046 len 48 [psm 1]
+        SDP SSA Rsp: tid 0x0 len 0x2b
+          count 38
+          cont 02 00 B2
+< ACL data: handle 22 flags 0x02 dlen 26
+    L2CAP(d): cid 0x00c0 len 22 [psm 1]
+        SDP SSA Req: tid 0x1 len 0x11
+          pat uuid-16 0x0100 (L2CAP)
+          max 656
+          aid(s) 0x0000 - 0xffff
+          cont 02 00 B2
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 52
+    L2CAP(d): cid 0x0046 len 48 [psm 1]
+        SDP SSA Rsp: tid 0x1 len 0x2b
+          count 38
+          cont 02 00 8C
+< ACL data: handle 22 flags 0x02 dlen 26
+    L2CAP(d): cid 0x00c0 len 22 [psm 1]
+        SDP SSA Req: tid 0x2 len 0x11
+          pat uuid-16 0x0100 (L2CAP)
+          max 656
+          aid(s) 0x0000 - 0xffff
+          cont 02 00 8C
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 52
+    L2CAP(d): cid 0x0046 len 48 [psm 1]
+        SDP SSA Rsp: tid 0x2 len 0x2b
+          count 38
+          cont 02 00 66
+< ACL data: handle 22 flags 0x02 dlen 26
+    L2CAP(d): cid 0x00c0 len 22 [psm 1]
+        SDP SSA Req: tid 0x3 len 0x11
+          pat uuid-16 0x0100 (L2CAP)
+          max 656
+          aid(s) 0x0000 - 0xffff
+          cont 02 00 66
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 52
+    L2CAP(d): cid 0x0046 len 48 [psm 1]
+        SDP SSA Rsp: tid 0x3 len 0x2b
+          count 38
+          cont 02 00 40
+< ACL data: handle 22 flags 0x02 dlen 26
+    L2CAP(d): cid 0x00c0 len 22 [psm 1]
+        SDP SSA Req: tid 0x4 len 0x11
+          pat uuid-16 0x0100 (L2CAP)
+          max 656
+          aid(s) 0x0000 - 0xffff
+          cont 02 00 40
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 52
+    L2CAP(d): cid 0x0046 len 48 [psm 1]
+        SDP SSA Rsp: tid 0x4 len 0x2b
+          count 38
+          cont 02 00 1A
+< ACL data: handle 22 flags 0x02 dlen 26
+    L2CAP(d): cid 0x00c0 len 22 [psm 1]
+        SDP SSA Req: tid 0x5 len 0x11
+          pat uuid-16 0x0100 (L2CAP)
+          max 656
+          aid(s) 0x0000 - 0xffff
+          cont 02 00 1A
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 38
+    L2CAP(d): cid 0x0046 len 34 [psm 1]
+        SDP SSA Rsp: tid 0x5 len 0x1d
+          count 26
+          record #0
+              aid 0x0000 (SrvRecHndl)
+                 uint 0x10000
+              aid 0x0001 (SrvClassIDList)
+                 < uuid-16 0x110b (AudioSink) >
+              aid 0x0004 (ProtocolDescList)
+                 < < uuid-16 0x0100 (L2CAP) uint 0x19 > <
+                 uuid-16 0x0019 (AVDTP) uint 0x103 > >
+              aid 0x0009 (BTProfileDescList)
+                 < < uuid-16 0x110d (AdvAudio) uint 0x103 > >
+              aid 0x0311 (SuppFeatures)
+                 uint 0x1
+          record #1
+              aid 0x0000 (SrvRecHndl)
+                 uint 0x10001
+              aid 0x0001 (SrvClassIDList)
+                 < uuid-16 0x110e (AVRemote) uuid-16 0x110f (AVRemCt) >
+              aid 0x0004 (ProtocolDescList)
+                 < < uuid-16 0x0100 (L2CAP) uint 0x17 > <
+                 uuid-16 0x0017 (AVCTP) uint 0x104 > >
+              aid 0x0009 (BTProfileDescList)
+                 < < uuid-16 0x110e (AVRemote) uint 0x105 > >
+              aid 0x0311 (SuppFeatures)
+                 uint 0x1
+          record #2
+              aid 0x0000 (SrvRecHndl)
+                 uint 0x10002
+              aid 0x0001 (SrvClassIDList)
+                 < uuid-16 0x111e (Handsfree) uuid-16 0x1203 (Audio) >
+              aid 0x0004 (ProtocolDescList)
+                 < < uuid-16 0x0100 (L2CAP) > <
+                 uuid-16 0x0003 (RFCOMM) uint 0xa > >
+              aid 0x0006 (LangBaseAttrIDList)
+                 < uint 0x656e uint 0x6a uint 0x100 >
+              aid 0x0009 (BTProfileDescList)
+                 < < uuid-16 0x111e (Handsfree) uint 0x105 > >
+              aid 0x0100 (SrvName)
+                 str "Hands-Free unit"
+              aid 0x0311 (SuppFeatures)
+                 uint 0x1f
+          cont 00
+< ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Disconn req: dcid 0x00c0 scid 0x0046
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Disconn rsp: dcid 0x00c0 scid 0x0046
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Connect req: psm 25 scid 0x0100
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x004c scid 0x0100 result 0 status 0
+      Connection successful
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Connect req: psm 1 scid 0x0141
+> ACL data: handle 22 flags 0x02 dlen 20
+    L2CAP(s): Config req: dcid 0x004c flags 0x00 clen 8
+      MTU 895 
+      FlushTO 65535 
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x0100 flags 0x00 clen 4
+      MTU 672 
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x0045 scid 0x0141 result 0 status 0
+      Connection successful
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x0141 flags 0x00 clen 4
+      MTU 672 
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x0100 flags 0x00 result 0 clen 0
+      Success
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 22
+    L2CAP(s): Config rsp: scid 0x004c flags 0x00 result 0 clen 8
+      MTU 672 
+      FlushTO 65535 
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x0045 flags 0x00 clen 4
+      MTU 48 
+> ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x0045 flags 0x00 result 0 clen 0
+      Success
+< HCI Command: Sniff Subrating (0x02|0x0011) plen 8
+    handle 22
+    max latency 1200
+    min timeout remote 2 local 2
+> HCI Event: Command Complete (0x0e) plen 6
+    Sniff Subrating (0x02|0x0011) ncmd 1
+    status 0x00 handle 22
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x0141 flags 0x00 result 0 clen 0
+      Success
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 22
+    L2CAP(d): cid 0x0045 len 18 [psm 1]
+        SDP SSA Req: tid 0x1 len 0xd
+          pat uuid-16 0x110a (AudioSource)
+          max 32
+          aid(s) 0x0009 (BTProfileDescList)
+          cont 00
+< ACL data: handle 22 flags 0x02 dlen 30
+    L2CAP(d): cid 0x0141 len 26 [psm 1]
+        SDP SSA Rsp: tid 0x1 len 0x15
+          count 18
+          record #0
+              aid 0x0009 (BTProfileDescList)
+                 < < uuid-16 0x110d (AdvAudio) uint 0x102 > >
+          cont 00
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Disconn req: dcid 0x0045 scid 0x0141
+< ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Disconn rsp: dcid 0x0045 scid 0x0141
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Connect req: psm 1 scid 0x0181
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x0049 scid 0x0181 result 0 status 0
+      Connection successful
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x0181 flags 0x00 clen 4
+      MTU 672 
+> ACL data: handle 22 flags 0x02 dlen 6
+    L2CAP(d): cid 0x004c len 2 [psm 25]
+      AVDTP(s): Discover cmd: transaction 1 nsp 0x00
+< ACL data: handle 22 flags 0x02 dlen 10
+    L2CAP(d): cid 0x0100 len 6 [psm 25]
+      AVDTP(s): Discover rsp: transaction 1 nsp 0x00
+        ACP SEID 1 - Audio Source
+        ACP SEID 2 - Audio Source
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x0049 flags 0x00 clen 4
+      MTU 48 
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x0181 flags 0x00 result 0 clen 0
+      Success
+> ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x0049 flags 0x00 result 0 clen 0
+      Success
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 24
+    L2CAP(d): cid 0x0049 len 20 [psm 1]
+        SDP SSA Req: tid 0x1 len 0xf
+          pat uuid-32 0x111f (Handsfree AG)
+          max 38
+          aid(s) 0x0004 (ProtocolDescList)
+          cont 00
+< ACL data: handle 22 flags 0x02 dlen 34
+    L2CAP(d): cid 0x0181 len 30 [psm 1]
+        SDP SSA Rsp: tid 0x1 len 0x19
+          count 22
+          record #0
+              aid 0x0004 (ProtocolDescList)
+                 < < uuid-16 0x0100 (L2CAP) > <
+                 uuid-16 0x0003 (RFCOMM) uint 0x3 > >
+          cont 00
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Disconn req: dcid 0x0049 scid 0x0181
+< ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Disconn rsp: dcid 0x0049 scid 0x0181
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 7
+    L2CAP(d): cid 0x004c len 3 [psm 25]
+      AVDTP(s): Capabilities cmd: transaction 2 nsp 0x00
+        ACP SEID 1
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(d): cid 0x0100 len 12 [psm 25]
+      AVDTP(s): Capabilities rsp: transaction 2 nsp 0x00
+        Media Transport
+        Media Codec - SBC
+          44.1kHz 
+          Mono DualChannel Stereo JointStereo 
+          4 8 12 16 Blocks
+          4 8 Subbands
+          SNR Loudness 
+          Bitpool Range 2-53
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 18
+    L2CAP(d): cid 0x004c len 14 [psm 25]
+      AVDTP(s): Set config cmd: transaction 3 nsp 0x00
+        ACP SEID 1 - INT SEID 1
+        Media Transport
+        Media Codec - SBC
+          44.1kHz 
+          JointStereo 
+          16 Blocks
+          8 Subbands
+          Loudness 
+          Bitpool Range 2-53
+< ACL data: handle 22 flags 0x02 dlen 6
+    L2CAP(d): cid 0x0100 len 2 [psm 25]
+      AVDTP(s): Set config rsp: transaction 3 nsp 0x00
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+< ACL data: handle 22 flags 0x02 dlen 7
+    L2CAP(d): cid 0x0100 len 3 [psm 25]
+      AVDTP(s): Capabilities cmd: transaction 0 nsp 0x00
+        ACP SEID 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Connect req: psm 3 scid 0x01c1
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x004a scid 0x01c1 result 0 status 0
+      Connection successful
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x01c1 flags 0x00 clen 4
+      MTU 1691 
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x004a flags 0x00 clen 4
+      MTU 1984 
+> ACL data: handle 22 flags 0x02 dlen 18
+    L2CAP(s): Config rsp: scid 0x004a flags 0x00 result 0 clen 4
+      MTU 1691 
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x01c1 flags 0x00 result 0 clen 0
+      Success
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 8
+    L2CAP(d): cid 0x004a len 4 [psm 3]
+      RFCOMM(s): SABM: cr 1 dlci 0 pf 1 ilen 0 fcs 0x1c 
+< ACL data: handle 22 flags 0x02 dlen 8
+    L2CAP(d): cid 0x01c1 len 4 [psm 3]
+      RFCOMM(s): UA: cr 1 dlci 0 pf 1 ilen 0 fcs 0xd7 
+> ACL data: handle 22 flags 0x02 dlen 7
+    L2CAP(d): cid 0x004c len 3 [psm 25]
+      AVDTP(s): Open cmd: transaction 4 nsp 0x00
+        ACP SEID 1
+< ACL data: handle 22 flags 0x02 dlen 6
+    L2CAP(d): cid 0x0100 len 2 [psm 25]
+      AVDTP(s): Open rsp: transaction 4 nsp 0x00
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 18
+    L2CAP(d): cid 0x004a len 14 [psm 3]
+      RFCOMM(s): PN CMD: cr 1 dlci 0 pf 0 ilen 10 fcs 0x70 mcc_len 8
+      dlci 6 frame_type 0 credit_flow 15 pri 0 ack_timer 0
+      frame_size 884 max_retrans 0 credits 1
+< ACL data: handle 22 flags 0x02 dlen 18
+    L2CAP(d): cid 0x01c1 len 14 [psm 3]
+      RFCOMM(s): PN RSP: cr 0 dlci 0 pf 0 ilen 10 fcs 0xaa mcc_len 8
+      dlci 6 frame_type 0 credit_flow 14 pri 0 ack_timer 0
+      frame_size 256 max_retrans 0 credits 7
+> ACL data: handle 22 flags 0x02 dlen 20
+    L2CAP(d): cid 0x004c len 16 [psm 25]
+      AVDTP(s): Capabilities rsp: transaction 0 nsp 0x00
+        Media Transport
+        Media Codec - SBC
+          16kHz 32kHz 44.1kHz 48kHz 
+          Mono DualChannel Stereo JointStereo 
+          4 8 12 16 Blocks
+          4 8 Subbands
+          SNR Loudness 
+          Bitpool Range 2-53
+        Content Protection
+          02 00 
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 8
+    L2CAP(d): cid 0x004a len 4 [psm 3]
+      RFCOMM(s): SABM: cr 1 dlci 6 pf 1 ilen 0 fcs 0xd3 
+< ACL data: handle 22 flags 0x02 dlen 8
+    L2CAP(d): cid 0x01c1 len 4 [psm 3]
+      RFCOMM(s): UA: cr 1 dlci 6 pf 1 ilen 0 fcs 0x18 
+< HCI Command: Sniff Subrating (0x02|0x0011) plen 8
+    handle 22
+    max latency 1200
+    min timeout remote 2 local 2
+< ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Connect req: psm 1 scid 0x0041
+> HCI Event: Command Complete (0x0e) plen 6
+    Sniff Subrating (0x02|0x0011) ncmd 1
+    status 0x00 handle 22
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(d): cid 0x004a len 8 [psm 3]
+      RFCOMM(s): MSC CMD: cr 1 dlci 0 pf 0 ilen 4 fcs 0x70 mcc_len 2
+      dlci 6 fc 0 rtc 1 rtr 1 ic 0 dv 1 b1 0 b2 1 b3 0 len 0
+< ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(d): cid 0x01c1 len 8 [psm 3]
+      RFCOMM(s): MSC RSP: cr 0 dlci 0 pf 0 ilen 4 fcs 0xaa mcc_len 2
+      dlci 6 fc 0 rtc 1 rtr 1 ic 0 dv 1 b1 0 b2 1 b3 0 len 0
+< ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(d): cid 0x01c1 len 8 [psm 3]
+      RFCOMM(s): MSC CMD: cr 0 dlci 0 pf 0 ilen 4 fcs 0xaa mcc_len 2
+      dlci 6 fc 0 rtc 1 rtr 1 ic 0 dv 1 b1 0 b2 1 b3 0 len 0
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x0202 scid 0x0041 result 1 status 2
+      Connection pending - Authorization pending
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x0202 scid 0x0041 result 0 status 0
+      Connection successful
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x0202 flags 0x00 clen 4
+      MTU 672 
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x0041 flags 0x00 clen 4
+      MTU 48 
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x0202 flags 0x00 result 0 clen 0
+      Success
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(d): cid 0x004a len 8 [psm 3]
+      RFCOMM(s): MSC RSP: cr 1 dlci 0 pf 0 ilen 4 fcs 0x70 mcc_len 2
+      dlci 6 fc 0 rtc 1 rtr 1 ic 0 dv 1 b1 0 b2 1 b3 0 len 0
+> ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x0041 flags 0x00 result 0 clen 0
+      Success
+< ACL data: handle 22 flags 0x02 dlen 28
+    L2CAP(d): cid 0x0202 len 24 [psm 1]
+        SDP SSA Req: tid 0x0 len 0x13
+          pat uuid-16 0x111e (Handsfree)
+          max 656
+          aid(s) 0x0001 (SrvClassIDList) 0x0009 (BTProfileDescList) 0x0311 (SuppFeatures)
+          cont 00
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 48
+    L2CAP(d): cid 0x0041 len 44 [psm 1]
+        SDP SSA Rsp: tid 0x0 len 0x27
+          count 36
+          record #0
+              aid 0x0001 (SrvClassIDList)
+                 < uuid-16 0x111e (Handsfree) uuid-16 0x1203 (Audio) >
+              aid 0x0009 (BTProfileDescList)
+                 < < uuid-16 0x111e (Handsfree) uint 0x105 > >
+              aid 0x0311 (SuppFeatures)
+                 uint 0x1f
+          cont 00
+< ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Disconn req: dcid 0x0202 scid 0x0041
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Disconn rsp: dcid 0x0202 scid 0x0041
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Connect req: psm 25 scid 0x0242
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x0044 scid 0x0242 result 0 status 0
+      Connection successful
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x0242 flags 0x00 clen 4
+      MTU 1008 
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 20
+    L2CAP(s): Config req: dcid 0x0044 flags 0x00 clen 8
+      MTU 895 
+      FlushTO 65535 
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x0242 flags 0x00 result 0 clen 0
+      Success
+> ACL data: handle 22 flags 0x02 dlen 22
+    L2CAP(s): Config rsp: scid 0x0044 flags 0x00 result 0 clen 8
+      MTU 1008 
+      FlushTO 65535 
+< HCI Command: Sniff Subrating (0x02|0x0011) plen 8
+    handle 22
+    max latency 1200
+    min timeout remote 2 local 2
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Command Complete (0x0e) plen 6
+    Sniff Subrating (0x02|0x0011) ncmd 1
+    status 0x00 handle 22
+> ACL data: handle 22 flags 0x02 dlen 20
+    L2CAP(d): cid 0x004a len 16 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 1 ilen 11 fcs 0x93 credits 6
+< ACL data: handle 22 flags 0x02 dlen 23
+    L2CAP(d): cid 0x01c1 len 19 [psm 3]
+      RFCOMM(d): UIH: cr 0 dlci 6 pf 1 ilen 14 fcs 0x49 credits 4
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(d): cid 0x01c1 len 10 [psm 3]
+      RFCOMM(d): UIH: cr 0 dlci 6 pf 0 ilen 6 fcs 0x55 
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 9
+    L2CAP(d): cid 0x004a len 5 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 1 ilen 0 fcs 0x93 credits 1
+> ACL data: handle 22 flags 0x02 dlen 9
+    L2CAP(d): cid 0x004a len 5 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 1 ilen 0 fcs 0x93 credits 1
+> ACL data: handle 22 flags 0x02 dlen 18
+    L2CAP(d): cid 0x004a len 14 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 0 ilen 10 fcs 0x8f 
+< ACL data: handle 22 flags 0x02 dlen 142
+    L2CAP(d): cid 0x01c1 len 138 [psm 3]
+      RFCOMM(d): UIH: cr 0 dlci 6 pf 1 ilen 132 fcs 0x49 credits 1
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(d): cid 0x01c1 len 10 [psm 3]
+      RFCOMM(d): UIH: cr 0 dlci 6 pf 0 ilen 6 fcs 0x55 
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 9
+    L2CAP(d): cid 0x004a len 5 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 1 ilen 0 fcs 0x93 credits 1
+> ACL data: handle 22 flags 0x02 dlen 9
+    L2CAP(d): cid 0x004a len 5 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 1 ilen 0 fcs 0x93 credits 1
+> ACL data: handle 22 flags 0x02 dlen 17
+    L2CAP(d): cid 0x004a len 13 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 0 ilen 9 fcs 0x8f 
+< ACL data: handle 22 flags 0x02 dlen 33
+    L2CAP(d): cid 0x01c1 len 29 [psm 3]
+      RFCOMM(d): UIH: cr 0 dlci 6 pf 1 ilen 24 fcs 0x49 credits 1
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(d): cid 0x01c1 len 10 [psm 3]
+      RFCOMM(d): UIH: cr 0 dlci 6 pf 0 ilen 6 fcs 0x55 
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 9
+    L2CAP(d): cid 0x004a len 5 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 1 ilen 0 fcs 0x93 credits 1
+> ACL data: handle 22 flags 0x02 dlen 9
+    L2CAP(d): cid 0x004a len 5 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 1 ilen 0 fcs 0x93 credits 1
+> ACL data: handle 22 flags 0x02 dlen 27
+    L2CAP(d): cid 0x004a len 23 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 0 ilen 19 fcs 0x8f 
+< ACL data: handle 22 flags 0x02 dlen 15
+    L2CAP(d): cid 0x01c1 len 11 [psm 3]
+      RFCOMM(d): UIH: cr 0 dlci 6 pf 1 ilen 6 fcs 0x49 credits 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 9
+    L2CAP(d): cid 0x004a len 5 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 1 ilen 0 fcs 0x93 credits 1
+> ACL data: handle 22 flags 0x02 dlen 18
+    L2CAP(d): cid 0x004a len 14 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 0 ilen 10 fcs 0x8f 
+< ACL data: handle 22 flags 0x02 dlen 29
+    L2CAP(d): cid 0x01c1 len 25 [psm 3]
+      RFCOMM(d): UIH: cr 0 dlci 6 pf 1 ilen 20 fcs 0x49 credits 1
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(d): cid 0x01c1 len 10 [psm 3]
+      RFCOMM(d): UIH: cr 0 dlci 6 pf 0 ilen 6 fcs 0x55 
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 9
+    L2CAP(d): cid 0x004a len 5 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 1 ilen 0 fcs 0x93 credits 1
+> ACL data: handle 22 flags 0x02 dlen 9
+    L2CAP(d): cid 0x004a len 5 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 1 ilen 0 fcs 0x93 credits 1
+> ACL data: handle 22 flags 0x02 dlen 18
+    L2CAP(d): cid 0x004a len 14 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 0 ilen 10 fcs 0x8f 
+< ACL data: handle 22 flags 0x02 dlen 15
+    L2CAP(d): cid 0x01c1 len 11 [psm 3]
+      RFCOMM(d): UIH: cr 0 dlci 6 pf 1 ilen 6 fcs 0x49 credits 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 9
+    L2CAP(d): cid 0x004a len 5 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 1 ilen 0 fcs 0x93 credits 1
+> ACL data: handle 22 flags 0x02 dlen 17
+    L2CAP(d): cid 0x004a len 13 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 0 ilen 9 fcs 0x8f 
+< ACL data: handle 22 flags 0x02 dlen 18
+    L2CAP(d): cid 0x01c1 len 14 [psm 3]
+      RFCOMM(d): UIH: cr 0 dlci 6 pf 1 ilen 9 fcs 0x49 credits 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 9
+    L2CAP(d): cid 0x004a len 5 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 1 ilen 0 fcs 0x93 credits 1
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(d): cid 0x004a len 12 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 0 ilen 8 fcs 0x8f 
+< ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Connect req: psm 1 scid 0x004e
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x0283 scid 0x004e result 1 status 2
+      Connection pending - Authorization pending
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x0283 scid 0x004e result 0 status 0
+      Connection successful
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x0283 flags 0x00 clen 4
+      MTU 672 
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x004e flags 0x00 clen 4
+      MTU 48 
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x0283 flags 0x00 result 0 clen 0
+      Success
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x004e flags 0x00 result 0 clen 0
+      Success
+< ACL data: handle 22 flags 0x02 dlen 28
+    L2CAP(d): cid 0x0283 len 24 [psm 1]
+        SDP SSA Req: tid 0x0 len 0x13
+          pat uuid-16 0x110e (AVRemote)
+          max 656
+          aid(s) 0x0001 (SrvClassIDList) 0x0009 (BTProfileDescList) 0x0311 (SuppFeatures)
+          cont 00
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 48
+    L2CAP(d): cid 0x004e len 44 [psm 1]
+        SDP SSA Rsp: tid 0x0 len 0x27
+          count 36
+          record #0
+              aid 0x0001 (SrvClassIDList)
+                 < uuid-16 0x110e (AVRemote) uuid-16 0x110f (AVRemCt) >
+              aid 0x0009 (BTProfileDescList)
+                 < < uuid-16 0x110e (AVRemote) uint 0x105 > >
+              aid 0x0311 (SuppFeatures)
+                 uint 0x1
+          cont 00
+< ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Disconn req: dcid 0x0283 scid 0x004e
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Disconn rsp: dcid 0x0283 scid 0x004e
+< ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Connect req: psm 23 scid 0x0042
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x02c3 scid 0x0042 result 1 status 2
+      Connection pending - Authorization pending
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x02c3 scid 0x0042 result 0 status 0
+      Connection successful
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x02c3 flags 0x00 clen 4
+      MTU 512 
+> ACL data: handle 22 flags 0x02 dlen 10
+    L2CAP(s): Info req: type 2
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Info rsp: type 2 result 0
+      Extended feature mask 0x00b8
+        Enhanced Retransmission mode
+        Streaming mode
+        FCS Option
+        Fixed Channels
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 18
+    L2CAP(s): Config rsp: scid 0x0042 flags 0x00 result 0 clen 4
+      MTU 512 
+> ACL data: handle 22 flags 0x02 dlen 34
+    L2CAP(s): Config req: dcid 0x0042 flags 0x00 clen 22
+      MTU 672 
+      FlushTO 65535 
+      RFC 0x03 (Enhanced Retransmission, TxWin 5, MaxTx 10, RTo 0, MTo 0, MPS 960) 
+      FCS Option 0x01 (CRC16 Check) 
+< ACL data: handle 22 flags 0x02 dlen 25
+    L2CAP(s): Config rsp: scid 0x02c3 flags 0x00 result 1 clen 11
+      Failure - unacceptable parameters
+      RFC 0x00 (Basic) 
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 20
+    L2CAP(s): Config req: dcid 0x0042 flags 0x00 clen 8
+      MTU 672 
+      FlushTO 65535 
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x02c3 flags 0x00 result 0 clen 0
+      Success
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Connect req: psm 1 scid 0x0304
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Connect rsp: dcid 0x004f scid 0x0304 result 0 status 0
+      Connection successful
+< ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x0304 flags 0x00 clen 4
+      MTU 672 
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 16
+    L2CAP(s): Config req: dcid 0x004f flags 0x00 clen 4
+      MTU 48 
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x0304 flags 0x00 result 0 clen 0
+      Success
+> ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(s): Config rsp: scid 0x004f flags 0x00 result 0 clen 0
+      Success
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 25
+    L2CAP(d): cid 0x004f len 21 [psm 1]
+        SDP SSA Req: tid 0x1 len 0x10
+          pat uuid-16 0x110c (AVRemTarget)
+          max 38
+          aid(s) 0x0009 (BTProfileDescList) 0x0311 (SuppFeatures)
+          cont 00
+< ACL data: handle 22 flags 0x02 dlen 36
+    L2CAP(d): cid 0x0304 len 32 [psm 1]
+        SDP SSA Rsp: tid 0x1 len 0x1b
+          count 24
+          record #0
+              aid 0x0009 (BTProfileDescList)
+                 < < uuid-16 0x110e (AVRemote) uint 0x103 > >
+              aid 0x0311 (SuppFeatures)
+                 uint 0x1
+          cont 00
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Disconn req: dcid 0x004f scid 0x0304
+< ACL data: handle 22 flags 0x02 dlen 12
+    L2CAP(s): Disconn rsp: dcid 0x004f scid 0x0304
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 18
+    L2CAP(d): cid 0x004a len 14 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 0 ilen 10 fcs 0x8f 
+< ACL data: handle 22 flags 0x02 dlen 15
+    L2CAP(d): cid 0x01c1 len 11 [psm 3]
+      RFCOMM(d): UIH: cr 0 dlci 6 pf 1 ilen 6 fcs 0x49 credits 2
+< ACL data: handle 22 flags 0x02 dlen 14
+    L2CAP(d): cid 0x01c1 len 10 [psm 3]
+      RFCOMM(d): UIH: cr 0 dlci 6 pf 0 ilen 6 fcs 0x55 
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> HCI Event: Number of Completed Packets (0x13) plen 5
+    handle 22 packets 1
+> ACL data: handle 22 flags 0x02 dlen 9
+    L2CAP(d): cid 0x004a len 5 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 1 ilen 0 fcs 0x93 credits 1
+> ACL data: handle 22 flags 0x02 dlen 9
+    L2CAP(d): cid 0x004a len 5 [psm 3]
+      RFCOMM(d): UIH: cr 1 dlci 6 pf 1 ilen 0 fcs 0x93 credits 1
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 2
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 2
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Current IAC LAP (0x03|0x003a) plen 4
+    IAC 0x9e8b33 (General Inquiry Access Code)
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Current IAC LAP (0x03|0x003a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 3
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 3
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Sniff Mode (0x02|0x0003) plen 10
+    handle 22 max 800 min 400 attempt 4 timeout 1
+> HCI Event: Command Status (0x0f) plen 4
+    Sniff Mode (0x02|0x0003) status 0x00 ncmd 1
+> HCI Event: Mode Change (0x14) plen 6
+    status 0x00 handle 22 mode 0x02 interval 800
+    Mode: Sniff
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 2
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Write Scan Enable (0x03|0x001a) plen 1
+    enable 2
+> HCI Event: Command Complete (0x0e) plen 4
+    Write Scan Enable (0x03|0x001a) ncmd 1
+    status 0x00
+< HCI Command: Vendor (0x3f|0x0159) plen 0
+> HCI Event: Command Complete (0x0e) plen 20
+    Vendor (0x3f|0x0159) ncmd 1
+> HCI Event: Command Complete (0x0e) plen 4
+    Unknown (0x00|0x0000) ncmd 1
+< HCI Command: Vendor (0x3f|0x0159) plen 0
+> HCI Event: Command Complete (0x0e) plen 20
+    Vendor (0x3f|0x0159) ncmd 1
+> HCI Event: Command Complete (0x0e) plen 4
+    Unknown (0x00|0x0000) ncmd 1
